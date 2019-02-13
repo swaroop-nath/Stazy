@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="activity_hotel_main_explore_text_view" type="id">activity_hotel_main_explore_text_view</item>
+    <item name="activity_hotel_main_explore_buttons_scroll_view_container" type="id">
+        activity_hotel_main_explore_buttons_scroll_view_containers
+    </item>
+</resources>

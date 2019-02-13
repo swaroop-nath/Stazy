@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "537426647574",
+    "firebase_url": "https://stazy-app.firebaseio.com",
+    "project_id": "stazy-app",
+    "storage_bucket": "stazy-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537426647574:android:d6e36f016c1cad8c",
+        "android_client_info": {
+          "package_name": "in.stazy.stazy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "537426647574-diuj7bpqjs5ebpoep5a8unkceq67096v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.stazy.stazy",
+            "certificate_hash": "895fc94253afef6af2b391663ee5e17a949dd5a7"
+          }
+        },
+        {
+          "client_id": "537426647574-ihr8fv98du6pknmsmo6vof9o46oos0u7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5e5ar7u-pGfNR7xvC7gkTIZp3jNhqPpA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "537426647574-ihr8fv98du6pknmsmo6vof9o46oos0u7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

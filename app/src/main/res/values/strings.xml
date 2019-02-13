@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Stazy</string>
+    <string name="activity_hotel_main_explore_text_view_text">Explore</string>
+</resources>

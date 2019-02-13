@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size_small">15sp</dimen>
+    <dimen name="text_size_normal">17.5sp</dimen>
+    <dimen name="text_size_large">20sp</dimen>
+
+    <!--activity_main_hotel bottom margin to overcome bottom cutting by scroll-view-->
+    <dimen name="activity_hotel_main_bottom_margin">8dp</dimen>
+
+    <!--activity_main_hotel_explore_text_view margin dimens-->
+    <dimen name="activity_hotel_main_explore_text_view_top_margin">24dp</dimen>
+    <dimen name="activity_hotel_main_explore_text_view_start_margin">16dp</dimen>
+
+    <!--activity_hotel_main_explore_buttons_linear_layout_container margin dimens-->
+    <dimen name="activity_hotel_main_explore_buttons_scroll_view_container_top_margin">16dp</dimen>
+    <dimen name="activity_hotel_main_explore_buttons_scroll_view_container_start_margin">24dp</dimen>
+    <dimen name="activity_hotel_main_explore_buttons_scroll_view_container_end_margin">16dp</dimen>
+</resources>
