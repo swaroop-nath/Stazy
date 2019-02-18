@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">Stazy</string>
+
+    <!--Hotel Main Activity Texts-->
     <string name="activity_hotel_main_explore_text_view_text">Explore</string>
+    <string name="activity_hotel_main_explore_card_view_musicians_text">Musicians</string>
+    <string name="activity_hotel_main_explore_card_view_comedians_text">Comedians</string>
+    <string name="activity_hotel_main_explore_card_view_others_text">Others</string>
+    <string name="activity_hotel_main_prev_performances_text_view_text">Previous Performances</string>
+    <string name="activity_hotel_main_prev_performances_child_view_header_musicians_text_view_text">Musicians</string>
+    <string name="activity_hotel_main_prev_performances_child_view_headers_button_text">View All</string>
+    <string name="activity_performer_shortlist_button_text">Shortlist</string>
+    <string name="activity_performer_hire_button_text">Hire</string>
+
+    <!--Perfomer Activity Texts-->
 </resources>

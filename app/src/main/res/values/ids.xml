@@ -4,4 +4,53 @@
     <item name="activity_hotel_main_explore_buttons_scroll_view_container" type="id">
         activity_hotel_main_explore_buttons_scroll_view_containers
     </item>
+    <item name="activity_hotel_main_explore_card_view_musicians" type="id">
+        activity_hotel_main_explore_card_view_musicians
+    </item>
+    <item name="activity_hotel_main_explore_card_view_comedians" type="id">
+        activity_hotel_main_explore_card_view_comedians
+    </item>
+    <item name="activity_hotel_main_explore_card_view_others" type="id">
+        activity_hotel_main_explore_card_view_others
+    </item>
+    <item name="activity_hotel_main_prev_performances_text_view" type="id">
+        activity_hotel_main_prev_performances_text_view
+    </item>
+    <item name="activity_hotel_main_prev_performances_child_view_header_musicians" type="id">
+        activity_hotel_main_prev_performances_child_view_header_musicians
+    </item>
+    <item name="activity_hotel_main_prev_performances_child_view_header_musicians_view_all_button" type="id">
+        activity_hotel_main_prev_performances_child_view_header_musicians_view_all_button
+    </item>
+    <item name="activity_performer_display_picture" type="id">activity_performer_display_picture
+    </item>
+    <item name="activity_performer_rating_text_view" type="id">activity_performer_rating_text_view
+    </item>
+    <item name="activity_performer_profile_snippeted_details" type="id">
+        activity_performer_profile_snippeted_details
+    </item>
+    <item name="activity_performer_profile_snippeted_details_name_text_view" type="id">
+        activity_performer_profile_snippeted_details_name_text_view
+    </item>
+    <item name="activity_performer_profile_snippeted_details_age_text_view" type="id">
+        activity_performer_profile_snippeted_details_age_text_view
+    </item>
+    <item name="activity_performer_profile_snippeted_details_city_text_view" type="id">
+        activity_performer_profile_snippeted_details_city_text_view
+    </item>
+    <item name="activity_performer_social_links_container" type="id">
+        activity_performer_social_links_container
+    </item>
+    <item name="activity_performer_description_text_view" type="id">
+        activity_performer_description_text_view
+    </item>
+    <item name="activity_performer_shortlist_button" type="id">activity_performer_shortlist_button
+    </item>
+    <item name="activity_performer_shortlist_button_text_view" type="id">
+        activity_performer_shortlist_button_text_view
+    </item>
+    <item name="activity_performer_hire_button" type="id">activity_performer_hire_button</item>
+    <item name="activity_performer_hire_button_text_view" type="id">
+        activity_performer_hire_button_text_view
+    </item>
 </resources>

@@ -10,38 +10,166 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/activity_hotel_main_bottom_margin">
+
         <TextView
             android:id="@id/activity_hotel_main_explore_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/activity_hotel_main_explore_text_view_top_margin"
             android:layout_marginStart="@dimen/activity_hotel_main_explore_text_view_start_margin"
+            android:layout_marginTop="@dimen/activity_hotel_main_explore_text_view_top_margin"
             android:text="@string/activity_hotel_main_explore_text_view_text"
+            android:textColor="@color/colorPrimaryText"
             android:textSize="@dimen/text_size_large"
             android:textStyle="bold"
-            android:textColor="@color/colorPrimaryText"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ScrollView
             android:id="@id/activity_hotel_main_explore_buttons_scroll_view_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_explore_text_view"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/activity_hotel_main_explore_buttons_scroll_view_container_top_margin"
+            android:layout_marginEnd="@dimen/activity_hotel_main_explore_buttons_scroll_view_container_end_margin"
             android:layout_marginStart="@dimen/activity_hotel_main_explore_buttons_scroll_view_container_start_margin"
-            android:layout_marginEnd="@dimen/activity_hotel_main_explore_buttons_scroll_view_container_end_margin">
-           <!--Introduce three card views here - Musicians, Comedians, Others
-                Keep them in a Linear Layout-->
+            android:layout_marginTop="@dimen/activity_hotel_main_explore_buttons_scroll_view_container_top_margin"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_explore_text_view">
+            <!--Introduce three card views here - Musicians, Comedians, Others
+                 Keep them in a Linear Layout-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <!--Introduce card views here-->
+                <!--Define Card Views' onClick attributes-->
+                <android.support.v7.widget.CardView
+                    android:id="@id/activity_hotel_main_explore_card_view_musicians"
+                    android:layout_width="@dimen/activity_hotel_main_explore_card_view_side_size"
+                    android:layout_height="@dimen/activity_hotel_main_explore_card_view_side_size"
+                    android:layout_marginEnd="@dimen/activity_hotel_main_explore_card_view_end_margin"
+                    android:layout_marginStart="@dimen/activity_hotel_main_explore_card_view_start_margin"
+                    app:cardCornerRadius="@dimen/activity_hotel_main_explore_card_view_side_corner_radius">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/ic_card_view_explore_placeholder" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:alpha="0.85"
+                        android:background="@android:color/white"
+                        android:text="@string/activity_hotel_main_explore_card_view_musicians_text"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/text_size_small"
+                        android:textStyle="bold" />
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@id/activity_hotel_main_explore_card_view_comedians"
+                    android:layout_width="@dimen/activity_hotel_main_explore_card_view_side_size"
+                    android:layout_height="@dimen/activity_hotel_main_explore_card_view_side_size"
+                    android:layout_marginEnd="@dimen/activity_hotel_main_explore_card_view_end_margin"
+                    android:layout_marginStart="@dimen/activity_hotel_main_explore_card_view_start_margin"
+                    app:cardCornerRadius="@dimen/activity_hotel_main_explore_card_view_side_corner_radius">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/ic_card_view_explore_placeholder" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:alpha="0.85"
+                        android:background="@android:color/white"
+                        android:text="@string/activity_hotel_main_explore_card_view_comedians_text"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/text_size_small"
+                        android:textStyle="bold" />
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@id/activity_hotel_main_explore_card_view_others"
+                    android:layout_width="@dimen/activity_hotel_main_explore_card_view_side_size"
+                    android:layout_height="@dimen/activity_hotel_main_explore_card_view_side_size"
+                    android:layout_marginEnd="@dimen/activity_hotel_main_explore_card_view_end_margin"
+                    android:layout_marginStart="@dimen/activity_hotel_main_explore_card_view_start_margin"
+                    app:cardCornerRadius="@dimen/activity_hotel_main_explore_card_view_side_corner_radius">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/ic_card_view_explore_placeholder" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:alpha="0.85"
+                        android:background="@android:color/white"
+                        android:text="@string/activity_hotel_main_explore_card_view_others_text"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/text_size_small"
+                        android:textStyle="bold" />
+                </android.support.v7.widget.CardView>
             </LinearLayout>
         </ScrollView>
+
+        <TextView
+            android:id="@id/activity_hotel_main_prev_performances_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_hotel_main_prev_performances_text_view_top_margin"
+            android:layout_marginStart="@dimen/activity_hotel_main_prev_performances_text_view_start_margin"
+            android:text="@string/activity_hotel_main_prev_performances_text_view_text"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_explore_buttons_scroll_view_container"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <LinearLayout
+            android:id="@id/activity_hotel_main_prev_performances_child_view_header_musicians"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_prev_performances_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/activity_hotel_main_prev_performances_child_view_headers_start_margin"
+            android:layout_marginTop="@dimen/activity_hotel_main_prev_performances_child_view_headers_top_margin"
+            android:layout_marginEnd="@dimen/activity_hotel_main_prev_performances_child_view_headers_end_margin">
+            <!--Write Text View, "Musicians", and a button "View All", add an onClick Listener to the button-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/activity_hotel_main_prev_performances_child_view_header_musicians_text_view_text"
+                android:textSize="@dimen/text_size_normal"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center_vertical"/>
+            <Button
+                android:id="@id/activity_hotel_main_prev_performances_child_view_header_musicians_view_all_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:background="@android:color/transparent"
+                android:text="@string/activity_hotel_main_prev_performances_child_view_headers_button_text"
+                android:textSize="@dimen/text_size_extra_small"
+                android:textStyle="bold"
+                android:textColor="@color/colorAccent"/>
+        </LinearLayout>
+
+        <!--Now add a recycler view to view all the previous musician performers-->
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

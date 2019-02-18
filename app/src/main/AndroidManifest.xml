@@ -17,7 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".hotelend.HirePerformer" />
-        <activity android:name=".hotelend.Performer"></activity>
+        <activity android:name=".hotelend.Performer" />
+        <activity android:name=".hotelend.ViewAllPerformers" />
+        <activity android:name=".hotelend.HotelProfile"></activity>
     </application>
 
 </manifest>

@@ -1,1 +1,2 @@
-include ':app'
+include ':app', ':cyclemenu', ':librarygooeymenu'
+project(':librarygooeymenu').projectDir = new File('GooeyMenu/app')

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="text_size_extra_small">12.5sp</dimen>
     <dimen name="text_size_small">15sp</dimen>
     <dimen name="text_size_normal">17.5sp</dimen>
     <dimen name="text_size_large">20sp</dimen>
@@ -11,8 +12,73 @@
     <dimen name="activity_hotel_main_explore_text_view_top_margin">24dp</dimen>
     <dimen name="activity_hotel_main_explore_text_view_start_margin">16dp</dimen>
 
-    <!--activity_hotel_main_explore_buttons_linear_layout_container margin dimens-->
+    <!--activity_main_hotel_explore_buttons_scroll_view_container margin dimens-->
     <dimen name="activity_hotel_main_explore_buttons_scroll_view_container_top_margin">16dp</dimen>
     <dimen name="activity_hotel_main_explore_buttons_scroll_view_container_start_margin">24dp</dimen>
     <dimen name="activity_hotel_main_explore_buttons_scroll_view_container_end_margin">16dp</dimen>
+
+    <!--activity_main_hotel_explore_cards dimens-->
+    <dimen name="activity_hotel_main_explore_card_view_side_size">120dp</dimen>
+    <dimen name="activity_hotel_main_explore_card_view_start_margin">16dp</dimen>
+    <dimen name="activity_hotel_main_explore_card_view_side_corner_radius">8dp</dimen>
+    <dimen name="activity_hotel_main_explore_card_view_end_margin">16dp</dimen>
+
+    <!--activity_main_hotel_prev_performance_text_view margin dimens-->
+    <dimen name="activity_hotel_main_prev_performances_text_view_top_margin">24dp</dimen>
+    <dimen name="activity_hotel_main_prev_performances_text_view_start_margin">16dp</dimen>
+
+    <!--activity_main_hotel_prev_performance_child_view_headers dimens-->
+    <dimen name="activity_hotel_main_prev_performances_child_view_headers_start_margin">24dp</dimen>
+    <dimen name="activity_hotel_main_prev_performances_child_view_headers_top_margin">16dp</dimen>
+    <dimen name="activity_hotel_main_prev_performances_child_view_headers_end_margin">16dp</dimen>
+
+    <!--activity_view_all_performers_list_view dimens-->
+    <!--margin dimens-->
+    <dimen name="activity_view_all_performers_list_view_start_margin">16dp</dimen>
+    <dimen name="activity_view_all_performers_list_view_top_margin">12dp</dimen>
+    <dimen name="activity_view_all_performers_list_view_end_margin">16dp</dimen>
+    <!--divider dimens-->
+    <dimen name="activity_view_all_performers_list_view_divider_inset">24dp</dimen>
+    <dimen name="activity_view_all_performers_list_view_divider_height">0.5dp</dimen>
+
+    <!--activity_performer_display_picture dimens-->
+    <!--side length-->
+    <dimen name="activity_performer_display_picture_side">150dp</dimen>
+    <!--margin dimens-->
+    <dimen name="activity_performer_display_picture_margins">8dp</dimen>
+
+    <!--activity_performer_rating_card_view dimens-->
+    <!--side dimens-->
+    <dimen name="activity_performer_rating_card_view_width">48dp</dimen>
+    <dimen name="activity_performer_rating_card_view_height">24dp</dimen>
+    <!--margin dimens-->
+    <dimen name="activity_performer_rating_card_view_end_margin">16dp</dimen>
+    <dimen name="activity_performer_rating_card_view_bottom_margin">8dp</dimen>
+    <!--card customization-->
+    <dimen name="activity_performer_rating_card_view_corner_radius">8dp</dimen>
+    <dimen name="activity_performer_rating_card_view_elevation">4dp</dimen>
+    <!--text_view_rating dimens-->
+    <dimen name="activity_performer_rating_text_view_start_padding">4dp</dimen>
+
+    <!--activity_performer_profile_snippeted_details container dimens-->
+    <!--margin dimens-->
+    <dimen name="activity_performer_profile_snippeted_details_top_margin">8dp</dimen>
+    <dimen name="activity_performer_profile_snippeted_details_bottom_margin">8dp</dimen>
+    <!--child views dimens-->
+    <dimen name="activity_performer_profile_snippeted_details_child_horizontal_margin">16dp</dimen>
+    <dimen name="activity_performer_profile_snippeted_details_child_vertical_margin">8dp</dimen>
+
+    <!--activity_performer_social_links_container dimens-->
+    <dimen name="activity_performer_social_links_container_top_margin">16dp</dimen>
+
+    <!--activity_performer_description_text_view dimens-->
+    <dimen name="activity_performer_description_top_margin">16dp</dimen>
+    <dimen name="activity_performer_description_start_margin">16dp</dimen>
+    <dimen name="activity_performer_description_end_margin">16dp</dimen>
+
+    <!--activity_performer_shortlist_button dimens-->
+    <dimen name="activity_performer_shortlist_button_width">200dp</dimen>
+    <dimen name="activity_performer_shortlist_button_top_margin">16dp</dimen>
+    <dimen name="activity_performer_shortlist_button_text_view_vertical_padding">4dp</dimen>
+    <dimen name="activity_performer_shortlist_button_corner_radius">8dp</dimen>
 </resources>
