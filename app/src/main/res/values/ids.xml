@@ -26,17 +26,8 @@
     </item>
     <item name="activity_performer_rating_text_view" type="id">activity_performer_rating_text_view
     </item>
-    <item name="activity_performer_profile_snippeted_details" type="id">
-        activity_performer_profile_snippeted_details
-    </item>
-    <item name="activity_performer_profile_snippeted_details_name_text_view" type="id">
-        activity_performer_profile_snippeted_details_name_text_view
-    </item>
-    <item name="activity_performer_profile_snippeted_details_age_text_view" type="id">
-        activity_performer_profile_snippeted_details_age_text_view
-    </item>
-    <item name="activity_performer_profile_snippeted_details_city_text_view" type="id">
-        activity_performer_profile_snippeted_details_city_text_view
+    <item name="activity_performer_name_text_view" type="id">
+        activity_performer_name_text_view
     </item>
     <item name="activity_performer_social_links_container" type="id">
         activity_performer_social_links_container
@@ -53,4 +44,33 @@
     <item name="activity_performer_hire_button_text_view" type="id">
         activity_performer_hire_button_text_view
     </item>
+    <item name="activity_performer_social_links_item_facebook" type="id">
+        activity_performer_social_links_item_facebook
+    </item>
+    <item name="activity_performer_social_links_item_instagram" type="id">
+        activity_performer_social_links_item_instagram
+    </item>
+    <item name="activity_performer_city_image" type="id">activity_performer_city_image</item>
+    <item name="activity_performer_city_text_view" type="id">activity_performer_city_text_view
+    </item>
+    <item name="activity_hotel_profile_display_picture" type="id">
+        activity_hotel_profile_display_picture
+    </item>
+    <item name="activity_hotel_profile_hotel_name_icon" type="id">
+        activity_hotel_profile_hotel_name_icon
+    </item>
+    <item name="activity_hotel_profile_hotel_location_icon" type="id">
+        activity_hotel_profile_hotel_location_icon
+    </item>
+    <item name="activity_hotel_profile_hotel_name_text_view" type="id">
+        activity_hotel_profile_hotel_name_text_view
+    </item>
+    <item name="activity_hotel_profile_hotel_location_text_view" type="id">
+        activity_hotel_profile_hotel_location_text_view
+    </item>
+    <item name="activity_hotel_profile_hotel_description" type="id">
+        activity_hotel_profile_hotel_description
+    </item>
+    <item name="vap_display_picture" type="id">vap_display_picture</item>
+    <item name="vap_performer_name_text_view" type="id">vap_performer_name_text_view</item>
 </resources>

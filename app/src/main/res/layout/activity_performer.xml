@@ -4,21 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".hotelend.Performer">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_performer_bottom_margin">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@id/activity_performer_display_picture"
             android:layout_width="@dimen/activity_performer_display_picture_side"
             android:layout_height="@dimen/activity_performer_display_picture_side"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/activity_performer_display_picture_margins"
             android:layout_marginTop="@dimen/activity_performer_display_picture_margins"
+            app:civ_border_color="@color/circularImageViewBorder"
+            app:civ_border_overlay="true"
+            app:civ_border_width="@dimen/activity_performer_display_picture_border_width"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@mipmap/ic_card_view_explore_placeholder" />
+            tools:src="@mipmap/performer_display_picture_placeholder" />
 
         <android.support.v7.widget.CardView
             android:layout_width="@dimen/activity_performer_rating_card_view_width"
@@ -54,79 +60,84 @@
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
-        <LinearLayout
-            android:id="@id/activity_performer_profile_snippeted_details"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/activity_performer_display_picture_side"
-            android:layout_marginBottom="@dimen/activity_performer_profile_snippeted_details_bottom_margin"
-            android:layout_marginTop="@dimen/activity_performer_profile_snippeted_details_top_margin"
-            android:orientation="vertical"
+        <TextView
+            android:id="@id/activity_performer_name_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_performer_name_text_view_top_margin"
+            android:gravity="center_horizontal"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/activity_performer_display_picture"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@id/activity_performer_profile_snippeted_details_name_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/activity_performer_profile_snippeted_details_child_vertical_margin"
-                android:layout_marginEnd="@dimen/activity_performer_profile_snippeted_details_child_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_performer_profile_snippeted_details_child_horizontal_margin"
-                android:layout_marginTop="@dimen/activity_performer_profile_snippeted_details_child_vertical_margin"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="@dimen/text_size_normal"
-                android:textStyle="bold"
-                tools:text="Swaroop Nath" />
-
-            <TextView
-                android:id="@id/activity_performer_profile_snippeted_details_age_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/activity_performer_profile_snippeted_details_child_vertical_margin"
-                android:layout_marginEnd="@dimen/activity_performer_profile_snippeted_details_child_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_performer_profile_snippeted_details_child_horizontal_margin"
-                android:layout_marginTop="@dimen/activity_performer_profile_snippeted_details_child_vertical_margin"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="@dimen/text_size_normal"
-                android:textStyle="bold"
-                tools:text="Age: 23" />
-
-            <TextView
-                android:id="@id/activity_performer_profile_snippeted_details_city_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/activity_performer_profile_snippeted_details_child_vertical_margin"
-                android:layout_marginEnd="@dimen/activity_performer_profile_snippeted_details_child_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_performer_profile_snippeted_details_child_horizontal_margin"
-                android:layout_marginTop="@dimen/activity_performer_profile_snippeted_details_child_vertical_margin"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="@dimen/text_size_normal"
-                android:textStyle="bold"
-                tools:text="Prayagraj" />
-        </LinearLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_performer_display_picture"
+            tools:text="Swaroop Nath" />
 
         <LinearLayout
             android:id="@id/activity_performer_social_links_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_performer_social_links_container_end_margin"
+            android:layout_marginStart="@dimen/activity_performer_social_links_container_start_margin"
             android:layout_marginTop="@dimen/activity_performer_social_links_container_top_margin"
+            android:gravity="center_horizontal"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_performer_display_picture">
+            app:layout_constraintTop_toBottomOf="@id/activity_performer_name_text_view">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Add Insta and Facebook links" />
+            <Button
+                android:id="@id/activity_performer_social_links_item_facebook"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/activity_performer_social_links_item_facebook_height"
+                android:layout_marginEnd="@dimen/activity_performer_social_links_item_facebook_end_margin"
+                android:background="@drawable/social_links_border"
+                android:drawableStart="@drawable/ic_person_outline_black_24dp"
+                android:paddingEnd="@dimen/activity_performer_social_links_items_end_padding"
+                android:paddingStart="@dimen/activity_performer_social_links_items_start_padding"
+                android:textAllCaps="false"
+                android:textColor="@color/colorSecondaryText"
+                android:textSize="@dimen/text_size_extra_small"
+                tools:text="swaroop.nath" />
+
+            <Button
+                android:id="@id/activity_performer_social_links_item_instagram"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/activity_performer_social_links_item_instagram_height"
+                android:layout_marginStart="@dimen/activity_performer_social_links_item_instagram_start_margin"
+                android:background="@drawable/social_links_border"
+                android:drawableStart="@drawable/ic_person_outline_black_24dp"
+                android:paddingEnd="@dimen/activity_performer_social_links_items_end_padding"
+                android:paddingStart="@dimen/activity_performer_social_links_items_start_padding"
+                android:textAllCaps="false"
+                android:textColor="@color/colorSecondaryText"
+                android:textSize="@dimen/text_size_extra_small"
+                tools:text="swaroop_nath" />
         </LinearLayout>
 
+        <ImageView
+            android:id="@id/activity_performer_city_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/activity_performer_social_links_container"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/activity_performer_city_image_start_margin"
+            android:layout_marginTop="@dimen/activity_performer_city_image_top_margin"
+            android:src="@drawable/ic_city_performer" />
+
+        <TextView
+            android:id="@id/activity_performer_city_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/activity_performer_social_links_container"
+            app:layout_constraintStart_toEndOf="@id/activity_performer_city_image"
+            app:layout_constraintBottom_toBottomOf="@id/activity_performer_city_image"
+            android:layout_marginTop="@dimen/activity_performer_city_text_view_top_margin"
+            android:layout_marginStart="@dimen/activity_performer_city_text_view_start_margin"
+            tools:text="Prayagraj"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_small"/>
         <TextView
             android:id="@id/activity_performer_description_text_view"
             android:layout_width="match_parent"
@@ -138,9 +149,9 @@
             android:textSize="@dimen/text_size_normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_performer_social_links_container"
-            tools:text="    Description " />
-        <!--Add a Shortlist and Hire Button, keep Hire hidden by default-->
+            app:layout_constraintTop_toBottomOf="@id/activity_performer_city_text_view"
+            tools:text="        Description " />
+        <!--Keep at least 8 spaces indent in the description text in the code-->
         <android.support.v7.widget.CardView
             android:id="@id/activity_performer_shortlist_button"
             android:layout_width="@dimen/activity_performer_shortlist_button_width"

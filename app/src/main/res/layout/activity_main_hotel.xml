@@ -55,7 +55,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@mipmap/ic_card_view_explore_placeholder" />
+                        android:src="@mipmap/performer_display_picture_placeholder" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -81,7 +81,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@mipmap/ic_card_view_explore_placeholder" />
+                        android:src="@mipmap/performer_display_picture_placeholder" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -107,7 +107,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@mipmap/ic_card_view_explore_placeholder" />
+                        android:src="@mipmap/performer_display_picture_placeholder" />
 
                     <TextView
                         android:layout_width="match_parent"
