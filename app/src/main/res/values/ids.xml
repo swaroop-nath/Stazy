@@ -73,4 +73,44 @@
     </item>
     <item name="vap_display_picture" type="id">vap_display_picture</item>
     <item name="vap_performer_name_text_view" type="id">vap_performer_name_text_view</item>
+    <item name="vap_performer_extras_text_view" type="id">vap_performer_extras_text_view</item>
+    <item name="vap_shortlist_button" type="id">vap_shortlist_button</item>
+    <item name="activity_hotel_main_prev_performances_child_mucisians_recycler_view" type="id">
+        activity_hotel_main_prev_performances_child_mucisians_recycler_view
+    </item>
+    <item name="activity_hotel_main_prev_performances_child_view_header_comedians" type="id">
+        activity_hotel_main_prev_performances_child_view_header_comedians
+    </item>
+    <item name="activity_hotel_main_prev_performances_child_view_header_comedians_view_all_button" type="id">
+        activity_hotel_main_prev_performances_child_view_header_comedians_view_all_button
+    </item>
+    <item name="activity_hotel_main_prev_performances_child_comedians_recycler_view" type="id">
+        activity_hotel_main_prev_performances_child_others_recycler_view
+    </item>
+    <item name="activity_hotel_main_prev_performances_child_view_header_others" type="id">
+        activity_hotel_main_prev_performances_child_view_header_others
+    </item>
+    <item name="activity_hotel_main_prev_performances_child_view_header_others_view_all_button" type="id">
+        activity_hotel_main_prev_performances_child_view_header_others_view_all_button
+    </item>
+    <item name="activity_hotel_main_prev_performances_child_others_recycler_view" type="id">
+        activity_hotel_main_prev_performances_child_others_recycler_view
+    </item>
+    <item name="ahmpp_recycler_item_image_view" type="id">ahmpp_recycler_item_image_view</item>
+    <item name="ahmpp_recycler_item_text_view" type="id">ahmpp_recycler_item_text_view</item>
+    <item name="activity_view_all_performers_list_view" type="id">
+        activity_view_all_performers_list_view
+    </item>
+    <item name="acitivity_hire_performer_top_content_container" type="id">
+        acitivity_hire_performer_top_content_container_height
+    </item>
+    <item name="activity_hire_performer_spinner_type" type="id">
+        activity_hire_performer_spinner_type
+    </item>
+    <item name="activity_hire_performer_spinner_genre" type="id">
+        activity_hire_performer_spinner_genre
+    </item>
+    <item name="activity_hire_performer_spinner_sort" type="id">
+        activity_hire_performer_spinner_sort
+    </item>
 </resources>

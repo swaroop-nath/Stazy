@@ -6,5 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".hotelend.HirePerformer">
 
+    <LinearLayout
+        android:id="@id/acitivity_hire_performer_top_content_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/acitivity_hire_performer_top_content_container_height"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <!--Set the default text using onNothingSelected callback in code-->
+        <Spinner
+            android:id="@id/activity_hire_performer_spinner_type"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:entries="@array/spinner_type_entries"/>
+        <Spinner
+            android:id="@id/activity_hire_performer_spinner_genre"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <!--Change the following spinner to a button in refine stage
+        Show a card that appears on top through some animation, that contains the same entries-->
+        <Spinner
+            android:id="@id/activity_hire_performer_spinner_sort"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:entries="@array/spinner_sort_entries"/>
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

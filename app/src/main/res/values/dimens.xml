@@ -20,8 +20,9 @@
     <!--activity_main_hotel_explore_cards dimens-->
     <dimen name="activity_hotel_main_explore_card_view_side_size">120dp</dimen>
     <dimen name="activity_hotel_main_explore_card_view_start_margin">16dp</dimen>
-    <dimen name="activity_hotel_main_explore_card_view_side_corner_radius">8dp</dimen>
     <dimen name="activity_hotel_main_explore_card_view_end_margin">16dp</dimen>
+    <dimen name="activity_hotel_main_explore_card_view_side_corner_radius">8dp</dimen>
+    <dimen name="activity_hotel_main_explore_card_view_elevation">4dp</dimen>
 
     <!--activity_main_hotel_prev_performance_text_view margin dimens-->
     <dimen name="activity_hotel_main_prev_performances_text_view_top_margin">24dp</dimen>
@@ -31,6 +32,14 @@
     <dimen name="activity_hotel_main_prev_performances_child_view_headers_start_margin">24dp</dimen>
     <dimen name="activity_hotel_main_prev_performances_child_view_headers_top_margin">16dp</dimen>
     <dimen name="activity_hotel_main_prev_performances_child_view_headers_end_margin">16dp</dimen>
+
+    <!--activity_main_hotel_prev_performance_child_view_recycler_views dimens-->
+    <dimen name="activity_hotel_main_prev_performances_child_views_recycler_view_height">100dp</dimen>
+    <dimen name="activity_hotel_main_prev_performances_child_views_recycler_view_top_margin">12dp</dimen>
+    <dimen name="activity_hotel_main_prev_performances_child_views_recycler_view_start_margin">36dp</dimen>
+    <!--recycler_view_items dimens-->
+    <dimen name="ahmpp_recycler_item_card_corner_radius">8dp</dimen>
+    <dimen name="ahmpp_recycler_item_card_elevation">4dp</dimen>
 
     <!--activity_view_all_performers_list_view dimens-->
     <!--margin dimens-->
@@ -148,6 +157,19 @@
     <dimen name="vap_display_picture_top_margin">16dp</dimen>
     <dimen name="vap_display_picture_start_margin">16dp</dimen>
     <!--performer name dimens-->
-    <dimen name="vap_performer_name_text_view_top_margin">16dp</dimen>
+    <dimen name="vap_performer_name_text_view_top_margin">18dp</dimen>
     <dimen name="vap_performer_name_text_view_start_margin">12dp</dimen>
+    <!--performer extras dimens-->
+    <dimen name="vap_performer_extras_text_view_top_margin">0dp</dimen>
+    <dimen name="vap_performer_extras_text_view_start_margin">24dp</dimen>
+    <!--shortlist_button dimens-->
+    <dimen name="vap_shortlist_button_width">24dp</dimen>
+    <dimen name="vap_shortlist_button_height">24dp</dimen>
+    <dimen name="vap_shortlist_button_end_margin">16dp</dimen>
+    <dimen name="vap_shortlist_button_bottom_margin">4dp</dimen>
+    <dimen name="acitivity_hire_performer_top_content_container_height">
+        50dp
+    </dimen>
+
+
 </resources>

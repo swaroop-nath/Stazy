@@ -8,9 +8,52 @@
     <string name="activity_hotel_main_explore_card_view_others_text">Others</string>
     <string name="activity_hotel_main_prev_performances_text_view_text">Previous Performances</string>
     <string name="activity_hotel_main_prev_performances_child_view_header_musicians_text_view_text">Musicians</string>
+    <string name="activity_hotel_main_prev_performances_child_view_header_comedians_text_view_text">Comedians</string>
     <string name="activity_hotel_main_prev_performances_child_view_headers_button_text">View All</string>
+
+    <!--Perfomer Activity Texts-->
     <string name="activity_performer_shortlist_button_text">Shortlist</string>
     <string name="activity_performer_hire_button_text">Hire</string>
 
-    <!--Perfomer Activity Texts-->
+    <!--ViewAllPerformers list item Texts-->
+    <string name="vap_shortlist_image_view_desc">Shortlist</string>
+    <string name="activity_hotel_main_prev_performances_child_view_header_others_text_view_text">Others</string>
+
+    <!--HirePerformer Texts-->
+    <string name="activity_hire_performer_spinner_type_text">Type</string>
+    <string name="activity_hire_performer_spinner_genre_text">Genre</string>
+    <string name="activity_hire_performer_spinner_sort_text">Sort</string>
+    <!--spinner_type texts-->
+    <string-array name="spinner_type_entries">
+        <item>Mucisians</item>
+        <item>Comedians</item>
+        <item>Others</item>
+    </string-array>
+    <!--spinner_genre texts-->
+    <string-array name="spinner_genre_mucisians_entries">
+        <item>Singer</item>
+        <item>Guitarist</item>
+        <item>Dancer</item>
+        <item>Band</item>
+    </string-array>
+
+    <string-array name="spinner_genre_comedians_entries">
+        <item>Stand-Ups</item>
+        <item>Shayari</item>
+    </string-array>
+
+    <string-array name="spinner_genre_others_entries">
+        <item>Magician</item>
+        <item>Sand-Artist</item>
+        <item>Motivational Speaker</item>
+        <item>Dramatist</item>
+        <item>Others</item>
+    </string-array>
+    <!--spinner_sort texts-->
+    <string-array name="spinner_sort_entries">
+        <item>Alphabetically</item>
+        <item>Popularity</item>
+        <item>Rating</item>
+    </string-array>
+
 </resources>
