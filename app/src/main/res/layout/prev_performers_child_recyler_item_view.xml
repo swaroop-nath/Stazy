@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_items_width"
+    android:layout_height="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_items_height"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="@dimen/ahmpp_recycler_item_card_corner_radius"
-    app:cardElevation="@dimen/ahmpp_recycler_item_card_elevation">
+    app:cardElevation="@dimen/ahmpp_recycler_item_card_elevation"
+    android:layout_marginEnd="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_items_end_margin"
+    android:layout_marginStart="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_items_end_margin">
 
     <ImageView
         android:id="@id/ahmpp_recycler_item_image_view"

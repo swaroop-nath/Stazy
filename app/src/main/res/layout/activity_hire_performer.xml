@@ -9,11 +9,12 @@
     <LinearLayout
         android:id="@id/acitivity_hire_performer_top_content_container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/acitivity_hire_performer_top_content_container_height"
+        android:layout_height="@dimen/activity_hire_performer_top_content_container_height"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/activity_hire_performer_top_content_container_top_margin">
         <!--Set the default text using onNothingSelected callback in code-->
         <Spinner
             android:id="@id/activity_hire_performer_spinner_type"
@@ -35,5 +36,22 @@
             android:layout_weight="1"
             android:entries="@array/spinner_sort_entries"/>
     </LinearLayout>
+
+    <ListView
+        android:id="@id/activity_hire_performer_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_hire_performer_bottom_margin"
+        android:layout_marginEnd="@dimen/activity_hire_performer_list_view_end_margin"
+        android:layout_marginStart="@dimen/activity_hire_performer_list_view_start_margin"
+        android:layout_marginTop="@dimen/activity_hire_performer_list_view_top_margin"
+        android:divider="@drawable/list_view_divider"
+        android:dividerHeight="@dimen/activity_view_hire_performer_list_view_divider_height"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/acitivity_hire_performer_top_content_container"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>

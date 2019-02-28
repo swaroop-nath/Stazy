@@ -14,6 +14,8 @@
     <!--Perfomer Activity Texts-->
     <string name="activity_performer_shortlist_button_text">Shortlist</string>
     <string name="activity_performer_hire_button_text">Hire</string>
+    <!--Dialog Texts-->
+    <string name="ap_condtions_dialog_performance_time_text_view_text">Time of Performance</string>
 
     <!--ViewAllPerformers list item Texts-->
     <string name="vap_shortlist_image_view_desc">Shortlist</string>
@@ -25,7 +27,7 @@
     <string name="activity_hire_performer_spinner_sort_text">Sort</string>
     <!--spinner_type texts-->
     <string-array name="spinner_type_entries">
-        <item>Mucisians</item>
+        <item>Musicians</item>
         <item>Comedians</item>
         <item>Others</item>
     </string-array>

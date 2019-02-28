@@ -113,4 +113,19 @@
     <item name="activity_hire_performer_spinner_sort" type="id">
         activity_hire_performer_spinner_sort
     </item>
+    <item name="activity_hire_performer_list_view" type="id">activity_hire_performer_list_view
+    </item>
+    <item name="vap_rating_text_view" type="id">vap_rating_text_view</item>
+    <item name="vap_price_button" type="id">vap_price_button</item>
+    <item name="activity_performer_genre_text_view" type="id">activity_performer_genre_text_view
+    </item>
+    <item name="activity_performer_phone_image" type="id">activity_performer_phone_image</item>
+    <item name="activity_performer_phone_text_view" type="id">activity_performer_phone_text_view
+    </item>
+    <item name="ap_condtions_dialog_performance_time_text_view" type="id">
+        ap_condtions_dialog_performance_time_text_view
+    </item>
+    <item name="ap_condtions_dialog_performance_time_picker" type="id">
+        ap_condtions_dialog_performance_time_picker
+    </item>
 </resources>
