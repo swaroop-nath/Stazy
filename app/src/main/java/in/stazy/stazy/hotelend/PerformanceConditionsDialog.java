@@ -1,4 +1,4 @@
-package in.stazy.stazy.datamanagerhotel;
+package in.stazy.stazy.hotelend;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
