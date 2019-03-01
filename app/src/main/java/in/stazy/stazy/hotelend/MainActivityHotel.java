@@ -3,6 +3,7 @@ package in.stazy.stazy.hotelend;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -11,7 +12,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -19,6 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.stazy.stazy.R;
 import in.stazy.stazy.datamanagerhotel.ComedianData;
+import in.stazy.stazy.datamanagerhotel.Manager;
 import in.stazy.stazy.datamanagerhotel.MucisianData;
 
 public class MainActivityHotel extends AppCompatActivity {
@@ -89,8 +97,7 @@ public class MainActivityHotel extends AppCompatActivity {
         prevOthers.setLayoutManager(horizontalLayoutManagerOthers);
 
         /*
-        Download data using the DataManager class' method in the authflow classes and keep it in a
-        relevant array (MucisianData or ComedianData). Then retrieve the data here and use it in Recycler View Adapter
+        TODO: Retrieve the data from the database and store in Manager.PREV_?
          */
 
         ArrayList<MucisianData> mucisians = generateRuseMucisians(); // A ruse mucisian that shall be retrieved from firestore and used for debugging
@@ -100,6 +107,20 @@ public class MainActivityHotel extends AppCompatActivity {
         ArrayList<ComedianData> comedians = generateRuseComedians();
         PrevPerformersAdapter<ComedianData> comedianAdapter = new PrevPerformersAdapter<>(comedians, context, TYPE_VALUE_COMEDIANS);
         prevComedians.setAdapter(comedianAdapter);
+
+        Manager.CITY_VALUE = "prayagraj";
+        /*
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        DocumentReference documentReference = firebaseFirestore.collection("Mapper").document(FirebaseAuth.getInstance().getUid());
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot documentSnapshot = task.getResult();
+                Manager.CITY_VALUE = documentSnapshot.get("city").toString();
+                TODO: Write code here to download data about prev_performers
+            }
+        });
+        */
 
     }
 

@@ -32,6 +32,6 @@ class PerformerViewHolder {
         nameTextView.setText(name);
         extrasTextView.setText("Last Rating: " + lastRating);
         overallRatingTextView.setText(overallRating);
-        priceTag.setText(price);
+        priceTag.setText(price + "/hr");
     }
 }

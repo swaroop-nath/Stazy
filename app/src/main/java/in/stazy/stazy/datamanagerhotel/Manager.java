@@ -2,6 +2,8 @@ package in.stazy.stazy.datamanagerhotel;
 
 import java.util.ArrayList;
 
+import in.stazy.stazy.datamanagercrossend.HotelData;
+
 import static in.stazy.stazy.hotelend.HirePerformer.FLAG_UNSET;
 
 public class Manager {
@@ -10,22 +12,28 @@ public class Manager {
     It is also responsible for minimizing operations cost on data.
      */
     //This stores the list of previously hired mucisians, for the local process.
-    public static final ArrayList<MucisianData> PREVIOUS_MUCISIANS = new ArrayList<>(0);
+    public static ArrayList<MucisianData> PREVIOUS_MUCISIANS = new ArrayList<>(0);
 
     //This stores the list of previously hired comedians, for the local process.
-    public static final ArrayList<ComedianData> PREVIOUS_COMEDIANS = new ArrayList<>(0);
+    public static ArrayList<ComedianData> PREVIOUS_COMEDIANS = new ArrayList<>(0);
 
     //This stores the list of previously hired others, for the local process.
-    public static final ArrayList<OtherData> PREVIOUS_OTHERS = new ArrayList<>(0);
+    public static ArrayList<OtherData> PREVIOUS_OTHERS = new ArrayList<>(0);
 
     //This stores the list of recently fetched available mucisians.
-    public static final ArrayList<MucisianData> AVAILABLE_MUCISIANS = new ArrayList<>(0);
+    public static ArrayList<MucisianData> AVAILABLE_MUCISIANS = new ArrayList<>(0);
 
     //This stores the list of recently fetched available comedians.
-    public static final ArrayList<ComedianData> AVAILABLE_COMEDIANS = new ArrayList<>(0);
+    public static ArrayList<ComedianData> AVAILABLE_COMEDIANS = new ArrayList<>(0);
 
     //This stores the list of recently fetched available others.
-    public static final ArrayList<OtherData> AVAILABLE_OTHERS = new ArrayList<>(0);
+    public static ArrayList<OtherData> AVAILABLE_OTHERS = new ArrayList<>(0);
+
+    //This stores the data of the hotel in consideration.
+    public static HotelData HOTEL_DATA = null;
+
+
+    public static String CITY_VALUE = "prayagraj";
 
 
     public static int AVAILABLE_SINGERS_START_INDEX = 0;

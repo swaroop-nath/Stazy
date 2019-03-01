@@ -5,25 +5,77 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@id/ap_condtions_dialog_performance_time_text_view"
+        android:id="@id/ap_conditions_dialog_performance_time_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/ap_condtions_dialog_performance_time_text_view_top_margin"
-        android:layout_marginStart="@dimen/ap_condtions_dialog_performance_time_text_view_start_margin"
+        android:layout_marginTop="@dimen/ap_conditions_dialog_performance_time_text_view_top_margin"
+        android:layout_marginStart="@dimen/ap_conditions_dialog_performance_time_text_view_start_margin"
         android:text="@string/ap_condtions_dialog_performance_time_text_view_text"
         android:textSize="@dimen/text_size_normal"
         android:textStyle="bold"
         android:textColor="@color/colorPrimaryText"/>
 
     <TimePicker
-        android:id="@id/ap_condtions_dialog_performance_time_picker"
+        android:id="@id/ap_conditions_dialog_performance_time_picker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ap_condtions_dialog_performance_time_text_view"
+        app:layout_constraintTop_toBottomOf="@id/ap_conditions_dialog_performance_time_text_view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/ap_condtions_dialog_performance_time_picker_top_margin"
+        android:layout_marginTop="@dimen/ap_conditions_dialog_performance_time_picker_top_margin"
         android:timePickerMode="spinner"/>
+
+    <TextView
+        android:id="@id/ap_conditions_dialog_duration_time_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ap_conditions_dialog_performance_time_picker"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/ap_conditions_dialog_duration_time_text_view_top_margin"
+        android:layout_marginStart="@dimen/ap_conditions_dialog_duration_time_text_view_start_margin"
+        android:text="@string/ap_conditions_dialog_duration_time_text_view_text"
+        android:textSize="@dimen/text_size_normal"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryText"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ap_conditions_dialog_duration_time_text_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/ap_conditions_dialog_duration_time_container_top_margin"
+        android:layout_marginStart="@dimen/ap_conditions_dialog_duration_time_container_start_margin"
+        android:layout_marginEnd="@dimen/ap_conditions_dialog_duration_time_container_end_margin">
+
+        <Spinner
+            android:id="@id/ap_conditions_dialog_duration_child_hours_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/ap_conditions_dialog_duration_child_hours_spinner_entries" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="hr"
+            android:layout_weight="1"
+            android:textSize="@dimen/text_size_small"
+            android:textColor="@color/colorPrimaryText"/>
+        <Spinner
+            android:id="@id/ap_conditions_dialog_duration_child_mins_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/ap_conditions_dialog_duration_child_mins_spinner" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="mins"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_small"/>
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

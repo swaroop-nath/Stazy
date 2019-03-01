@@ -25,7 +25,7 @@ import static in.stazy.stazy.hotelend.MainActivityHotel.TYPE_VALUE_COMEDIANS;
 import static in.stazy.stazy.hotelend.MainActivityHotel.TYPE_VALUE_MUCISIANS;
 import static in.stazy.stazy.hotelend.MainActivityHotel.TYPE_VALUE_OTHERS;
 
-public class Performer extends AppCompatActivity implements View.OnClickListener {
+public class Performer extends AppCompatActivity implements View.OnClickListener, PerformanceConditionsDialog.ConditionsSetListener {
 
     //View References
     @BindView(R.id.activity_performer_display_picture) CircleImageView profilePicture;
@@ -43,7 +43,8 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
 
     //Activity Specific References
     DataManager receivedPerformer;
-    String performerToken;
+
+    //Use this UID of hotel to access hotel details from database in Performer end to get the updated token of the hotel.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,22 +69,29 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
                 receivedPerformer = (OtherData) receivedIntent.getSerializableExtra(INDIVIDUAL_PERFORMER_OBJECT_KEY);
                 break;
         }
-        performerToken = receivedPerformer.getToken();
         setContentsOfViews();
         shortlistButton.setOnClickListener(this);
     }
 
     private void setContentsOfViews() {
-        profilePicture.setImageBitmap(receivedPerformer.getProfilePictureLow());
+        if (receivedPerformer.getProfilePictureHigh() == null) {
+            profilePicture.setImageBitmap(receivedPerformer.getProfilePictureLow());
+            downloadHighResProfilePicture(receivedPerformer.getUID());
+        } else
+            profilePicture.setImageBitmap(receivedPerformer.getProfilePictureHigh());
         ratingTextView.setText(receivedPerformer.getRating());
         nameTextView.setText(receivedPerformer.getName());
         genreTextView.setText(receivedPerformer.getGenre());
-        facebookLink.setText(receivedPerformer.getFacebook());
-        instagramLink.setText(receivedPerformer.getInstagram());
+        facebookLink.setText(getCleanedUpLink(receivedPerformer.getFacebook()));
+        instagramLink.setText(getCleanedUpLink(receivedPerformer.getInstagram()));
         cityTextView.setText(receivedPerformer.getCity());
         phoneTextView.setText(receivedPerformer.getPhoneNumber());
-        descriptionTextView.setText(receivedPerformer.getDescription());
-        downloadHighResProfilePicture(receivedPerformer.getUID());
+        descriptionTextView.setText("        Description: " + receivedPerformer.getDescription());
+    }
+
+    private String getCleanedUpLink(String socialMediaLink) {
+        String[] parts = socialMediaLink.split("/");
+        return parts[parts.length - 1];
     }
 
     private void downloadHighResProfilePicture(String uid) {
@@ -94,19 +102,29 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         switch (v.getId()) {
             case R.id.activity_performer_shortlist_button:
                 startShortlistProcedure();
-                Toast.makeText(this, "Notification sent to " + receivedPerformer.getName(), Toast.LENGTH_SHORT).show();
+                //TODO: Remove this Toast with a self-dismissed dialog, to display information
+                Toast.makeText(this, "Please call at the displayed number, and pres Hire, if you finalize your choice.", Toast.LENGTH_LONG).show();
             case R.id.activity_performer_hire_button:
                 hirePerformer();
-                Toast.makeText(this, "Congratulations, you have hired " + receivedPerformer.getName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Congratulations, you have hired " + receivedPerformer.getName(), Toast.LENGTH_LONG).show();
         }
     }
 
     private void hirePerformer() {
+        //TODO: Clear the shortlist database.
+        //TODO: Put the hired candidate to SQLite Database.
+        //TODO: Think of some way to send the hired information to the performer
     }
 
     private void startShortlistProcedure() {
-        //TODO: Show a dialog to input number of hours and time of performance
-        //TODO: Send a notfication to the performer that someone wants to hire him
+        PerformanceConditionsDialog conditionsDialog = new PerformanceConditionsDialog();
+        conditionsDialog.show(getSupportFragmentManager(), "conditions dialog");
+    }
 
+    @Override
+    public void onConditionsSet(String performanceTime, String performanceDuration) {
+        //TODO: Add the shortlisted candidate to SQLite Database.
+        phoneImageView.setVisibility(View.VISIBLE);
+        phoneTextView.setVisibility(View.VISIBLE);
     }
 }

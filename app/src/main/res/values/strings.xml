@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Stazy</string>
 
+    <!--Hotel End Definitions-->
+
     <!--Hotel Main Activity Texts-->
     <string name="activity_hotel_main_explore_text_view_text">Explore</string>
     <string name="activity_hotel_main_explore_card_view_musicians_text">Musicians</string>
@@ -16,6 +18,22 @@
     <string name="activity_performer_hire_button_text">Hire</string>
     <!--Dialog Texts-->
     <string name="ap_condtions_dialog_performance_time_text_view_text">Time of Performance</string>
+    <string name="ap_conditions_dialog_duration_time_text_view_text">Duration of Performance</string>
+    <!--Dialog_Spinner Texts-->
+    <!--spinner_hours texts-->
+    <string-array name="ap_conditions_dialog_duration_child_hours_spinner_entries">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    <!--spinner_mins texts-->
+    <string-array name="ap_conditions_dialog_duration_child_mins_spinner">
+        <item>00</item>
+        <item>15</item>
+        <item>30</item>
+        <item>45</item>
+    </string-array>
 
     <!--ViewAllPerformers list item Texts-->
     <string name="vap_shortlist_image_view_desc">Shortlist</string>
@@ -56,6 +74,11 @@
         <item>Alphabetically</item>
         <item>Popularity</item>
         <item>Rating</item>
+        <item>Price</item>
     </string-array>
+
+    <!--Performer End Definitions-->
+
+
 
 </resources>

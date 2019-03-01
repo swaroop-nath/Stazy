@@ -5,6 +5,8 @@
     <dimen name="text_size_normal">17.5sp</dimen>
     <dimen name="text_size_large">20sp</dimen>
 
+    <!--Hotel End Definitions-->
+
     <!--activity_main_hotel bottom margin to overcome bottom cutting by scroll-view-->
     <dimen name="activity_hotel_main_bottom_margin">16dp</dimen>
 
@@ -140,6 +142,15 @@
     <!--phone_text_view dimens-->
     <dimen name="activity_performer_phone_text_view_top_margin">8dp</dimen>
     <dimen name="activity_performer_phone_text_view_start_margin">12dp</dimen>
+    <!--conditions_dialog dimens-->
+    <dimen name="ap_conditions_dialog_performance_time_text_view_top_margin">16dp</dimen>
+    <dimen name="ap_conditions_dialog_performance_time_text_view_start_margin">16dp</dimen>
+    <dimen name="ap_conditions_dialog_performance_time_picker_top_margin">12dp</dimen>
+    <dimen name="ap_conditions_dialog_duration_time_text_view_top_margin">12dp</dimen>
+    <dimen name="ap_conditions_dialog_duration_time_text_view_start_margin">16dp</dimen>
+    <dimen name="ap_conditions_dialog_duration_time_container_top_margin">12dp</dimen>
+    <dimen name="ap_conditions_dialog_duration_time_container_start_margin">24dp</dimen>
+    <dimen name="ap_conditions_dialog_duration_time_container_end_margin">24dp</dimen>
 
     <!--activity_hotel_profile bottom margin to overcome bottom cutting by scroll-view-->
     <dimen name="activity_hotel_profile_bottom_margin">16dp</dimen>
@@ -213,7 +224,20 @@
     <dimen name="activity_hire_performer_list_view_top_margin">16dp</dimen>
     <!--divider dimens-->
     <dimen name="activity_view_hire_performer_list_view_divider_height">0.5dp</dimen>
-    <dimen name="ap_condtions_dialog_performance_time_text_view_top_margin">16dp</dimen>
-    <dimen name="ap_condtions_dialog_performance_time_text_view_start_margin">16dp</dimen>
-    <dimen name="ap_condtions_dialog_performance_time_picker_top_margin">12dp</dimen>
+    <dimen name="activity_hotel_bottom_margin">16dp</dimen>
+    <dimen name="activity_hotel_display_picture_height">200dp</dimen>
+    <dimen name="activity_hotel_hotel_name_icon_top_margin">24dp</dimen>
+    <dimen name="activity_hotel_hotel_name_icon_start_margin">16dp</dimen>
+    <dimen name="activity_hotel_hotel_location_icon_top_margin">12dp</dimen>
+    <dimen name="activity_hotel_hotel_location_icon_start_margin">16dp</dimen>
+    <dimen name="activity_hotel_hotel_name_text_view_top_margin">24dp</dimen>
+    <dimen name="activity_hotel_hotel_name_text_view_start_margin">12dp</dimen>
+    <dimen name="activity_hotel_hotel_location_text_view_top_margin">12dp</dimen>
+    <dimen name="activity_hotel_hotel_location_text_view_start_margin">12dp</dimen>
+    <dimen name="activity_hotel_hotel_description_top_margin">24dp</dimen>
+    <dimen name="activity_hotel_hotel_description_start_margin">16dp</dimen>
+    <dimen name="activity_hotel_hotel_description_end_margin">16dp</dimen>
+
+    <!--Performer End Definitions-->
+
 </resources>

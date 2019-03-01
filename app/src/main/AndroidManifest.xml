@@ -19,7 +19,10 @@
         <activity android:name=".hotelend.HirePerformer" />
         <activity android:name=".hotelend.Performer" />
         <activity android:name=".hotelend.ViewAllPerformers" />
-        <activity android:name=".hotelend.HotelProfile"></activity>
+        <activity android:name=".hotelend.HotelProfile" />
+        <activity android:name=".performerend.MainActivityPerformer" />
+        <activity android:name=".performerend.Hotel" />
+        <activity android:name=".performerend.PerformerProfile"></activity>
     </application>
 
 </manifest>

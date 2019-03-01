@@ -122,10 +122,29 @@
     <item name="activity_performer_phone_image" type="id">activity_performer_phone_image</item>
     <item name="activity_performer_phone_text_view" type="id">activity_performer_phone_text_view
     </item>
-    <item name="ap_condtions_dialog_performance_time_text_view" type="id">
+    <item name="ap_conditions_dialog_performance_time_text_view" type="id">
         ap_condtions_dialog_performance_time_text_view
     </item>
-    <item name="ap_condtions_dialog_performance_time_picker" type="id">
+    <item name="ap_conditions_dialog_performance_time_picker" type="id">
         ap_condtions_dialog_performance_time_picker
     </item>
+    <item name="ap_conditions_dialog_duration_time_text_view" type="id">
+        ap_conditions_dialog_duration_time_text_view
+    </item>
+    <item name="ap_conditions_dialog_duration_child_hours_spinner" type="id">
+        ap_conditions_dialog_duration_child_hours_spinner
+    </item>
+    <item name="ap_conditions_dialog_duration_child_mins_spinner" type="id">
+        ap_conditions_dialog_duration_child_mins_spinner
+    </item>
+    <item name="activity_hotel_display_picture" type="id">activity_hotel_display_picture</item>
+    <item name="activity_hotel_hotel_name_icon" type="id">activity_hotel_hotel_name_icon</item>
+    <item name="activity_hotel_hotel_location_icon" type="id">activity_hotel_hotel_location_icon
+    </item>
+    <item name="activity_hotel_hotel_name_text_view" type="id">activity_hotel_hotel_name_text_view
+    </item>
+    <item name="activity_hotel_hotel_location_text_view" type="id">
+        activity_hotel_hotel_location_text_view
+    </item>
+    <item name="activity_hotel_hotel_description" type="id">activity_hotel_hotel_description</item>
 </resources>

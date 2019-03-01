@@ -87,7 +87,7 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
         ButterKnife.bind(this);
         context = getApplicationContext();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        baseReference = firebaseFirestore.collection("Cities").document("prayagraj").
+        baseReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE).
                 collection("type");
 
         Intent receivedIntent = getIntent();
@@ -203,7 +203,7 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
     private void downloadDataNow(String typeChosen, String genreChosen) {
         //TODO: Change the signature of the method to incorporate city value!
         childReference = baseReference.document(typeChosen).collection(genreChosen);
-        Query alphabeticalQuery = childReference.orderBy("name");
+        Query alphabeticalQuery = childReference.orderBy("name"); //TODO: Add one more orderBy("isHired").equals(0)
         alphabeticalQuery.get().addOnCompleteListener(new CustomTaskCompletioner(this, typeChosen, genreChosen));
     }
 

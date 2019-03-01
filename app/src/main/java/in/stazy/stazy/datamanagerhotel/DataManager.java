@@ -18,9 +18,9 @@ public interface DataManager extends Serializable {
 
     void setDescription(String description);
 
-    String getLocation();
+    String getLocation(); //Unnecessary for this version
 
-    void setLocation(String location);
+    void setLocation(String location); //Unnecessary for this version
 
     String getLastPerformed();
 
@@ -58,9 +58,9 @@ public interface DataManager extends Serializable {
 
     void setUID(String uid);
 
-    String getToken();
+    String getToken(); //Unnecessary for this version
 
-    void setToken(String token);
+    void setToken(String token); //Unnecessary for this version
 
     String getFacebook();
 
