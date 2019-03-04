@@ -18,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.stazy.stazy.R;
 import in.stazy.stazy.datamanagercrossend.HotelData;
-import in.stazy.stazy.datamanagerhotel.Manager;
+import in.stazy.stazy.datamanagercrossend.Manager;
 
 public class HotelProfile extends AppCompatActivity implements OnCompleteListener<DocumentSnapshot> {
 

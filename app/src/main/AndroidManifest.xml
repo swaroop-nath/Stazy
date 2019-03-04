@@ -9,20 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".hotelend.MainActivityHotel">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".hotelend.MainActivityHotel" />
         <activity android:name=".hotelend.HirePerformer" />
         <activity android:name=".hotelend.Performer" />
         <activity android:name=".hotelend.ViewAllPerformers" />
         <activity android:name=".hotelend.HotelProfile" />
         <activity android:name=".performerend.MainActivityPerformer" />
         <activity android:name=".performerend.Hotel" />
-        <activity android:name=".performerend.PerformerProfile"></activity>
+        <activity android:name=".performerend.PerformerProfile">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".authflow.SignInActivity" />
+        <activity android:name=".authflow.SignUpActivity"></activity>
     </application>
 
 </manifest>

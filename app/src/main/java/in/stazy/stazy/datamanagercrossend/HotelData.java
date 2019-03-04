@@ -4,7 +4,9 @@ import android.graphics.Bitmap;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 
-public class HotelData {
+import java.io.Serializable;
+
+public class HotelData implements Serializable{
     private String name, phoneNumber, description, location, city, uid, token;
     private Bitmap profilePictureHigh = null;
 
@@ -14,7 +16,7 @@ public class HotelData {
         data.setPhoneNumber(documentSnapshot.get("phone_number").toString());
         data.setDescription(documentSnapshot.get("description").toString());
         data.setLocation(documentSnapshot.get("location").toString());  //Unnecessary for this version
-        data.setCity(documentSnapshot.get("city").toString());
+        data.setCity(Manager.CITY_VALUE);
         data.setUID(documentSnapshot.get("uid").toString());
         data.setToken(documentSnapshot.get("token").toString());  //Unnecessary for this version
 

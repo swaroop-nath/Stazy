@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/amp_list_item_height"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingStart="@dimen/amp_list_item_start_padding"
+    android:paddingBottom="@dimen/amp_list_item_bottom_padding"
+    android:paddingTop="@dimen/amp_list_item_top_padding">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@id/amp_list_item_hotel_profile_picture"
+            android:layout_width="@dimen/amp_list_item_image_width"
+            android:layout_height="@dimen/amp_list_item_image_height"
+            tools:src="@mipmap/hotel_display_picture_placeholder"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+        <TextView
+            android:id="@id/amp_list_item_hotel_name_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/amp_list_item_hotel_profile_picture"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="@dimen/amp_list_item_hotel_name_text_view_start_margin"
+            tools:text="Hotel Milan Palace"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryText"/>
+</android.support.constraint.ConstraintLayout>

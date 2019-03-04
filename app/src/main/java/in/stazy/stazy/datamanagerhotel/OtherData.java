@@ -30,6 +30,8 @@ public class OtherData implements DataManager{
             otherData.setToken(docSnap.get("token").toString());
             otherData.setFacebook(docSnap.get("facebook").toString());
             otherData.setInstagram(docSnap.get("instagram").toString());
+
+            //TODO: Write code to download low res profile picture
             others.add(otherData);
         }
         return others;

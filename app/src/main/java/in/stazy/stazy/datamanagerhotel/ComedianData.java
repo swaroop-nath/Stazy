@@ -30,6 +30,8 @@ public class ComedianData implements DataManager {
             comedianData.setToken(docSnap.get("token").toString());
             comedianData.setFacebook(docSnap.get("facebook").toString());
             comedianData.setInstagram(docSnap.get("instagram").toString());
+
+            //TODO: Write code to download low res profile picture
             comedians.add(comedianData);
         }
         return comedians;

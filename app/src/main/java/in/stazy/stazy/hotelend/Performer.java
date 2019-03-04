@@ -53,7 +53,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         ButterKnife.bind(this);
         /*
         TODO: Define behaviours for Shortlist and Hire buttons
-        TODO: Write code to download High Res profile picture here
+        TODO: Write code to download High Res profile picture here and find a way to keep this image in the performer object.
          */
 
         Intent receivedIntent = getIntent();
@@ -118,7 +118,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
 
     private void startShortlistProcedure() {
         PerformanceConditionsDialog conditionsDialog = new PerformanceConditionsDialog();
-        conditionsDialog.show(getSupportFragmentManager(), "conditions dialog");
+        conditionsDialog.show(getSupportFragmentManager(), "conditions_dialog");
     }
 
     @Override

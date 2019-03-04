@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import in.stazy.stazy.R;
 import in.stazy.stazy.datamanagerhotel.DataManager;
 
 public class PerformerListAdapter extends ArrayAdapter<DataManager> {
@@ -21,7 +23,7 @@ public class PerformerListAdapter extends ArrayAdapter<DataManager> {
         super(context, resource, objects);
         this.context = context;
         dataset = (ArrayList<DataManager>) objects;
-        this.resource = resource;
+        this.resource = R.layout.view_all_performers_list_item;
     }
 
     @NonNull

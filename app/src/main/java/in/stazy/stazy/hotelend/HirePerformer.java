@@ -30,7 +30,7 @@ import in.stazy.stazy.customtaskapi.CustomOnCompleteListener;
 import in.stazy.stazy.customtaskapi.CustomTaskCompletioner;
 import in.stazy.stazy.datamanagerhotel.ComedianData;
 import in.stazy.stazy.datamanagerhotel.DataManager;
-import in.stazy.stazy.datamanagerhotel.Manager;
+import in.stazy.stazy.datamanagercrossend.Manager;
 import in.stazy.stazy.datamanagerhotel.MucisianData;
 import in.stazy.stazy.datamanagerhotel.OtherData;
 
@@ -170,7 +170,7 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
 
         downloadData();
         setData();
-        adapter = new PerformerListAdapter(context, R.layout.view_all_performers_list_item, dataset);
+        adapter = new PerformerListAdapter(context, 0, dataset);
         availablePerformers.setAdapter(adapter);
         availablePerformers.setOnItemClickListener(this);
     }
@@ -313,7 +313,7 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
             List<DocumentSnapshot> documentSnapshots = querySnapshot.getDocuments();
             switch (typeChosen) {
                 case TYPE_VALUE_MUCISIANS:
-                    Manager.AVAILABLE_MUCISIANS.addAll(MucisianData.fetchMucisians(documentSnapshots, "prayagraj", genreChosen)); //After signature is changed to incorporate the city, send city to this method
+                    Manager.AVAILABLE_MUCISIANS.addAll(MucisianData.fetchMucisians(documentSnapshots, Manager.CITY_VALUE, genreChosen)); //After signature is changed to incorporate the city, send city to this method
                     switch (genreChosen) {
                         case GENRE_VALUE_SINGER:
                             Manager.AVAILABLE_SINGERS_START_INDEX_SET = FLAG_SET;
@@ -358,7 +358,7 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                     }
                     break;
                 case TYPE_VALUE_COMEDIANS:
-                    Manager.AVAILABLE_COMEDIANS.addAll(ComedianData.fetchComedians(documentSnapshots, "prayagraj", genreChosen));
+                    Manager.AVAILABLE_COMEDIANS.addAll(ComedianData.fetchComedians(documentSnapshots, Manager.CITY_VALUE, genreChosen));
                     switch (genreChosen) {
                         case GENRE_VALUE_STAND_UP:
                             Manager.AVAILABLE_STAND_UP_START_INDEX_SET = FLAG_SET;
@@ -375,7 +375,7 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                     }
                     break;
                 case TYPE_VALUE_OTHERS:
-                    Manager.AVAILABLE_OTHERS.addAll(OtherData.fetchOthers(documentSnapshots, "prayagraj", genreChosen));
+                    Manager.AVAILABLE_OTHERS.addAll(OtherData.fetchOthers(documentSnapshots, Manager.CITY_VALUE, genreChosen));
                     switch (genreChosen) {
                         case GENRE_VALUE_MAGICIAN:
                             Manager.AVAILABLE_MAGICIAN_START_INDEX_SET = FLAG_SET;

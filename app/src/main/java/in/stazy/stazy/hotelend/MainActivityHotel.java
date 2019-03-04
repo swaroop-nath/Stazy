@@ -3,7 +3,6 @@ package in.stazy.stazy.hotelend;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -12,13 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -26,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.stazy.stazy.R;
 import in.stazy.stazy.datamanagerhotel.ComedianData;
-import in.stazy.stazy.datamanagerhotel.Manager;
+import in.stazy.stazy.datamanagercrossend.Manager;
 import in.stazy.stazy.datamanagerhotel.MucisianData;
 
 public class MainActivityHotel extends AppCompatActivity {

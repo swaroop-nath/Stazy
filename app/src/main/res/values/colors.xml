@@ -10,4 +10,5 @@
     <color name="colorDivider">#BDBDBD</color>
     <color name="circularImageViewBorder">#717171</color>
     <color name="colorSocialLinkItemBorder">#717171</color>
+    <color name="cardViewDarkBackground">#bcbcbc</color>
 </resources>

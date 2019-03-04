@@ -1,8 +1,12 @@
-package in.stazy.stazy.datamanagerhotel;
+package in.stazy.stazy.datamanagercrossend;
 
 import java.util.ArrayList;
 
+import in.stazy.stazy.R;
 import in.stazy.stazy.datamanagercrossend.HotelData;
+import in.stazy.stazy.datamanagerhotel.ComedianData;
+import in.stazy.stazy.datamanagerhotel.MucisianData;
+import in.stazy.stazy.datamanagerhotel.OtherData;
 
 import static in.stazy.stazy.hotelend.HirePerformer.FLAG_UNSET;
 
@@ -33,7 +37,13 @@ public class Manager {
     public static HotelData HOTEL_DATA = null;
 
 
-    public static String CITY_VALUE = "prayagraj";
+    public static String CITY_VALUE = "prayagraj"; //TODO: Set this value in authflow
+
+
+    public static final int PAYMENT_ID = R.string.PAYMENT_ID;
+
+
+    public static final int CREDIT_RATE = 50;
 
 
     public static int AVAILABLE_SINGERS_START_INDEX = 0;

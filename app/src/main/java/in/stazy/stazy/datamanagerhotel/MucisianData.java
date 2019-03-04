@@ -31,6 +31,8 @@ public class MucisianData implements DataManager {
             mucisianData.setToken(docSnap.get("token").toString());
             mucisianData.setFacebook(docSnap.get("facebook").toString());
             mucisianData.setInstagram(docSnap.get("instagram").toString());
+
+            //TODO: Write code to download low res profile picture
             mucisians.add(mucisianData);
         }
         return mucisians;

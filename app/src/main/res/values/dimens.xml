@@ -224,20 +224,151 @@
     <dimen name="activity_hire_performer_list_view_top_margin">16dp</dimen>
     <!--divider dimens-->
     <dimen name="activity_view_hire_performer_list_view_divider_height">0.5dp</dimen>
+
+    <!--Performer End Definitions-->
+
+    <!--activity_hotel dimens-->
+    <!--activity_hotel_bottom_margin to avoid cutting of views by Scroll View-->
     <dimen name="activity_hotel_bottom_margin">16dp</dimen>
+    <!--activity_hotel_display_picture dimens-->
     <dimen name="activity_hotel_display_picture_height">200dp</dimen>
+    <!--activity_hotel_name dimens-->
+    <!--hotel_name_icon dimens-->
     <dimen name="activity_hotel_hotel_name_icon_top_margin">24dp</dimen>
     <dimen name="activity_hotel_hotel_name_icon_start_margin">16dp</dimen>
-    <dimen name="activity_hotel_hotel_location_icon_top_margin">12dp</dimen>
-    <dimen name="activity_hotel_hotel_location_icon_start_margin">16dp</dimen>
+    <!--hotel_name_text_view dimens-->
     <dimen name="activity_hotel_hotel_name_text_view_top_margin">24dp</dimen>
     <dimen name="activity_hotel_hotel_name_text_view_start_margin">12dp</dimen>
+    <!--hotel_location_icon dimens-->
+    <dimen name="activity_hotel_hotel_location_icon_top_margin">12dp</dimen>
+    <dimen name="activity_hotel_hotel_location_icon_start_margin">16dp</dimen>
+    <!--hotel_location_text_view dimens-->
     <dimen name="activity_hotel_hotel_location_text_view_top_margin">12dp</dimen>
     <dimen name="activity_hotel_hotel_location_text_view_start_margin">12dp</dimen>
+    <!--hotel_description dimens-->
     <dimen name="activity_hotel_hotel_description_top_margin">24dp</dimen>
     <dimen name="activity_hotel_hotel_description_start_margin">16dp</dimen>
     <dimen name="activity_hotel_hotel_description_end_margin">16dp</dimen>
 
-    <!--Performer End Definitions-->
+    <!--activity_performer_profile dimens-->
+    <!--activity_performer bottom margin to overcome bottom cutting by scroll-view-->
+    <dimen name="activity_performer_profile_bottom_margin">16dp</dimen>
+
+    <!--activity_performer_display_picture dimens-->
+    <!--side length-->
+    <dimen name="activity_performer_profile_display_picture_side">150dp</dimen>
+    <!--margin dimens-->
+    <dimen name="activity_performer_profile_display_picture_margins">8dp</dimen>
+    <!--border width-->
+    <dimen name="activity_performer_profile_display_picture_border_width">4dp</dimen>
+
+    <!--activity_performer_rating_card_view dimens-->
+    <!--side dimens-->
+    <dimen name="activity_performer_profile_rating_card_view_width">48dp</dimen>
+    <dimen name="activity_performer_profile_rating_card_view_height">24dp</dimen>
+    <!--margin dimens-->
+    <dimen name="activity_performer_profile_rating_card_view_end_margin">4dp</dimen>
+    <dimen name="activity_performer_profile_rating_card_view_bottom_margin">8dp</dimen>
+    <!--card customization-->
+    <dimen name="activity_performer_profile_rating_card_view_corner_radius">8dp</dimen>
+    <dimen name="activity_performer_profile_rating_card_view_elevation">4dp</dimen>
+    <!--text_view_rating dimens-->
+    <dimen name="activity_performer_profile_rating_text_view_start_padding">4dp</dimen>
+
+    <!--activity_performer_name_text_view margin dimens-->
+    <dimen name="activity_performer_profile_name_text_view_top_margin">12dp</dimen>
+
+    <!--activity_performer_social_links_container dimens-->
+    <dimen name="activity_performer_profile_social_links_container_top_margin">8dp</dimen>
+    <dimen name="activity_performer_profile_social_links_container_start_margin">16dp</dimen>
+    <dimen name="activity_performer_profile_social_links_container_end_margin">16dp</dimen>
+
+    <!--activity_performer_social_link_items dimens-->
+    <!--margin dimens-->
+    <dimen name="activity_performer_profile_social_links_item_facebook_end_margin">12dp</dimen>
+    <dimen name="activity_performer_profile_social_links_item_instagram_start_margin">12dp</dimen>
+    <!--height dimens-->
+    <dimen name="activity_performer_profile_social_links_item_facebook_height">35dp</dimen>
+    <dimen name="activity_performer_profile_social_links_item_instagram_height">35dp</dimen>
+    <!--padding dimens-->
+    <dimen name="activity_performer_profile_social_links_items_end_padding">8dp</dimen>
+    <dimen name="activity_performer_profile_social_links_items_start_padding">6dp</dimen>
+    <dimen name="activity_performer_profile_social_links_item_facebook_logo_padding">4dp</dimen>
+    <dimen name="activity_performer_profile_social_links_item_instagram_logo_padding">4dp</dimen>
+
+    <!--activity_performer_description_text_view dimens-->
+    <dimen name="activity_performer_profile_description_top_margin">16dp</dimen>
+    <dimen name="activity_performer_profile_description_start_margin">16dp</dimen>
+    <dimen name="activity_performer_profile_description_end_margin">16dp</dimen>
+
+    <!--activity_performer_city group dimens-->
+    <!--city_image dimens-->
+    <dimen name="activity_performer_profile_city_image_start_margin">16dp</dimen>
+    <dimen name="activity_performer_profile_city_image_top_margin">12dp</dimen>
+    <!--city_text_view dimens-->
+    <dimen name="activity_performer_profile_city_text_view_top_margin">12dp</dimen>
+    <dimen name="activity_performer_profile_city_text_view_start_margin">12dp</dimen>
+
+    <!--activity_performer_phone group dimens-->
+    <!--phone_image dimens-->
+    <dimen name="activity_performer_profile_phone_image_top_margin">4dp</dimen>
+    <dimen name="activity_performer_profile_phone_image_start_margin">16dp</dimen>
+    <!--phone_text_view dimens-->
+    <dimen name="activity_performer_profile_phone_text_view_top_margin">8dp</dimen>
+    <dimen name="activity_performer_profile_phone_text_view_start_margin">12dp</dimen>
+
+    <!--activity_main_performer dimens-->
+
+    <!--bottom margin-->
+    <dimen name="activity_main_performer_bottom_margin">16dp</dimen>
+
+    <!--current_hires_banner_card dimens-->
+    <dimen name="activity_main_performer_hires_card_view_elevation">8dp</dimen>
+    <dimen name="activity_main_performer_hires_card_view_bottom_padding">12dp</dimen>
+    <dimen name="activity_main_performer_hires_card_view_top_padding">12dp</dimen>
+
+    <!--activity_main_performer_list_view dimens-->
+    <dimen name="activity_main_performer_list_view_top_margin">8dp</dimen>
+
+    <!--fab dimens-->
+    <dimen name="activity_main_performer_fab_elevation">8dp</dimen>
+    <dimen name="activity_main_performer_hires_fab_end_margin">16dp</dimen>
+    <dimen name="activity_main_performer_hires_fab_bottom_margin">16dp</dimen>
+
+    <!--menu_container dimens-->
+    <dimen name="activity_main_performer_menu_container_top_padding">16dp</dimen>
+    <dimen name="activity_main_performer_menu_container_corner_radius">16dp</dimen>
+    <dimen name="activity_main_performer_menu_container_bottom_padding">16dp</dimen>
+    <dimen name="activity_main_performer_menu_container_top_margin">16dp</dimen>
+    <dimen name="activity_main_performer_menu_container_elevation">8dp</dimen>
+
+    <!--menu_items dimens-->
+    <dimen name="activity_main_performer_menu_item_start_padding">16dp</dimen>
+    <dimen name="activity_main_performer_menu_item_help_top_margin">6dp</dimen>
+    <dimen name="activity_performer_menu_divider_top_margin">6dp</dimen>
+    <dimen name="activity_main_performer_menu_item_profile_top_margin">6dp</dimen>
+    <dimen name="activity_main_performer_menu_item_sign_out_top_margin">6dp</dimen>
+
+    <!--list_item dimens-->
+    <dimen name="amp_list_item_card_elevation">4dp</dimen>
+    <dimen name="amp_list_item_height">75dp</dimen>
+    <dimen name="amp_list_item_image_width">50dp</dimen>
+    <dimen name="amp_list_item_hotel_name_text_view_top_margin">12dp</dimen>
+    <dimen name="amp_list_item_hotel_name_text_view_start_margin">12dp</dimen>
+    <dimen name="amp_list_item_bottom_padding">16dp</dimen>
+    <dimen name="amp_list_item_start_padding">16dp</dimen>
+    <dimen name="amp_list_item_top_padding">16dp</dimen>
+    <dimen name="amp_list_item_image_height">50dp</dimen>
+    <dimen name="activity_performer_profile_credits_image_top_margin">4dp</dimen>
+    <dimen name="activity_performer_profile_credits_image_start_margin">16dp</dimen>
+    <dimen name="activity_performer_profile_credits_text_view_start_margin">12dp</dimen>
+    <dimen name="activity_performer_profile_credits_text_view_top_margin">8dp</dimen>
+    <dimen name="payment_dialog_informatory_text_view_start_margin">16dp</dimen>
+    <dimen name="payment_dialog_informatory_text_view_top_margin">16dp</dimen>
+    <dimen name="payment_dialog_informatory_text_view_end_margin">16dp</dimen>
+    <dimen name="payment_dialog_credits_buy_container_top_margin">16dp</dimen>
+    <dimen name="payment_dialog_credits_buy_container_start_margin">12dp</dimen>
+    <dimen name="payment_dialog_credits_buy_container_end_margin">12dp</dimen>
+
 
 </resources>
