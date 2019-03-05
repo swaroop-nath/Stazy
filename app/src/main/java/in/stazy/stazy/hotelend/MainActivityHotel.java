@@ -101,20 +101,7 @@ public class MainActivityHotel extends AppCompatActivity {
         PrevPerformersAdapter<ComedianData> comedianAdapter = new PrevPerformersAdapter<>(comedians, context, TYPE_VALUE_COMEDIANS);
         prevComedians.setAdapter(comedianAdapter);
 
-        Manager.CITY_VALUE = "prayagraj";
-        /*
-        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-        DocumentReference documentReference = firebaseFirestore.collection("Mapper").document(FirebaseAuth.getInstance().getUid());
-        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot documentSnapshot = task.getResult();
-                Manager.CITY_VALUE = documentSnapshot.get("city").toString();
-                TODO: Write code here to download data about prev_performers
-            }
-        });
-        */
-
+        //TODO: Write Code to download Data here
     }
 
     private ArrayList<ComedianData> generateRuseComedians() {

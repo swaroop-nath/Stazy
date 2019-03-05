@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.util.Map;
+
 import in.stazy.stazy.datamanagercrossend.Manager;
 import in.stazy.stazy.datamanagerhotel.DataManager;
 
@@ -18,7 +20,7 @@ public class PerformerData implements DataManager {
     private String genre;
     private String lastRating;
     private String price;
-    private String uid;
+    private String pic_name;
     private String token;
     private String facebook;
     private String instagram;
@@ -39,12 +41,35 @@ public class PerformerData implements DataManager {
         performerData.setGenre(PerformerManager.GENRE_VALUE);
         performerData.setLastRating(documentSnapshot.get("last_rating").toString());
         performerData.setPrice(documentSnapshot.get("price").toString());
-        performerData.setUID(documentSnapshot.get("uid").toString());
+        performerData.setPicName(documentSnapshot.get("pic_name").toString());
         performerData.setToken(documentSnapshot.get("token").toString());
         performerData.setFacebook(documentSnapshot.get("facebook").toString());
         performerData.setInstagram(documentSnapshot.get("instagram").toString());
         performerData.setPrevPerformances(documentSnapshot.get("prev_performances").toString());
         performerData.setCredits(documentSnapshot.get("credits").toString());
+
+        return performerData;
+    }
+
+    public static PerformerData setDataOnSignUp(Map<String, String> data) {
+        PerformerData performerData = new PerformerData();
+
+        performerData.setName(data.get("name"));
+        performerData.setPhoneNumber(data.get("phone_number"));
+        performerData.setDescription(data.get("description"));
+        performerData.setLocation(data.get("location"));
+        performerData.setLastPerformed(data.get("last_performed"));
+        performerData.setRating(data.get("rating"));
+        performerData.setCity(Manager.CITY_VALUE);
+        performerData.setGenre(PerformerManager.GENRE_VALUE);
+        performerData.setLastRating(data.get("last_rating"));
+        performerData.setPrice(data.get("price"));
+        performerData.setPicName(data.get("pic_name"));
+        performerData.setToken(data.get("token"));
+        performerData.setFacebook(data.get("facebook"));
+        performerData.setInstagram(data.get("instagram"));
+        performerData.setPrevPerformances(data.get("prev_performances"));
+        performerData.setCredits(data.get("credits"));
 
         return performerData;
     }
@@ -167,12 +192,14 @@ public class PerformerData implements DataManager {
         this.price = price;
     }
 
-    public String getUID() {
-        return uid;
+    @Override
+    public String getPicName() {
+        return pic_name;
     }
 
-    public void setUID(String uid) {
-        this.uid = uid;
+    @Override
+    public void setPicName(String uid) {
+        this.pic_name = uid;
     }
 
     @Override

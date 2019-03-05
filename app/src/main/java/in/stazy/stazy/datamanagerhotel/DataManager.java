@@ -54,9 +54,9 @@ public interface DataManager extends Serializable {
 
     void setPrice(String price);
 
-    String getUID();
+    String getPicName();
 
-    void setUID(String uid);
+    void setPicName(String picName);
 
     String getToken(); //Unnecessary for this version
 

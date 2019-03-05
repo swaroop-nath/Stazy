@@ -17,14 +17,15 @@
         <activity android:name=".performerend.MainActivityPerformer" />
         <activity android:name=".performerend.Hotel" />
         <activity android:name=".performerend.PerformerProfile">
+        </activity>
+        <activity android:name=".authflow.SignInActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".authflow.SignInActivity" />
-        <activity android:name=".authflow.SignUpActivity"></activity>
+        <activity android:name=".authflow.SignUpActivity"/>
     </application>
 
 </manifest>

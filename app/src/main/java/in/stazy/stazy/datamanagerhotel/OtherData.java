@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OtherData implements DataManager{
-    private String name, phoneNumber, description, location, lastPerformed, rating, city, genre, lastRating, price, uid, token, facebook, instagram;
+    private String name, phoneNumber, description, location, lastPerformed, rating, city, genre, lastRating, price, pic_name, token, facebook, instagram;
     private Bitmap profilePictureLow;
     private Bitmap profilePictureHigh = null;
 
@@ -26,7 +26,7 @@ public class OtherData implements DataManager{
             otherData.setGenre(genre);
             otherData.setLastRating(docSnap.get("last_rating").toString());
             otherData.setPrice(docSnap.get("price").toString());
-            otherData.setUID(docSnap.get("uid").toString());
+            otherData.setPicName(docSnap.get("pic_name").toString());
             otherData.setToken(docSnap.get("token").toString());
             otherData.setFacebook(docSnap.get("facebook").toString());
             otherData.setInstagram(docSnap.get("instagram").toString());
@@ -158,13 +158,13 @@ public class OtherData implements DataManager{
     }
 
     @Override
-    public String getUID() {
-        return uid;
+    public String getPicName() {
+        return pic_name;
     }
 
     @Override
-    public void setUID(String uid) {
-        this.uid = uid;
+    public void setPicName(String picName) {
+        this.pic_name = picName;
     }
 
     @Override

@@ -142,6 +142,7 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
         QuerySnapshot querySnapshot = task.getResult();
         for (DocumentSnapshot documentSnapshot : querySnapshot) {
             if (contains(documentSnapshot.get("uid").toString())) {
+                //TODO: Add one more field to performer and hotel data - uid.
                 PerformerManager.PREV_HOTELS.add(HotelData.setData(documentSnapshot));
                 adapter.notifyDataSetChanged();
             }

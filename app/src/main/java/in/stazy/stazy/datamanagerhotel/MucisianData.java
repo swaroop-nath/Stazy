@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MucisianData implements DataManager {
-    private String name, phoneNumber, description, location, lastPerformed, rating, city, genre, lastRating, price, uid, token, facebook, instagram;
+    private String name, phoneNumber, description, location, lastPerformed, rating, city, genre, lastRating, price, pic_name, token, facebook, instagram;
     private Bitmap profilePictureLow = null;
     private Bitmap profilePictureHigh = null;
 
@@ -27,7 +27,7 @@ public class MucisianData implements DataManager {
             mucisianData.setGenre(genre);
             mucisianData.setLastRating(docSnap.get("last_rating").toString());
             mucisianData.setPrice(docSnap.get("price").toString());
-            mucisianData.setUID(docSnap.get("uid").toString());
+            mucisianData.setPicName(docSnap.get("pic_name").toString());
             mucisianData.setToken(docSnap.get("token").toString());
             mucisianData.setFacebook(docSnap.get("facebook").toString());
             mucisianData.setInstagram(docSnap.get("instagram").toString());
@@ -159,13 +159,13 @@ public class MucisianData implements DataManager {
     }
 
     @Override
-    public String getUID() {
-        return uid;
+    public String getPicName() {
+        return pic_name;
     }
 
     @Override
-    public void setUID(String uid) {
-        this.uid = uid;
+    public void setPicName(String picName) {
+        this.pic_name = picName;
     }
 
     @Override

@@ -89,7 +89,37 @@
     <string name="PAYMENT_ID">9455687935@ybl</string>
     <string name="payment_dialog_informatory_text_view_text">Lorem Ipsum Dolor SIt Amer</string>
     <string name="payment_dialog_credits_text_view_text">Credits:</string>
-    <string name="payment_dialog_input_credits_hint">credits . . .</string>
+    <string name="payment_dialog_input_credits_hint">CREDITS . . .</string>
+    <string name="sign_in_activity_welcome_text_view_text">Welcome</string>
+    <string name="sign_in_activity_phone_number_hint">Phone Number</string>
+    <string name="sign_in_activity_password_hint">OTP . . .</string>
+    <string name="sign_in_activity_log_in_button_introduction_text">Enter the world of joy with food. . .</string>
+    <string name="sign_in_activity_log_in_button_text">SIGN IN</string>
+    <string name="sign_in_activity_sign_up_button_text">OR SIGN UP</string>
+    <string name="sign_in_activity_forgot_password_button_text">Forgot Password ?</string>
+    <string name="sign_up_activity_hotel_button_text">An Event Organizer</string>
+    <string name="sign_up_activity_performer_button_text">A Dedicated Performer</string>
+    <string name="sign_up_activity_introduction_text_view_text">Let\'s get you started up. Please provide us with the following details to get you on-board quickly</string>
+    <string name="sign_up_activity_name_input_hint">Name</string>
+    <string name="sign_up_activity_phone_number_input_text">Phone Number</string>
+    <string name="activity_sign_up_description_input_hint">A Short Description . . .</string>
+    <string name="sign_up_activity_hotel_city_input_text">Nearest City</string>
+    <string name="activity_sign_up_hotel_button_text">Sign Me Up</string>
+    <string name="activity_sign_up_performer_facebook_link_input_hint">Facebook Profile Link</string>
+    <string name="activity_sign_up_performer_instagram_link_input_hint">Instagram Profile Link</string>
+    <string name="activity_sign_up_performer_type_layout_prompt">Your Genre</string>
+    <string name="activity_sign_up_performer_genre_layout_prompt">Category</string>
+    <string name="activity_sign_up_performer_price_input_hint">Your Initial Price (Hourly) . . .</string>
+    <string name="sign_up_activity_initial_introduction_text_view_text">Hi, You are . . .</string>
+    <string name="otp_fragment_text_view_text">Please enter the received OTP</string>
+    <string name="otp_fragment_input_hint">OTP . . .</string>
+    <string name="sign_in_activity_get_otp_button_text">GET OTP</string>
+
+
+    <string-array name="available_cities_sign_up_spinner_entries">
+        <item>Prayagraj</item>
+        <item>New Delhi</item>
+    </string-array>
 
 
 </resources>

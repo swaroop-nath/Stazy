@@ -37,7 +37,7 @@ public class Manager {
     public static HotelData HOTEL_DATA = null;
 
 
-    public static String CITY_VALUE = "prayagraj"; //TODO: Set this value in authflow
+    public static String CITY_VALUE;
 
 
     public static final int PAYMENT_ID = R.string.PAYMENT_ID;

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ComedianData implements DataManager {
-    private String name, phoneNumber, description, location, lastPerformed, rating, city, genre, lastRating, price, uid, token, facebook, instagram;
+    private String name, phoneNumber, description, location, lastPerformed, rating, city, genre, lastRating, price, pic_name, token, facebook, instagram;
     private Bitmap profilePictureLow;
     private Bitmap profilePictureHigh = null;
 
@@ -26,7 +26,7 @@ public class ComedianData implements DataManager {
             comedianData.setGenre(genre);
             comedianData.setLastRating(docSnap.get("last_rating").toString());
             comedianData.setPrice(docSnap.get("price").toString());
-            comedianData.setUID(docSnap.get("uid").toString());
+            comedianData.setPicName(docSnap.get("pic_name").toString());
             comedianData.setToken(docSnap.get("token").toString());
             comedianData.setFacebook(docSnap.get("facebook").toString());
             comedianData.setInstagram(docSnap.get("instagram").toString());
@@ -158,13 +158,13 @@ public class ComedianData implements DataManager {
     }
 
     @Override
-    public String getUID() {
-        return uid;
+    public String getPicName() {
+        return pic_name;
     }
 
     @Override
-    public void setUID(String uid) {
-        this.uid = uid;
+    public void setPicName(String picName) {
+        this.pic_name = picName;
     }
 
     @Override

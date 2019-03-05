@@ -7,10 +7,10 @@ import in.stazy.stazy.datamanagercrossend.HotelData;
 public class PerformerManager {
 
     //This stores the type of the currently logged in Performer
-    public static final String TYPE_VALUE = null;
+    public static String TYPE_VALUE = null;
 
     //This stores the genre of the currently logged in Performer
-    public static final String GENRE_VALUE = null;
+    public static String GENRE_VALUE = null;
 
     //This stores the performer object
     public static PerformerData PERFORMER = null;

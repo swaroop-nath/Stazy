@@ -76,7 +76,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
     private void setContentsOfViews() {
         if (receivedPerformer.getProfilePictureHigh() == null) {
             profilePicture.setImageBitmap(receivedPerformer.getProfilePictureLow());
-            downloadHighResProfilePicture(receivedPerformer.getUID());
+//            downloadHighResProfilePicture(receivedPerformer.getUID());
         } else
             profilePicture.setImageBitmap(receivedPerformer.getProfilePictureHigh());
         ratingTextView.setText(receivedPerformer.getRating());

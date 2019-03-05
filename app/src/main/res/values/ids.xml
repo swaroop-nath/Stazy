@@ -227,4 +227,141 @@
         payment_dialog_informatory_text_view
     </item>
     <item name="payment_dialog_input_credits" type="id">payment_dialog_input_credits</item>
+    <item name="sign_in_activity_welcome_text_view" type="id">sign_in_activity_welcome_text_view
+    </item>
+    <item name="sign_in_activity_credential_container" type="id">
+        sign_in_activity_credential_container
+    </item>
+    <item name="sign_in_activity_phone_number" type="id">sign_in_activity_phone_number</item>
+    <item name="sign_in_activity_password" type="id">sign_in_activity_password</item>
+    <item name="sign_in_activity_log_in_button_introduction" type="id" >sign_in_activity_log_in_button_introduction</item>
+    <item name="sign_in_activity_log_in_button" type="id">sign_in_activity_log_in_button</item>
+    <item name="sign_in_activity_sign_up_button" type="id">sign_in_activity_sign_up_button</item>
+    <item name="sign_in_activity_divider" type="id">sign_in_activity_divider</item>
+    <item name="sign_in_activity_forgot_password_button" type="id">
+        sign_in_activity_forgot_password_button
+    </item>
+    <item name="sign_up_activity_hotel_button" type="id">sign_up_activity_hotel_button</item>
+    <item name="sign_up_activity_path_chooser_container" type="id">
+        sign_up_activity_path_chooser_container
+    </item>
+    <item name="sign_up_activity_path_chooser_container_bg" type="id">
+        sign_up_activity_path_chooser_container_bg
+    </item>
+    <item name="sign_up_activity_performer_button" type="id">sign_up_activity_performer_button
+    </item>
+    <item name="sign_up_activity_hotel_layout" type="id">sign_up_activity_hotel_layout</item>
+    <item name="sign_up_activity_performer_layout" type="id">sign_up_activity_performer_layout
+    </item>
+    <item name="sign_up_activity_hotel_introduction_text_view" type="id">
+        sign_up_activity_hotel_introduction_text_view
+    </item>
+    <item name="sign_up_activity_performer_introduction_text_view" type="id">
+        sign_up_activity_performer_introduction_text_view
+    </item>
+    <item name="sign_up_activity_hotel_name_layout" type="id">sign_up_activity_hotel_name_layout
+    </item>
+    <item name="sign_up_activity_hotel_name_input" type="id">sign_up_activity_hotel_name_input
+    </item>
+    <item name="sign_up_activity_performer_name_layout" type="id">
+        sign_up_activity_performer_name_layout
+    </item>
+    <item name="sign_up_activity_performer_name_input" type="id">
+        sign_up_activity_performer_name_input
+    </item>
+    <item name="sign_up_activity_hotel_phone_number_layout" type="id">
+        sign_up_activity_hotel_phone_number_layout
+    </item>
+    <item name="sign_up_activity_hotel_phone_number_input" type="id">
+        sign_up_activity_hotel_phone_number_input
+    </item>
+    <item name="sign_up_activity_hotel_phone_number_container" type="id">
+        sign_up_activity_hotel_phone_number_container
+    </item>
+    <item name="sign_up_activity_hotel_phone_number_prefix" type="id">
+        sign_up_activity_hotel_phone_number_prefix
+    </item>
+    <item name="sign_up_activity_performer_phone_number_container" type="id">
+        sign_up_activity_performer_phone_number_container
+    </item>
+    <item name="sign_up_activity_performer_phone_number_prefix" type="id">
+        sign_up_activity_performer_phone_number_prefix
+    </item>
+    <item name="sign_up_activity_performer_phone_number_input" type="id">
+        sign_up_activity_performer_phone_number_input
+    </item>
+    <item name="activity_sign_up_hotel_description_layout" type="id">
+        activity_sign_up_hotel_description_layout
+    </item>
+    <item name="activity_sign_up_hotel_description_input" type="id">
+        activity_sign_up_hotel_description_input
+    </item>
+    <item name="sign_up_activity_hotel_city_layout" type="id">sign_up_activity_hotel_city_layout
+    </item>
+    <item name="sign_up_activity_hotel_city_input" type="id">sign_up_activity_hotel_city_input
+    </item>
+    <item name="activity_sign_up_performer_description_layout" type="id">
+        activity_sign_up_performer_description_layout
+    </item>
+    <item name="sign_up_activity_performer_city_layout" type="id">
+        sign_up_activity_performer_city_layout
+    </item>
+    <item name="sign_up_activity_performer_city_input" type="id">
+        sign_up_activity_performer_city_input
+    </item>
+    <item name="activity_sign_up_hotel_upload_image_layout" type="id">
+        activity_sign_up_hotel_upload_image_layout
+    </item>
+    <item name="activity_sign_up_hotel_upload_image_input" type="id">
+        activity_sign_up_hotel_upload_image_input
+    </item>
+    <item name="activity_sign_up_performer_upload_image_layout" type="id">
+        activity_sign_up_performer_upload_image_layout
+    </item>
+    <item name="activity_sign_up_performer_upload_image_input" type="id">
+        activity_sign_up_performer_upload_image_input
+    </item>
+    <item name="activity_sign_up_hotel_button" type="id">activity_sign_up_hotel_button</item>
+    <item name="activity_sign_up_performer_facebook_link_layout" type="id">
+        activity_sign_up_performer_facebook_link_layout
+    </item>
+    <item name="activity_sign_up_performer_facebook_link_input" type="id">
+        activity_sign_up_performer_facebook_link_input
+    </item>
+    <item name="activity_sign_up_performer_instagram_link_layout" type="id">
+        activity_sign_up_performer_instagram_link_layout
+    </item>
+    <item name="activity_sign_up_performer_instagram_link_input" type="id">
+        activity_sign_up_performer_instagram_link_input
+    </item>
+    <item name="activity_sign_up_performer_type_layout" type="id">
+        activity_sign_up_performer_type_layout
+    </item>
+    <item name="activity_sign_up_performer_type_input" type="id">
+        activity_sign_up_performer_type_input
+    </item>
+    <item name="activity_sign_up_performer_genre_layout" type="id">
+        activity_sign_up_performer_genre_layout
+    </item>
+    <item name="activity_sign_up_performer_price_layout" type="id">
+        activity_sign_up_performer_price_layout
+    </item>
+    <item name="activity_sign_up_performer_price_input" type="id">
+        activity_sign_up_performer_price_input
+    </item>
+    <item name="activity_sign_up_performer_button" type="id">activity_sign_up_performer_button
+    </item>
+    <item name="sign_up_activity_inital_introduction_text_view" type="id">
+        sign_up_activity_introduction_text_view
+    </item>
+    <item name="sign_up_activity_parent" type="id">sign_up_activity_parent</item>
+    <item name="otp_fragment_text_view" type="id">otp_fragment_text_view</item>
+    <item name="otp_fragment_input" type="id">otp_fragment_input</item>
+    <item name="activity_sign_up_performer_genre_input" type="id">
+        activity_sign_up_performer_genre_input
+    </item>
+    <item name="activity_sign_up_performer_description_input" type="id" >activity_sign_up_performer_description_input</item>
+    <item name="activity_sign_in_parent" type="id">activity_sign_in_parent</item>
+    <item name="sign_in_activity_get_otp_button" type="id">sign_in_activity_get_otp_button</item>
+    <item name="activity_sign_in_phone_prefix" type="id">activity_sign_in_phone_prefix</item>
 </resources>
