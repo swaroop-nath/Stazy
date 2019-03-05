@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MucisianData implements DataManager {
-    private String name, phoneNumber, description, location, lastPerformed, rating, city, genre, lastRating, price, pic_name, token, facebook, instagram;
+    private String name, phoneNumber, description, location, lastPerformed, rating, city, genre, lastRating, price, pic_name, token, facebook, instagram, uid;
     private Bitmap profilePictureLow = null;
     private Bitmap profilePictureHigh = null;
 
@@ -31,6 +31,7 @@ public class MucisianData implements DataManager {
             mucisianData.setToken(docSnap.get("token").toString());
             mucisianData.setFacebook(docSnap.get("facebook").toString());
             mucisianData.setInstagram(docSnap.get("instagram").toString());
+            mucisianData.setUID(docSnap.get("uid").toString());
 
             //TODO: Write code to download low res profile picture
             mucisians.add(mucisianData);
@@ -196,5 +197,15 @@ public class MucisianData implements DataManager {
     @Override
     public void setInstagram(String instagram) {
         this.instagram = instagram;
+    }
+
+    @Override
+    public String getUID() {
+        return uid;
+    }
+
+    @Override
+    public void setUID(String uid) {
+        this.uid = uid;
     }
 }

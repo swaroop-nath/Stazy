@@ -1,11 +1,19 @@
 package in.stazy.stazy.performerend;
 
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,7 +44,7 @@ public class PerformerProfile extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_performer_profile);
         ButterKnife.bind(this);
-        //setContentsOfViews();
+        setContentsOfViews();
 
         buyCreditsButton.setOnClickListener(this);
 
@@ -54,11 +62,22 @@ public class PerformerProfile extends AppCompatActivity implements View.OnClickL
         descriptionTextView.setText("        Description: " + PerformerManager.PERFORMER.getDescription());
         creditsTextView.setText("Credits: " + PerformerManager.PERFORMER.getCredits());
 
-        downloadProfilePicture();
+        if (PerformerManager.PERFORMER.getProfilePictureHigh() == null)
+            downloadProfilePicture();
+        else
+            profilePicture.setImageBitmap(PerformerManager.PERFORMER.getProfilePictureHigh());
     }
 
     private void downloadProfilePicture() {
-        //TODO: Write code to download profile picture
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference imageReference = storage.getReference().child(FirebaseAuth.getInstance().getUid()+"/"+PerformerManager.PERFORMER.getPicName());
+        Glide.with(this).asBitmap().load(imageReference).into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                PerformerManager.PERFORMER.setProfilePictureHigh(resource);
+                profilePicture.setImageBitmap(resource);
+            }
+        });
     }
 
     private String getCleanedUpLink(String socialMediaLink) {

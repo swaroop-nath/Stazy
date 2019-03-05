@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HotelData implements Serializable{
-    private String name, phoneNumber, description, location, city, pic_name, token;
+    private String name, phoneNumber, description, location, city, pic_name, token, uid;
     private Bitmap profilePictureHigh = null;
 
     public static HotelData setData(DocumentSnapshot documentSnapshot) {
@@ -21,6 +21,7 @@ public class HotelData implements Serializable{
         data.setCity(Manager.CITY_VALUE);
         data.setPicName(documentSnapshot.get("pic_name").toString());
         data.setToken(documentSnapshot.get("token").toString());  //Unnecessary for this version
+        data.setUID(documentSnapshot.get("uid").toString());
 
         return data;
     }
@@ -100,5 +101,13 @@ public class HotelData implements Serializable{
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getUID() {
+        return uid;
+    }
+
+    public void setUID(String uid) {
+        this.uid = uid;
     }
 }

@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
@@ -71,18 +72,31 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
         SCREEN_HEIGHT = getScreenHeight();
         locationOnRemove = SCREEN_HEIGHT;
         MENU_CONTAINER_UNDER_CUT = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, getResources().getDisplayMetrics());
+        Log.e("MAIN_ACTIVITY_PERFORMER", PerformerManager.PERFORMER + "");
+        if (PerformerManager.PERFORMER == null) {
+            DocumentReference mapperReference = firebaseFirestore.collection("Mapper").document(FirebaseAuth.getInstance().getUid());
+            mapperReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    Log.e("MAIN_ACTIVITY_PERFORMER", "Mapper Downloaded");
 
-        DocumentReference documentReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE)
-                                                .collection("type").document(PerformerManager.TYPE_VALUE)
-                                                .collection(PerformerManager.GENRE_VALUE).document(FirebaseAuth.getInstance().getUid());
-        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                PerformerManager.PERFORMER = PerformerData.setData(task.getResult());
+                    DocumentReference documentReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE)
+                                .collection("type").document(PerformerManager.TYPE_VALUE)
+                                .collection(PerformerManager.GENRE_VALUE).document(FirebaseAuth.getInstance().getUid());
+                    documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            Log.e("MAIN_ACTIVITY_PERFORMER", "Performer Downloaded");
 
-                getDataForListView();
-            }
-        });
+                            PerformerManager.PERFORMER = PerformerData.setData(task.getResult());
+                            getDataForListView();
+                        }
+                    });
+                }
+            });
+        } else {
+            getDataForListView();
+        }
 
        adapter = new PerformerAdapter(context, 0, PerformerManager.PREV_HOTELS);
        hiresList.setAdapter(adapter);
@@ -142,7 +156,6 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
         QuerySnapshot querySnapshot = task.getResult();
         for (DocumentSnapshot documentSnapshot : querySnapshot) {
             if (contains(documentSnapshot.get("uid").toString())) {
-                //TODO: Add one more field to performer and hotel data - uid.
                 PerformerManager.PREV_HOTELS.add(HotelData.setData(documentSnapshot));
                 adapter.notifyDataSetChanged();
             }
@@ -166,7 +179,7 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this, Hotel.class);
-        intent.putExtra(INTENT_HOTEL_OBJECT_KEY, PerformerManager.PREV_HOTELS.get(position));
+        intent.putExtra(INTENT_HOTEL_OBJECT_KEY, position);
         startActivity(intent);
     }
 }

@@ -69,4 +69,8 @@ public interface DataManager extends Serializable {
     String getInstagram();
 
     void setInstagram(String instagram);
+
+    String getUID();
+
+    void setUID(String uid);
 }

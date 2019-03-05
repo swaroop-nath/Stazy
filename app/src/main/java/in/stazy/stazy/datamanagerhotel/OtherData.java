@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OtherData implements DataManager{
-    private String name, phoneNumber, description, location, lastPerformed, rating, city, genre, lastRating, price, pic_name, token, facebook, instagram;
+    private String name, phoneNumber, description, location, lastPerformed, rating, city, genre, lastRating, price, pic_name, token, facebook, instagram, uid;
     private Bitmap profilePictureLow;
     private Bitmap profilePictureHigh = null;
 
@@ -30,6 +30,7 @@ public class OtherData implements DataManager{
             otherData.setToken(docSnap.get("token").toString());
             otherData.setFacebook(docSnap.get("facebook").toString());
             otherData.setInstagram(docSnap.get("instagram").toString());
+            otherData.setUID(docSnap.get("uid").toString());
 
             //TODO: Write code to download low res profile picture
             others.add(otherData);
@@ -195,5 +196,15 @@ public class OtherData implements DataManager{
     @Override
     public void setInstagram(String instagram) {
         this.instagram = instagram;
+    }
+
+    @Override
+    public String getUID() {
+        return uid;
+    }
+
+    @Override
+    public void setUID(String uid) {
+        this.uid = uid;
     }
 }

@@ -26,6 +26,7 @@ public class PerformerData implements DataManager {
     private String instagram;
     private String[] prevPerformances;
     private String credits;
+    private String uid;
     private Bitmap profilePictureHigh = null;
 
     public static PerformerData setData(DocumentSnapshot documentSnapshot) {
@@ -47,6 +48,7 @@ public class PerformerData implements DataManager {
         performerData.setInstagram(documentSnapshot.get("instagram").toString());
         performerData.setPrevPerformances(documentSnapshot.get("prev_performances").toString());
         performerData.setCredits(documentSnapshot.get("credits").toString());
+        performerData.setUID(documentSnapshot.get("uid").toString());
 
         return performerData;
     }
@@ -252,6 +254,16 @@ public class PerformerData implements DataManager {
     @Override
     public void setProfilePictureHigh(Bitmap profilePictureHigh) {
         this.profilePictureHigh = profilePictureHigh;
+    }
+
+    @Override
+    public String getUID() {
+        return uid;
+    }
+
+    @Override
+    public void setUID(String uid) {
+        this.uid = uid;
     }
 
 }

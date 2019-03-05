@@ -34,11 +34,12 @@ public class PerformerAdapter extends ArrayAdapter<HotelData> {
         if (view == convertView) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(resource, parent, false);
-            HotelViewHolder holder = new HotelViewHolder(view);
+            HotelViewHolder holder = new HotelViewHolder(view, context);
+            holder.setContents(prevPerformances.get(position), position);
             view.setTag(holder);
         } else {
             HotelViewHolder holder = (HotelViewHolder) view.getTag();
-            holder.setContents(prevPerformances.get(position));
+            holder.setContents(prevPerformances.get(position), position);
         }
         return view;
     }

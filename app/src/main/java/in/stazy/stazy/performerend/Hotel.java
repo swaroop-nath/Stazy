@@ -7,8 +7,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import in.stazy.stazy.R;
 import in.stazy.stazy.datamanagercrossend.HotelData;
+import in.stazy.stazy.datamanagerperformer.PerformerManager;
 
 public class Hotel extends AppCompatActivity {
 
@@ -19,24 +21,24 @@ public class Hotel extends AppCompatActivity {
     @BindView(R.id.activity_hotel_hotel_description) TextView hotelDescriptionTextView;
 
     //Activity Specific References
-    private HotelData receivedHotel;
+    private int receivedPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel);
+        ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        receivedHotel = (HotelData) intent.getSerializableExtra(MainActivityPerformer.INTENT_HOTEL_OBJECT_KEY);
+        receivedPosition = intent.getIntExtra(MainActivityPerformer.INTENT_HOTEL_OBJECT_KEY, 0);
         setContentsOfViews();
 
     }
 
     private void setContentsOfViews() {
-        //TODO: Write Code to download Image and set it to the profilePicture
-
-        hotelNameTextView.setText(receivedHotel.getName());
-        hotelCityTextView.setText(receivedHotel.getCity());
-        hotelDescriptionTextView.setText(receivedHotel.getDescription());
+        profilePicture.setImageBitmap(PerformerManager.PREV_HOTELS.get(receivedPosition).getProfilePictureHigh());
+        hotelNameTextView.setText(PerformerManager.PREV_HOTELS.get(receivedPosition).getName());
+        hotelCityTextView.setText(PerformerManager.PREV_HOTELS.get(receivedPosition).getCity());
+        hotelDescriptionTextView.setText(PerformerManager.PREV_HOTELS.get(receivedPosition).getDescription());
     }
 }
