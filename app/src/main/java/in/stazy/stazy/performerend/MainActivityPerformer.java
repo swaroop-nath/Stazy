@@ -27,6 +27,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.stazy.stazy.R;
@@ -66,6 +69,9 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_main_performer);
         ButterKnife.bind(this);
         context = getApplicationContext();
+
+        if (Manager.NEW_TOKEN_RECEIVED == 1)
+            sendTokenToServer(Manager.FCM_TOKEN);
 
         menuFab.setOnClickListener(this);
 
@@ -181,5 +187,23 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
         Intent intent = new Intent(this, Hotel.class);
         intent.putExtra(INTENT_HOTEL_OBJECT_KEY, position);
         startActivity(intent);
+    }
+
+    private void sendTokenToServer(String fcmToken) {
+        Map<String, Object> tokenMap = new HashMap<>();
+        tokenMap.put("token", fcmToken);
+        //Performer Logged in
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        DocumentReference documentReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE)
+                    .collection("type").document(PerformerManager.TYPE_VALUE).collection(PerformerManager.GENRE_VALUE).document(FirebaseAuth.getInstance().getUid());
+        documentReference.update(tokenMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful())
+                    Log.e("TOKEN ADDITION","TOKEN added to server");
+                else
+                    Log.e("TOKEN ADDITION", task.getException().getMessage());
+            }
+        });
     }
 }

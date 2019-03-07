@@ -16,16 +16,25 @@
         <activity android:name=".hotelend.HotelProfile" />
         <activity android:name=".performerend.MainActivityPerformer" />
         <activity android:name=".performerend.Hotel" />
-        <activity android:name=".performerend.PerformerProfile">
-        </activity>
-        <activity android:name=".authflow.SignInActivity" >
+        <activity android:name=".performerend.PerformerProfile"/>
+        <activity android:name=".authflow.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".authflow.SignUpActivity"/>
+        <activity android:name=".authflow.SignUpActivity" />
+
+        <service
+            android:name=".authflow.MessageService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
     </application>
 
 </manifest>

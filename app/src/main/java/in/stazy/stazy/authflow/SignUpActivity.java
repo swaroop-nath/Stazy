@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
@@ -31,16 +29,14 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.stazy.stazy.R;
-import in.stazy.stazy.datamanagercrossend.Manager;
 import in.stazy.stazy.datamanagerperformer.PerformerManager;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener, OTPFragment.OTPCommunication, AdapterView.OnItemSelectedListener {
@@ -90,6 +86,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private Uri selectedImage;
     private String picName;
     private ArrayAdapter<String> mucisiansAdapter, comediansAdapter, othersAdapter;
+    static WaitFragment otpWaitFragmentHotel = null;
+    private WaitFragment signUpWaitFragmentHotel = null;
+    static WaitFragment otpWaitFragmentPerformer = null;
+    private WaitFragment signUpWaitFragmentPerformer = null;
+    static WaitFragment automaticVerification = null;
 
     //Constant Fields
     private static final int GET_FROM_GALLERY = 1;
@@ -120,9 +121,17 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                 //This is login credential, send this to SignInActivity and login
                 Log.e("Callback", "onVerificationCompleted called");
+                if (signUpWaitFragmentHotel != null) {
+                    signUpWaitFragmentHotel.dismiss();
+                    signUpWaitFragmentHotel = null;
+                }
+                if (signUpWaitFragmentPerformer != null) {
+                    signUpWaitFragmentPerformer.dismiss();
+                    signUpWaitFragmentPerformer = null;
+                }
+                automaticVerification = showWaitFragment("Conducting Automatic Verfication . . .", "automatic_verification");
                 mCredential = phoneAuthCredential;
 
-                //TODO: Show some progress dialogs.
                 if (fragment != null)
                     fragment.dismiss();
                 if (INITIAL_SELECTION == HOTEL)
@@ -136,11 +145,35 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             public void onVerificationFailed(FirebaseException e) {
                 // This callback is invoked in an invalid request for verification is made,
                 // for instance if the the phone number format is not valid.
+
+                if (signUpWaitFragmentHotel != null) {
+                    signUpWaitFragmentHotel.dismiss();
+                    signUpWaitFragmentHotel = null;
+                }
+                if (signUpWaitFragmentPerformer != null) {
+                    signUpWaitFragmentPerformer.dismiss();
+                    signUpWaitFragmentPerformer = null;
+                }
+                if (automaticVerification != null) {
+                    automaticVerification.dismiss();
+                    automaticVerification = null;
+                }
+                if (otpWaitFragmentHotel != null) {
+                    otpWaitFragmentHotel.dismiss();
+                    otpWaitFragmentHotel = null;
+                }
+                if (otpWaitFragmentPerformer != null) {
+                    otpWaitFragmentPerformer.dismiss();
+                    otpWaitFragmentPerformer = null;
+                }
+
                 Log.e("Callback", "onVerificationFailed called");
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
                     Snackbar.make(parent, "Please Enter a Valid Phone Number", Snackbar.LENGTH_LONG).show();
                 } else if (e instanceof FirebaseTooManyRequestsException) {
                     Snackbar.make(parent, "Server Error, Try Again later", Snackbar.LENGTH_LONG).show();
+                } else {
+                    Snackbar.make(parent, "Please Try Again Later", Snackbar.LENGTH_LONG).show();
                 }
 
             }
@@ -152,6 +185,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 // by combining the code with a verification ID.
                 mVerificationId = verificationId;
                 Log.e("Callback", "onCodeSent called");
+
+                if (signUpWaitFragmentHotel != null) {
+                    signUpWaitFragmentHotel.dismiss();
+                    signUpWaitFragmentHotel = null;
+                }
+                if (signUpWaitFragmentPerformer != null) {
+                    signUpWaitFragmentPerformer.dismiss();
+                    signUpWaitFragmentPerformer = null;
+                }
+
                 fragment = new OTPFragment();
                 fragment.attachCommunicationListener(SignUpActivity.this);
                 fragment.show(getSupportFragmentManager(), "otp_fragment");
@@ -170,6 +213,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
 
     }
+
 
     public void uploadImage(View view) {
         startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
@@ -214,13 +258,22 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.activity_sign_up_hotel_button:
                 //Hotel Sign Up clicked
+                signUpWaitFragmentHotel = showWaitFragment("Signing you up. . . .", "sign_up_wait_fragment_hotel");
                 signHotelUp();
                 break;
             case R.id.activity_sign_up_performer_button:
                 //Performer Sign Up clicked
+                signUpWaitFragmentPerformer = showWaitFragment("Signing you up. . . .", "sign_up_wait_fragment_hotel");
                 signPerformerUp();
                 break;
         }
+    }
+
+    private WaitFragment showWaitFragment(String s, String tag) {
+        WaitFragment waitFragment = new WaitFragment();
+        waitFragment.setData(s);
+        waitFragment.show(getSupportFragmentManager(), tag);
+        return waitFragment;
     }
 
     private void signPerformerUp() {
@@ -235,7 +288,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             performerData.put("last_performed", "");
             performerData.put("rating", "3");
             performerData.put("last_rating", "");
-            performerData.put("token", "");
             performerData.put("prev_performances", "");
             performerData.put("credits", "2");
             performerData.put("pic_name", picName);
@@ -270,14 +322,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             Snackbar.make(parent, "Please upload a Profile Picture", Snackbar.LENGTH_LONG).show();
             return false;
         }
-        if (TextUtils.isEmpty(performerFacebook.getText().toString())) {
-            performerFacebook.setError("Provide a valid Facebook Profile");
-            return false;
-        }
-        if (TextUtils.isEmpty(performerInstagram.getText().toString())) {
-            performerInstagram.setError("Provide a valid Instagram Profile");
-            return false;
-        }
         if (TextUtils.isEmpty(performerPrice.getText().toString())) {
             performerPrice.setError("Please Input your hourly price");
         }
@@ -292,7 +336,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             hotelData.put("phone_number", hotelPhonePrefix.getText().toString()+hotelPhoneNumber.getText().toString());
             hotelData.put("description", hotelDescription.getText().toString());
             hotelData.put("location", "");
-            hotelData.put("token", "");
             hotelData.put("prev_performances", "");
             hotelData.put("pic_name", picName);
             PhoneAuthProvider.getInstance().verifyPhoneNumber(hotelPhonePrefix.getText().toString()+hotelPhoneNumber.getText().toString(),
@@ -339,10 +382,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     public void sendOTP(String otp) {
         mOTP = otp;
         mCredential = PhoneAuthProvider.getCredential(mVerificationId, mOTP);
-        if (INITIAL_SELECTION == HOTEL)
+        fragment.dismiss();
+        fragment = null;
+        if (INITIAL_SELECTION == HOTEL) {
+            otpWaitFragmentHotel = showWaitFragment("Verifying OTP . . .", "otp_wait_fragment_hotel");
             SignInManager.signInWithNewCredentials(mCredential, context, hotelData, selectedImage, hotelCity.getSelectedItem().toString());
-        else if (INITIAL_SELECTION == PERFORMER)
+        } else if (INITIAL_SELECTION == PERFORMER) {
+            otpWaitFragmentPerformer = showWaitFragment("Verifying OTP . . .", "otp_wait_fragment_performer");
             SignInManager.signInWithNewCredentials(mCredential, context, performerData, selectedImage, performerCity.getSelectedItem().toString());
+        }
     }
 
     @Override

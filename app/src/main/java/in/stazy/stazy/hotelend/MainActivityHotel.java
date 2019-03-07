@@ -3,31 +3,47 @@ package in.stazy.stazy.hotelend;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+
+import org.w3c.dom.Document;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.stazy.stazy.R;
+import in.stazy.stazy.datamanagercrossend.HotelData;
 import in.stazy.stazy.datamanagerhotel.ComedianData;
 import in.stazy.stazy.datamanagercrossend.Manager;
 import in.stazy.stazy.datamanagerhotel.MucisianData;
+import in.stazy.stazy.datamanagerperformer.PerformerManager;
 
 public class MainActivityHotel extends AppCompatActivity {
     //View references
-    //Explore Section Card Views
-    @BindView(R.id.activity_hotel_main_explore_card_view_musicians) CardView exploreMucisians;
-    @BindView(R.id.activity_hotel_main_explore_card_view_comedians) CardView exploreComedians;
-    @BindView(R.id.activity_hotel_main_explore_card_view_others) CardView exploreOthers;
+    //Explore Section ViewPager
+    @BindView(R.id.activity_hotel_main_explore_view_pager) ViewPager exploreViewPager;
     //Prev Performances Section Recycler Views
     @BindView(R.id.activity_hotel_main_prev_performances_child_mucisians_recycler_view) RecyclerView prevMucisians;
     @BindView(R.id.activity_hotel_main_prev_performances_child_comedians_recycler_view) RecyclerView prevComedians;
@@ -43,20 +59,9 @@ public class MainActivityHotel extends AppCompatActivity {
 
     //Constant Field declarations
     public static final String EXPLORE_INTENT_EXTRA_KEY = "type";
-    public static final String TYPE_VALUE_MUCISIANS = "mucisians";
+    public static final String TYPE_VALUE_MUCISIANS = "musicians";
     public static final String TYPE_VALUE_COMEDIANS = "comedians";
     public static final String TYPE_VALUE_OTHERS = "others";
-    public static final String GENRE_VALUE_SINGER = "singer";
-    public static final String GENRE_VALUE_GUITARIST = "guitarist";
-    public static final String GENRE_VALUE_DANCER = "dancer";
-    public static final String GENRE_VALUE_BAND = "band";
-    public static final String GENRE_VALUE_SHAYARI = "shayari";
-    public static final String GENRE_VALUE_STAND_UP = "stand up";
-    public static final String GENRE_VALUE_MAGICIAN = "magician";
-    public static final String GENRE_VALUE_MOTIVATIONAL_SPEAKER = "motivational speaker";
-    public static final String GENRE_VALUE_SAND_ARTIST = "sand artist";
-    public static final String GENRE_VALUE_DRAMATIST = "dramatist";
-    public static final String GENRE_VALUE_OTHERS = "others";
     public static final String VIEW_ALL_INTENT_EXTRA_KEY = "view_all_type";
     public static final String VIEW_ALL_INTENT_VALUE_MUCISIANS = "view_all_mucisians";
     public static final String VIEW_ALL_INTENT_VALUE_COMEDIANS = "view_all_comedians";
@@ -68,6 +73,18 @@ public class MainActivityHotel extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_hotel);
         ButterKnife.bind(this);
+
+        ArrayList<ExploreCardModel> models = new ArrayList<>();
+        models.add(new ExploreCardModel(R.drawable.musicians));
+        models.add(new ExploreCardModel(R.drawable.comedians));
+        models.add(new ExploreCardModel(R.drawable.others));
+
+        Adapter adapter = new Adapter(models, getApplicationContext());
+
+        exploreViewPager.setAdapter(adapter);
+
+        if (Manager.NEW_TOKEN_RECEIVED == 1)
+            sendTokenToServer(Manager.FCM_TOKEN);
 
         context = getApplicationContext();
         FirebaseApp.initializeApp(context);
@@ -90,56 +107,39 @@ public class MainActivityHotel extends AppCompatActivity {
         prevOthers.setLayoutManager(horizontalLayoutManagerOthers);
 
         /*
-        TODO: Retrieve the data from the database and store in Manager.PREV_?
+        TODO: Change the data structure of HotelData to incorporate previous performers
          */
 
-        ArrayList<MucisianData> mucisians = generateRuseMucisians(); // A ruse mucisian that shall be retrieved from firestore and used for debugging
+        if (Manager.HOTEL_DATA == null) {
+            FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+            DocumentReference documentReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE)
+                                                    .collection("hotels").document(FirebaseAuth.getInstance().getUid());
+            documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        //Data Downloaded Successfully
+                        Manager.HOTEL_DATA = HotelData.setData(task.getResult());
+                    } else {
+                        Log.e("HOTEL_DATA_DOWNLOAD", task.getException().getMessage());
+                        Toast.makeText(context, "Can't Download Data Right Now, Try Again Later!!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
+        ArrayList<MucisianData> mucisians = Manager.PREVIOUS_MUCISIANS; // A ruse mucisian that shall be retrieved from firestore and used for debugging
         PrevPerformersAdapter<MucisianData> mucisianAdapter = new PrevPerformersAdapter<>(mucisians, context, TYPE_VALUE_MUCISIANS);
         prevMucisians.setAdapter(mucisianAdapter);
 
-        ArrayList<ComedianData> comedians = generateRuseComedians();
+        ArrayList<ComedianData> comedians = Manager.PREVIOUS_COMEDIANS;
         PrevPerformersAdapter<ComedianData> comedianAdapter = new PrevPerformersAdapter<>(comedians, context, TYPE_VALUE_COMEDIANS);
         prevComedians.setAdapter(comedianAdapter);
 
-        //TODO: Write Code to download Data here
-    }
+        ArrayList<ComedianData> others = Manager.PREVIOUS_COMEDIANS;
+        PrevPerformersAdapter<ComedianData> otherAdapter = new PrevPerformersAdapter<>(others, context, TYPE_VALUE_OTHERS);
+        prevOthers.setAdapter(otherAdapter);
 
-    private ArrayList<ComedianData> generateRuseComedians() {
-        ArrayList<ComedianData> comedianData = new ArrayList<>(5);
-        for (int i = 0; i<5; i++) {
-            comedianData.add(new ComedianData());
-            comedianData.get(i).setName("Swaroop");
-            comedianData.get(i).setProfilePictureHigh(BitmapFactory.decodeResource(getResources(), R.mipmap.performer_display_picture_placeholder));
-        }
-        return comedianData;
-    }
-
-    private ArrayList<MucisianData> generateRuseMucisians() {
-        ArrayList<MucisianData> mucisianData = new ArrayList<>(5);
-        for (int i = 0; i<5; i++) {
-            mucisianData.add(new MucisianData());
-            mucisianData.get(i).setName("Swaroop");
-            mucisianData.get(i).setProfilePictureHigh(BitmapFactory.decodeResource(getResources(), R.mipmap.performer_display_picture_placeholder));
-        }
-        return mucisianData;
-    }
-
-    /**
-     * Following three callbacks refer to the three card-views in explore section.
-     * @param view
-     * Set intent extra in these methods and start activity.
-     */
-    public void hireMucisiansIntent(View view) {
-        exploreIntent.putExtra(EXPLORE_INTENT_EXTRA_KEY, TYPE_VALUE_MUCISIANS);
-        startActivity(exploreIntent);
-    }
-    public void hireComediansIntent(View view) {
-        exploreIntent.putExtra(EXPLORE_INTENT_EXTRA_KEY, TYPE_VALUE_COMEDIANS);
-        startActivity(exploreIntent);
-    }
-    public void hireOthersIntent(View view) {
-        exploreIntent.putExtra(EXPLORE_INTENT_EXTRA_KEY, TYPE_VALUE_OTHERS);
-        startActivity(exploreIntent);
     }
 
     /**
@@ -158,5 +158,23 @@ public class MainActivityHotel extends AppCompatActivity {
     public void viewAllOthers(View view) {
         viewAllIntent.putExtra(VIEW_ALL_INTENT_EXTRA_KEY, VIEW_ALL_INTENT_VALUE_OTHERS);
         startActivity(viewAllIntent);
+    }
+
+    private void sendTokenToServer(String fcmToken) {
+        Map<String, Object> tokenMap = new HashMap<>();
+        tokenMap.put("token", fcmToken);
+        //Hotel Logged In
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        DocumentReference reference = firestore.collection("COLLECTION").document(Manager.CITY_VALUE)
+                    .collection("hotels").document(FirebaseAuth.getInstance().getUid());
+        reference.update(tokenMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful())
+                    Log.e("TOKEN ADDITION","TOKEN added to server");
+                else
+                    Log.e("TOKEN ADDITION", task.getException().getMessage());
+            }
+        });
     }
 }

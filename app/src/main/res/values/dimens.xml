@@ -16,9 +16,9 @@
     <dimen name="activity_hotel_main_explore_text_view_start_margin">16dp</dimen>
 
     <!--activity_main_hotel_explore_buttons_scroll_view_container margin dimens-->
-    <dimen name="activity_hotel_main_explore_buttons_scroll_view_container_top_margin">16dp</dimen>
-    <dimen name="activity_hotel_main_explore_buttons_scroll_view_container_start_margin">24dp</dimen>
-    <dimen name="activity_hotel_main_explore_buttons_scroll_view_container_end_margin">16dp</dimen>
+    <dimen name="activity_hotel_main_explore_buttons_container_top_margin">16dp</dimen>
+    <dimen name="activity_hotel_main_explore_buttons_container_start_padding">24dp</dimen>
+    <dimen name="activity_hotel_main_explore_buttons_container_end_padding">16dp</dimen>
 
     <!--activity_main_hotel_explore_cards dimens-->
     <dimen name="activity_hotel_main_explore_card_view_container_height">170dp</dimen>
@@ -438,4 +438,5 @@
     <dimen name="otp_fragment_text_view_horizontal_margin">12dp</dimen>
     <dimen name="otp_fragment_text_input_top_margin">12dp</dimen>
     <dimen name="otp_fragment_text_input_horizontal_margin">16dp</dimen>
+    <dimen name="view_pager_item_card_radius">12dp</dimen>
 </resources>

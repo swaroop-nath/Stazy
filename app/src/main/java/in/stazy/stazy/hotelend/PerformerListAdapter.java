@@ -34,13 +34,14 @@ public class PerformerListAdapter extends ArrayAdapter<DataManager> {
         if (view == null) {
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(resource, parent, false);
-            PerformerViewHolder holder = new PerformerViewHolder(view);
+            PerformerViewHolder holder = new PerformerViewHolder(view, context);
+            DataManager performer = dataset.get(position);
+            holder.setContents(performer);
             view.setTag(holder);
         } else {
             PerformerViewHolder holder = (PerformerViewHolder) view.getTag();
-            holder.setProfilePicture("Send UID here");
             DataManager performer = dataset.get(position);
-            holder.setTexts(performer.getName(), performer.getLastRating(), performer.getRating(), performer.getPrice());
+            holder.setContents(performer);
         }
         return view;
     }

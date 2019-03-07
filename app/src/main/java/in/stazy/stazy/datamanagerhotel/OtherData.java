@@ -150,7 +150,7 @@ public class OtherData implements DataManager{
 
     @Override
     public String getPrice() {
-        return lastRating;
+        return price;
     }
 
     @Override

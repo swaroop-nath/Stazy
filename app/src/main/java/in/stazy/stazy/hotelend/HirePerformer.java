@@ -19,8 +19,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.PriorityQueue;
 import java.util.Queue;
 
 import butterknife.BindView;
@@ -35,23 +35,9 @@ import in.stazy.stazy.datamanagerhotel.MucisianData;
 import in.stazy.stazy.datamanagerhotel.OtherData;
 
 import static in.stazy.stazy.hotelend.MainActivityHotel.EXPLORE_INTENT_EXTRA_KEY;
-import static in.stazy.stazy.hotelend.MainActivityHotel.GENRE_VALUE_BAND;
-import static in.stazy.stazy.hotelend.MainActivityHotel.GENRE_VALUE_DANCER;
-import static in.stazy.stazy.hotelend.MainActivityHotel.GENRE_VALUE_DRAMATIST;
-import static in.stazy.stazy.hotelend.MainActivityHotel.GENRE_VALUE_GUITARIST;
-import static in.stazy.stazy.hotelend.MainActivityHotel.GENRE_VALUE_MAGICIAN;
-import static in.stazy.stazy.hotelend.MainActivityHotel.GENRE_VALUE_MOTIVATIONAL_SPEAKER;
-import static in.stazy.stazy.hotelend.MainActivityHotel.GENRE_VALUE_OTHERS;
-import static in.stazy.stazy.hotelend.MainActivityHotel.GENRE_VALUE_SAND_ARTIST;
-import static in.stazy.stazy.hotelend.MainActivityHotel.GENRE_VALUE_SHAYARI;
-import static in.stazy.stazy.hotelend.MainActivityHotel.GENRE_VALUE_SINGER;
-import static in.stazy.stazy.hotelend.MainActivityHotel.GENRE_VALUE_STAND_UP;
 import static in.stazy.stazy.hotelend.MainActivityHotel.INDIVIDUAL_PERFORMER_OBJECT_KEY;
-import static in.stazy.stazy.hotelend.MainActivityHotel.TYPE_VALUE_COMEDIANS;
-import static in.stazy.stazy.hotelend.MainActivityHotel.TYPE_VALUE_MUCISIANS;
-import static in.stazy.stazy.hotelend.MainActivityHotel.TYPE_VALUE_OTHERS;
 
-public class HirePerformer extends AppCompatActivity implements CustomOnCompleteListener, AdapterView.OnItemClickListener {
+public class HirePerformer extends AppCompatActivity implements CustomOnCompleteListener {
 
     //View References
     @BindView(R.id.activity_hire_performer_spinner_type) Spinner type;
@@ -64,6 +50,7 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
     private static final String TAG = "HirePerformer";
     ArrayAdapter<String> adapterTypeMucisians, adapterTypeComedians, adapterTypeOthers;
     private Queue<String> genreQueue, typeQueue;
+    private String[] typeArray;
     String[] genreMucisians, genreComedians, genreOthers;
     private PerformerListAdapter adapter;
     private ArrayList<DataManager> dataset = new ArrayList<>();
@@ -75,6 +62,21 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
     //Constant Declaration
     public static int FLAG_SET = 1;
     public static int FLAG_UNSET = 0;
+    private static final String TYPE_VALUE_MUCISIANS_HP = "musicians";
+    private static final String TYPE_VALUE_COMEDIANS_HP = "comedians";
+    private static final String TYPE_VALUE_OTHERS_HP = "others";
+
+    private static final String GENRE_VALUE_SINGER_HP = "Singer";
+    private static final String GENRE_VALUE_GUITARIST_HP = "Guitarist";
+    private static final String GENRE_VALUE_DANCER_HP = "Dancer";
+    private static final String GENRE_VALUE_BAND_HP = "Band";
+    private static final String GENRE_VALUE_STAND_UP_HP = "Stand-Ups";
+    private static final String GENRE_VALUE_SHAYARI_HP = "Shayari";
+    private static final String GENRE_VALUE_MAGICIAN_HP = "Magician";
+    private static final String GENRE_VALUE_SAND_ARTIST_HP = "Sand-Artist";
+    private static final String GENRE_VALUE_MOTIVATIONAL_SPEAKER_HP = "Motivational Speaker";
+    private static final String GENRE_VALUE_DRAMATIST_HP = "Dramatist";
+    private static final String GENRE_VALUE_OTHERS_HP = "others";
 
     /*
     TODO: Define the characteristic of sort spinner.
@@ -92,7 +94,6 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
 
         Intent receivedIntent = getIntent();
         String typeReceived = receivedIntent.getStringExtra(EXPLORE_INTENT_EXTRA_KEY);
-        setSpinnerTypeSelection(typeReceived);
 
         Resources resources = getResources();
         genreMucisians = resources.getStringArray(R.array.spinner_genre_mucisians_entries);
@@ -102,6 +103,7 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
         adapterTypeMucisians = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, genreMucisians);
         adapterTypeComedians = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, genreComedians);
         adapterTypeOthers = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item, genreOthers);
+        setUpGenreSpinner(typeReceived);
 
         type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -144,56 +146,79 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
             }
         });
 
-        typeQueue = new PriorityQueue<>();
-        genreQueue = new PriorityQueue<>();
+        typeQueue = new LinkedList<>();
+        genreQueue = new LinkedList<>();
 
         switch (typeReceived) {
-            case TYPE_VALUE_MUCISIANS:
+            case TYPE_VALUE_MUCISIANS_HP:
                 putElementsInGenreQueue(genreMucisians);
                 putElementsInGenreQueue(genreComedians);
                 putElementsInGenreQueue(genreOthers);
-                putElementsInTypeQueue(TYPE_VALUE_MUCISIANS, TYPE_VALUE_COMEDIANS, TYPE_VALUE_OTHERS);
+                putElementsInTypeQueue(TYPE_VALUE_MUCISIANS_HP, TYPE_VALUE_COMEDIANS_HP, TYPE_VALUE_OTHERS_HP);
                 break;
-            case TYPE_VALUE_COMEDIANS:
+            case TYPE_VALUE_COMEDIANS_HP:
                 putElementsInGenreQueue(genreComedians);
                 putElementsInGenreQueue(genreOthers);
                 putElementsInGenreQueue(genreMucisians);
-                putElementsInTypeQueue(TYPE_VALUE_COMEDIANS, TYPE_VALUE_OTHERS, TYPE_VALUE_MUCISIANS);
+                putElementsInTypeQueue(TYPE_VALUE_COMEDIANS_HP, TYPE_VALUE_OTHERS_HP, TYPE_VALUE_MUCISIANS_HP);
                 break;
-            case TYPE_VALUE_OTHERS:
+            case TYPE_VALUE_OTHERS_HP:
                 putElementsInGenreQueue(genreOthers);
                 putElementsInGenreQueue(genreMucisians);
                 putElementsInGenreQueue(genreComedians);
-                putElementsInTypeQueue(TYPE_VALUE_OTHERS, TYPE_VALUE_MUCISIANS, TYPE_VALUE_COMEDIANS);
+                putElementsInTypeQueue(TYPE_VALUE_OTHERS_HP, TYPE_VALUE_MUCISIANS_HP, TYPE_VALUE_COMEDIANS_HP);
                 break;
         }
 
-        downloadData();
-        setData();
+        Log.e(TAG,typeQueue.size()+"");
         adapter = new PerformerListAdapter(context, 0, dataset);
         availablePerformers.setAdapter(adapter);
-        availablePerformers.setOnItemClickListener(this);
+        availablePerformers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.e(TAG, "Item Clicked at" + position);
+                Intent intent = new Intent(HirePerformer.this, Performer.class);
+                String chosenType = null;
+                switch (type.getSelectedItemPosition()) {
+                    case 0:
+                        chosenType = TYPE_VALUE_MUCISIANS_HP;
+                        break;
+                    case 1:
+                        chosenType = TYPE_VALUE_COMEDIANS_HP;
+                        break;
+                    case 2:
+                        chosenType = TYPE_VALUE_OTHERS_HP;
+                        break;
+                }
+
+                intent.putExtra(EXPLORE_INTENT_EXTRA_KEY, chosenType);
+                intent.putExtra(INDIVIDUAL_PERFORMER_OBJECT_KEY, dataset.get(position));
+                startActivity(intent);
+            }
+        });
+        downloadData();
     }
 
+
     private void downloadData() {
-        Queue<String> restStart = new PriorityQueue<>();
+        Queue<String> restStart = new LinkedList<>();
         switch (typeQueue.peek()) {
-            case TYPE_VALUE_MUCISIANS:
+            case TYPE_VALUE_MUCISIANS_HP:
                 restStart.offer(genreComedians[0]);
                 restStart.offer(genreOthers[0]);
                 break;
-            case TYPE_VALUE_COMEDIANS:
+            case TYPE_VALUE_COMEDIANS_HP:
                 restStart.offer(genreOthers[0]);
                 restStart.offer(genreMucisians[0]);
                 break;
-            case TYPE_VALUE_OTHERS:
+            case TYPE_VALUE_OTHERS_HP:
                 restStart.offer(genreMucisians[0]);
                 restStart.offer(genreComedians[0]);
         }
 
         while (!genreQueue.isEmpty()) {
             downloadDataNow(typeQueue.peek(), genreQueue.poll());
-            if (genreQueue.peek().equals(restStart.peek())) {
+            if (!genreQueue.isEmpty() && genreQueue.peek().equals(restStart.peek())) {
                 typeQueue.poll();
                 restStart.poll();
             }
@@ -201,9 +226,8 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
     }
 
     private void downloadDataNow(String typeChosen, String genreChosen) {
-        //TODO: Change the signature of the method to incorporate city value!
         childReference = baseReference.document(typeChosen).collection(genreChosen);
-        Query alphabeticalQuery = childReference.orderBy("name"); //TODO: Add one more orderBy("isHired").equals(0)
+        Query alphabeticalQuery = childReference.orderBy("name");
         alphabeticalQuery.get().addOnCompleteListener(new CustomTaskCompletioner(this, typeChosen, genreChosen));
     }
 
@@ -221,49 +245,49 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
     private void setData() {
         String setType = type.getSelectedItem().toString();
         String setGenre = genre.getSelectedItem().toString();
-
+        Log.e(TAG, "setData Called");
         switch (setType) {
-            case TYPE_VALUE_MUCISIANS:
+            case TYPE_VALUE_MUCISIANS_HP:
                 switch (setGenre) {
-                    case GENRE_VALUE_SINGER:
+                    case GENRE_VALUE_SINGER_HP:
                         fillDataSet(Manager.AVAILABLE_MUCISIANS, Manager.AVAILABLE_SINGERS_START_INDEX, setGenre);
                         break;
-                    case GENRE_VALUE_GUITARIST:
+                    case GENRE_VALUE_GUITARIST_HP:
                         fillDataSet(Manager.AVAILABLE_MUCISIANS, Manager.AVAILABLE_GUITARIST_START_INDEX, setGenre);
                         break;
-                    case GENRE_VALUE_DANCER:
+                    case GENRE_VALUE_DANCER_HP:
                         fillDataSet(Manager.AVAILABLE_MUCISIANS, Manager.AVAILABLE_DANCER_START_INDEX, setGenre);
                         break;
-                    case GENRE_VALUE_BAND:
+                    case GENRE_VALUE_BAND_HP:
                         fillDataSet(Manager.AVAILABLE_MUCISIANS, Manager.AVAILABLE_BAND_START_INDEX, setGenre);
                         break;
                 }
                 break;
-            case TYPE_VALUE_COMEDIANS:
+            case TYPE_VALUE_COMEDIANS_HP:
                 switch (setGenre) {
-                    case GENRE_VALUE_STAND_UP:
+                    case GENRE_VALUE_STAND_UP_HP:
                         fillDataSet(Manager.AVAILABLE_COMEDIANS, Manager.AVAILABLE_STAND_UP_START_INDEX, setGenre);
                         break;
-                    case GENRE_VALUE_SHAYARI:
+                    case GENRE_VALUE_SHAYARI_HP:
                         fillDataSet(Manager.AVAILABLE_COMEDIANS, Manager.AVAILABLE_SHAYARI_START_INDEX, setGenre);
                         break;
                 }
                 break;
-            case TYPE_VALUE_OTHERS:
+            case TYPE_VALUE_OTHERS_HP:
                 switch (setGenre) {
-                    case GENRE_VALUE_MAGICIAN:
+                    case GENRE_VALUE_MAGICIAN_HP:
                         fillDataSet(Manager.AVAILABLE_OTHERS, Manager.AVAILABLE_MAGICIAN_START_INDEX, setGenre);
                         break;
-                    case GENRE_VALUE_SAND_ARTIST:
+                    case GENRE_VALUE_SAND_ARTIST_HP:
                         fillDataSet(Manager.AVAILABLE_OTHERS, Manager.AVAILABLE_SAND_ARTIST_START_INDEX, setGenre);
                         break;
-                    case GENRE_VALUE_MOTIVATIONAL_SPEAKER:
+                    case GENRE_VALUE_MOTIVATIONAL_SPEAKER_HP:
                         fillDataSet(Manager.AVAILABLE_OTHERS, Manager.AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX, setGenre);
                         break;
-                    case GENRE_VALUE_DRAMATIST:
+                    case GENRE_VALUE_DRAMATIST_HP:
                         fillDataSet(Manager.AVAILABLE_OTHERS, Manager.AVAILABLE_DRAMATIST_START_INDEX, setGenre);
                         break;
-                    case GENRE_VALUE_OTHERS:
+                    case GENRE_VALUE_OTHERS_HP:
                         fillDataSet(Manager.AVAILABLE_OTHERS, Manager.AVAILABLE_OTHERS_START_INDEX, setGenre);
                         break;
                 }
@@ -272,10 +296,13 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
     }
 
     private void fillDataSet(ArrayList<? extends DataManager> dataSource, int startIndex, String chosenGenre) {
-        while (dataSource.get(startIndex).getGenre().equals(chosenGenre)) {
+        Log.e(TAG, "Filling dataset");
+        dataset.clear();
+        while (startIndex < dataSource.size() && dataSource.get(startIndex).getGenre().equals(chosenGenre)) {
             dataset.add(dataSource.get(startIndex));
             startIndex++;
         }
+        adapter.notifyDataSetChanged();
     }
 
     private void notifyChangesToAdapter(String chosenType, String chosenGenre) {
@@ -287,17 +314,17 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
         }
     }
 
-    private void setSpinnerTypeSelection(String typeSelection) {
+    private void setUpGenreSpinner(String typeSelection) {
         switch (typeSelection) {
-            case TYPE_VALUE_MUCISIANS:
+            case TYPE_VALUE_MUCISIANS_HP:
                 type.setSelection(0, true);
                 genre.setAdapter(adapterTypeMucisians);
                 break;
-            case TYPE_VALUE_COMEDIANS:
+            case TYPE_VALUE_COMEDIANS_HP:
                 type.setSelection(1, true);
                 genre.setAdapter(adapterTypeComedians);
                 break;
-            case TYPE_VALUE_OTHERS:
+            case TYPE_VALUE_OTHERS_HP:
                 type.setSelection(2, true);
                 genre.setAdapter(adapterTypeOthers);
                 break;
@@ -309,13 +336,14 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
 
     @Override
     public void onDataDownloaded(@NonNull QuerySnapshot querySnapshot, String typeChosen, String genreChosen) {
+        Log.e(TAG, "Data Download Called");
         if (!querySnapshot.isEmpty()) {
             List<DocumentSnapshot> documentSnapshots = querySnapshot.getDocuments();
             switch (typeChosen) {
-                case TYPE_VALUE_MUCISIANS:
+                case TYPE_VALUE_MUCISIANS_HP:
                     Manager.AVAILABLE_MUCISIANS.addAll(MucisianData.fetchMucisians(documentSnapshots, Manager.CITY_VALUE, genreChosen)); //After signature is changed to incorporate the city, send city to this method
                     switch (genreChosen) {
-                        case GENRE_VALUE_SINGER:
+                        case GENRE_VALUE_SINGER_HP:
                             Manager.AVAILABLE_SINGERS_START_INDEX_SET = FLAG_SET;
                             if (Manager.AVAILABLE_GUITARIST_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_GUITARIST_START_INDEX = Manager.AVAILABLE_MUCISIANS.size();
@@ -325,7 +353,7 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                                 Manager.AVAILABLE_DANCER_START_INDEX = Manager.AVAILABLE_MUCISIANS.size();
                             notifyChangesToAdapter(typeChosen, genreChosen);
                             break;
-                        case GENRE_VALUE_GUITARIST:
+                        case GENRE_VALUE_GUITARIST_HP:
                             Manager.AVAILABLE_GUITARIST_START_INDEX_SET = FLAG_SET;
                             if (Manager.AVAILABLE_SINGERS_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_SINGERS_START_INDEX = Manager.AVAILABLE_MUCISIANS.size();
@@ -335,7 +363,7 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                                 Manager.AVAILABLE_DANCER_START_INDEX = Manager.AVAILABLE_MUCISIANS.size();
                             notifyChangesToAdapter(typeChosen, genreChosen);
                             break;
-                        case GENRE_VALUE_DANCER:
+                        case GENRE_VALUE_DANCER_HP:
                             Manager.AVAILABLE_DANCER_START_INDEX_SET = FLAG_SET;
                             if (Manager.AVAILABLE_GUITARIST_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_GUITARIST_START_INDEX = Manager.AVAILABLE_MUCISIANS.size();
@@ -345,7 +373,7 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                                 Manager.AVAILABLE_SINGERS_START_INDEX = Manager.AVAILABLE_MUCISIANS.size();
                             notifyChangesToAdapter(typeChosen, genreChosen);
                             break;
-                        case GENRE_VALUE_BAND:
+                        case GENRE_VALUE_BAND_HP:
                             Manager.AVAILABLE_BAND_START_INDEX_SET = FLAG_SET;
                             if (Manager.AVAILABLE_GUITARIST_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_GUITARIST_START_INDEX = Manager.AVAILABLE_MUCISIANS.size();
@@ -357,16 +385,16 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                             break;
                     }
                     break;
-                case TYPE_VALUE_COMEDIANS:
+                case TYPE_VALUE_COMEDIANS_HP:
                     Manager.AVAILABLE_COMEDIANS.addAll(ComedianData.fetchComedians(documentSnapshots, Manager.CITY_VALUE, genreChosen));
                     switch (genreChosen) {
-                        case GENRE_VALUE_STAND_UP:
+                        case GENRE_VALUE_STAND_UP_HP:
                             Manager.AVAILABLE_STAND_UP_START_INDEX_SET = FLAG_SET;
                             if (Manager.AVAILABLE_SHAYARI_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_SHAYARI_START_INDEX = Manager.AVAILABLE_COMEDIANS.size();
                             notifyChangesToAdapter(typeChosen, genreChosen);
                             break;
-                        case GENRE_VALUE_SHAYARI:
+                        case GENRE_VALUE_SHAYARI_HP:
                             Manager.AVAILABLE_SHAYARI_START_INDEX_SET = FLAG_SET;
                             if (Manager.AVAILABLE_STAND_UP_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_STAND_UP_START_INDEX = Manager.AVAILABLE_COMEDIANS.size();
@@ -374,10 +402,10 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                             break;                         
                     }
                     break;
-                case TYPE_VALUE_OTHERS:
+                case TYPE_VALUE_OTHERS_HP:
                     Manager.AVAILABLE_OTHERS.addAll(OtherData.fetchOthers(documentSnapshots, Manager.CITY_VALUE, genreChosen));
                     switch (genreChosen) {
-                        case GENRE_VALUE_MAGICIAN:
+                        case GENRE_VALUE_MAGICIAN_HP:
                             Manager.AVAILABLE_MAGICIAN_START_INDEX_SET = FLAG_SET;
                             if (Manager.AVAILABLE_SAND_ARTIST_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_SAND_ARTIST_START_INDEX = Manager.AVAILABLE_OTHERS.size();
@@ -388,7 +416,7 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                             if (Manager.AVAILABLE_OTHERS_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_OTHERS_START_INDEX = Manager.AVAILABLE_OTHERS.size();
                             notifyChangesToAdapter(typeChosen, genreChosen);
-                        case GENRE_VALUE_SAND_ARTIST:
+                        case GENRE_VALUE_SAND_ARTIST_HP:
                             Manager.AVAILABLE_SAND_ARTIST_START_INDEX_SET = FLAG_SET;
                             if (Manager.AVAILABLE_MAGICIAN_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_MAGICIAN_START_INDEX = Manager.AVAILABLE_OTHERS.size();
@@ -399,7 +427,7 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                             if (Manager.AVAILABLE_OTHERS_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_OTHERS_START_INDEX = Manager.AVAILABLE_OTHERS.size();
                             notifyChangesToAdapter(typeChosen, genreChosen);
-                        case GENRE_VALUE_MOTIVATIONAL_SPEAKER:
+                        case GENRE_VALUE_MOTIVATIONAL_SPEAKER_HP:
                             Manager.AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX_SET = FLAG_SET;
                             if (Manager.AVAILABLE_SAND_ARTIST_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_SAND_ARTIST_START_INDEX = Manager.AVAILABLE_OTHERS.size();
@@ -410,7 +438,7 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                             if (Manager.AVAILABLE_OTHERS_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_OTHERS_START_INDEX = Manager.AVAILABLE_OTHERS.size();
                             notifyChangesToAdapter(typeChosen, genreChosen);
-                        case GENRE_VALUE_DRAMATIST:
+                        case GENRE_VALUE_DRAMATIST_HP:
                             Manager.AVAILABLE_DRAMATIST_START_INDEX_SET = FLAG_SET;
                             if (Manager.AVAILABLE_SAND_ARTIST_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_SAND_ARTIST_START_INDEX = Manager.AVAILABLE_OTHERS.size();
@@ -421,7 +449,7 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                             if (Manager.AVAILABLE_OTHERS_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_OTHERS_START_INDEX = Manager.AVAILABLE_OTHERS.size();
                             notifyChangesToAdapter(typeChosen, genreChosen);
-                        case GENRE_VALUE_OTHERS:
+                        case GENRE_VALUE_OTHERS_HP:
                             Manager.AVAILABLE_OTHERS_START_INDEX_SET = FLAG_SET;
                             if (Manager.AVAILABLE_SAND_ARTIST_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_SAND_ARTIST_START_INDEX = Manager.AVAILABLE_OTHERS.size();
@@ -436,27 +464,7 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                     }
                     break;
             }
+            setData();
         }
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(this, Performer.class);
-        String chosenType = null;
-        switch (type.getSelectedItemPosition()) {
-            case 0:
-                chosenType = TYPE_VALUE_MUCISIANS;
-                break;
-            case 1:
-                chosenType = TYPE_VALUE_COMEDIANS;
-                break;
-            case 2:
-                chosenType = TYPE_VALUE_OTHERS;
-                break;
-        }
-
-        intent.putExtra(EXPLORE_INTENT_EXTRA_KEY, chosenType);
-        intent.putExtra(INDIVIDUAL_PERFORMER_OBJECT_KEY, dataset.get(position));
-        startActivity(intent);
     }
 }

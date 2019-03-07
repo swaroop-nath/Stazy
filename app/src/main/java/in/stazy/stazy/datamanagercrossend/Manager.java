@@ -111,4 +111,8 @@ public class Manager {
 
     public static int AVAILABLE_OTHERS_START_INDEX_SET = FLAG_UNSET;
 
+    public static String FCM_TOKEN = null;
+
+    public static int NEW_TOKEN_RECEIVED = 0;
+
 }

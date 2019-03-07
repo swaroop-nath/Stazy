@@ -17,6 +17,8 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -45,10 +47,29 @@ public class SignInManager {
                 if (task.isSuccessful()) {
                     // Sign in success, update UI with the signed-in user's information
                     Manager.CITY_VALUE = city;
-                    if (SignUpActivity.INITIAL_SELECTION == SignUpActivity.HOTEL)
-                        uploadDataAndStartUIHotel(data, profilePicture);
-                    else 
-                        uploadDataAndStartUIPerformer(data, profilePicture);
+                    FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                            data.put("token", task.getResult().getToken());
+                            Manager.FCM_TOKEN = task.getResult().getToken();
+                            if (SignUpActivity.automaticVerification != null) {
+                                SignUpActivity.automaticVerification.dismiss();
+                                SignUpActivity.automaticVerification = null;
+                            }
+                            if (SignUpActivity.otpWaitFragmentHotel != null) {
+                                SignUpActivity.otpWaitFragmentHotel.dismiss();
+                                SignUpActivity.otpWaitFragmentHotel = null;
+                            }
+                            if (SignUpActivity.otpWaitFragmentPerformer != null) {
+                                SignUpActivity.otpWaitFragmentPerformer.dismiss();
+                                SignUpActivity.otpWaitFragmentPerformer = null;
+                            }
+                            if (SignUpActivity.INITIAL_SELECTION == SignUpActivity.HOTEL)
+                                uploadDataAndStartUIHotel(data, profilePicture);
+                            else
+                                uploadDataAndStartUIPerformer(data, profilePicture);
+                        }
+                    });
                 } else {
                     // Sign in failed, display a message and update the UI
                     if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
@@ -150,6 +171,14 @@ public class SignInManager {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    if (SignInActivity.verificationFragment != null) {
+                        SignInActivity.verificationFragment.dismiss();
+                        SignInActivity.verificationFragment = null;
+                    }
+                    if (SignInActivity.signInFragment != null) {
+                        SignInActivity.signInFragment.dismiss();
+                        SignInActivity.signInFragment = null;
+                    }
                     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
                     DocumentReference mapperReference = firebaseFirestore.collection("Mapper").document(FirebaseAuth.getInstance().getUid());
                     mapperReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -157,6 +186,13 @@ public class SignInManager {
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             DocumentSnapshot documentSnapshot = task.getResult();
                             Manager.CITY_VALUE = documentSnapshot.get("city").toString();
+                            FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                    InstanceIdResult result = task.getResult();
+                                    Manager.FCM_TOKEN = result.getToken();
+                                }
+                            });
                             if (documentSnapshot.get("category").toString().equals("PERFORMER")) {
                                 PerformerManager.TYPE_VALUE = documentSnapshot.get("type").toString();
                                 PerformerManager.GENRE_VALUE = documentSnapshot.get("genre").toString();

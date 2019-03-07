@@ -11,6 +11,7 @@ import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.FirebaseException;
@@ -42,6 +43,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private Context context;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private String mVerificationId;
+    private WaitFragment otpFragment = null;
+    static WaitFragment verificationFragment = null;
+    static WaitFragment signInFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +58,28 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
                 //TODO: Show some dialogs
+                if (otpFragment != null) {
+                    otpFragment.dismiss();
+                    otpFragment = null;
+                }
+                if (signInFragment != null) {
+                    signInFragment.dismiss();
+                    signInFragment = null;
+                }
+                verificationFragment = showWaitFragment("Conducting Automatic Verification . . .", "automatic_verification");
                 SignInManager.signInWithOldCredentials(phoneAuthCredential, context);
             }
 
             @Override
             public void onVerificationFailed(FirebaseException e) {
+                if (otpFragment != null) {
+                    otpFragment.dismiss();
+                    otpFragment = null;
+                }
+                if (signInFragment != null) {
+                    signInFragment.dismiss();
+                    signInFragment = null;
+                }
                 Log.e("Callback Sign In", "onVerificationFailed called");
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
                     Snackbar.make(parent, "Please Enter a Valid Phone Number", Snackbar.LENGTH_LONG).show();
@@ -69,6 +90,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onCodeSent(String verificationId, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                if (otpFragment != null) {
+                    otpFragment.dismiss();
+                    otpFragment = null;
+                }
                 mVerificationId = verificationId;
                 getOTPButton.setVisibility(View.GONE);
                 logInButton.setVisibility(View.VISIBLE);
@@ -85,11 +110,19 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         context.startActivity(intent);
     }
 
+    private WaitFragment showWaitFragment(String s, String tag) {
+        WaitFragment waitFragment = new WaitFragment();
+        waitFragment.setData(s);
+        waitFragment.show(getSupportFragmentManager(), tag);
+        return waitFragment;
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sign_in_activity_log_in_button:
                 if (!TextUtils.isEmpty(otpInput.getText().toString())) {
+                    signInFragment = showWaitFragment("Signing In . . .", "sign_in_fragment");
                     PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(mVerificationId, otpInput.getText().toString());
                     SignInManager.signInWithOldCredentials(phoneAuthCredential, context);
                 } else
@@ -97,6 +130,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.sign_in_activity_get_otp_button:
                 if (!TextUtils.isEmpty(phoneNumberInput.getText().toString())) {
+                    otpFragment = showWaitFragment("Waiting For OTP . . .", "otp_fragment");
                     PhoneAuthProvider.getInstance().verifyPhoneNumber(phoneNumberPrefix.getText().toString()+phoneNumberInput.getText().toString(), 60, TimeUnit.SECONDS, this, mCallbacks);
                 } else
                     phoneNumberInput.setError("Please input a Valid Phone Number");

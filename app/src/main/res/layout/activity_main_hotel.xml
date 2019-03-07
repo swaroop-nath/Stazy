@@ -24,115 +24,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <HorizontalScrollView
-            android:id="@id/activity_hotel_main_explore_buttons_scroll_view_container"
+        <android.support.v4.view.ViewPager
+            android:id="@id/activity_hotel_main_explore_view_pager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/activity_hotel_main_explore_buttons_scroll_view_container_end_margin"
-            android:layout_marginStart="@dimen/activity_hotel_main_explore_buttons_scroll_view_container_start_margin"
-            android:layout_marginTop="@dimen/activity_hotel_main_explore_buttons_scroll_view_container_top_margin"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="250dp"
+            app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_explore_text_view"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_explore_text_view">
-            <!--Introduce three card views here - Musicians, Comedians, Others
-                 Keep them in a Linear Layout-->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/activity_hotel_main_explore_card_view_container_height"
-                android:orientation="horizontal"
-                android:paddingTop="@dimen/activity_hotel_main_explore_card_view_container_top_padding"
-                android:paddingBottom="@dimen/activity_hotel_main_explore_card_view_container_bottom_padding"
-                android:gravity="center_vertical">
-                <!--Introduce card views here-->
-                <!--Define Card Views' onClick attributes-->
-                <android.support.v7.widget.CardView
-                    android:id="@id/activity_hotel_main_explore_card_view_musicians"
-                    android:layout_width="@dimen/activity_hotel_main_explore_card_view_side_size"
-                    android:layout_height="@dimen/activity_hotel_main_explore_card_view_side_size"
-                    android:layout_marginEnd="@dimen/activity_hotel_main_explore_card_view_end_margin"
-                    android:layout_marginStart="@dimen/activity_hotel_main_explore_card_view_start_margin"
-                    app:cardCornerRadius="@dimen/activity_hotel_main_explore_card_view_side_corner_radius"
-                    app:cardElevation="@dimen/activity_hotel_main_explore_card_view_elevation"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:onClick="hireMucisiansIntent">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        tools:src="@mipmap/performer_display_picture_placeholder" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|center_horizontal"
-                        android:alpha="0.85"
-                        android:background="@android:color/white"
-                        android:text="@string/activity_hotel_main_explore_card_view_musicians_text"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="@dimen/text_size_small"
-                        android:textStyle="bold" />
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:id="@id/activity_hotel_main_explore_card_view_comedians"
-                    android:layout_width="@dimen/activity_hotel_main_explore_card_view_side_size"
-                    android:layout_height="@dimen/activity_hotel_main_explore_card_view_side_size"
-                    android:layout_marginEnd="@dimen/activity_hotel_main_explore_card_view_end_margin"
-                    android:layout_marginStart="@dimen/activity_hotel_main_explore_card_view_start_margin"
-                    app:cardCornerRadius="@dimen/activity_hotel_main_explore_card_view_side_corner_radius"
-                    android:elevation="@dimen/activity_hotel_main_explore_card_view_elevation"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:onClick="hireComediansIntent">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        tools:src="@mipmap/performer_display_picture_placeholder" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|center_horizontal"
-                        android:alpha="0.85"
-                        android:background="@android:color/white"
-                        android:text="@string/activity_hotel_main_explore_card_view_comedians_text"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="@dimen/text_size_small"
-                        android:textStyle="bold" />
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:id="@id/activity_hotel_main_explore_card_view_others"
-                    android:layout_width="@dimen/activity_hotel_main_explore_card_view_side_size"
-                    android:layout_height="@dimen/activity_hotel_main_explore_card_view_side_size"
-                    android:layout_marginEnd="@dimen/activity_hotel_main_explore_card_view_end_margin"
-                    android:layout_marginStart="@dimen/activity_hotel_main_explore_card_view_start_margin"
-                    app:cardCornerRadius="@dimen/activity_hotel_main_explore_card_view_side_corner_radius"
-                    android:elevation="@dimen/activity_hotel_main_explore_card_view_elevation"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:onClick="hireOthersIntent">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        tools:src="@mipmap/performer_display_picture_placeholder" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|center_horizontal"
-                        android:alpha="0.85"
-                        android:background="@android:color/white"
-                        android:text="@string/activity_hotel_main_explore_card_view_others_text"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="@dimen/text_size_small"
-                        android:textStyle="bold" />
-                </android.support.v7.widget.CardView>
-            </LinearLayout>
-        </HorizontalScrollView>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/activity_hotel_main_explore_buttons_container_top_margin"
+            android:clipToPadding="false"
+            android:overScrollMode="never"/>
 
         <TextView
             android:id="@id/activity_hotel_main_prev_performances_text_view"
@@ -146,7 +47,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_explore_buttons_scroll_view_container" />
+            app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_explore_view_pager" />
 
         <LinearLayout
             android:id="@id/activity_hotel_main_prev_performances_child_view_header_musicians"
@@ -159,7 +60,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_prev_performances_text_view">
-            <!--Write Text View, "Musicians", and a button "View All", add an onClick Listener to the button-->
+            <!--Write Text View, "musicians", and a button "View All", add an onClick Listener to the button-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -180,7 +81,8 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/text_size_extra_small"
                 android:textStyle="bold"
-                android:onClick="viewAllMucisians"/>
+                android:onClick="viewAllMucisians"
+                android:visibility="gone"/>
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
@@ -206,7 +108,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_prev_performances_child_mucisians_recycler_view">
-            <!--Write Text View, "Musicians", and a button "View All", add an onClick Listener to the button-->
+            <!--Write Text View, "musicians", and a button "View All", add an onClick Listener to the button-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -227,7 +129,8 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/text_size_extra_small"
                 android:textStyle="bold"
-                android:onClick="viewAllComedians"/>
+                android:onClick="viewAllComedians"
+                android:visibility="gone"/>
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
@@ -253,7 +156,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_prev_performances_child_comedians_recycler_view">
-            <!--Write Text View, "Musicians", and a button "View All", add an onClick Listener to the button-->
+            <!--Write Text View, "musicians", and a button "View All", add an onClick Listener to the button-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -274,7 +177,8 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/text_size_extra_small"
                 android:textStyle="bold"
-                android:onClick="viewAllOthers"/>
+                android:onClick="viewAllOthers"
+                android:visibility="gone"/>
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView

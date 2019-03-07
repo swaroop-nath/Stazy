@@ -364,4 +364,13 @@
     <item name="activity_sign_in_parent" type="id">activity_sign_in_parent</item>
     <item name="sign_in_activity_get_otp_button" type="id">sign_in_activity_get_otp_button</item>
     <item name="activity_sign_in_phone_prefix" type="id">activity_sign_in_phone_prefix</item>
+    <item name="activity_performer_parent" type="id">activity_performer_parent</item>
+    <item name="sign_in_progress" type="id">sign_in_progress</item>
+    <item name="activity_sign_up_progress" type="id">activity_sign_up_progress</item>
+    <item name="wait_fragment_progress" type="id">wait_fragment_progress</item>
+    <item name="wait_fragment_text" type="id">wait_fragment_text</item>
+    <item name="activity_hotel_main_explore_view_pager" type="id">
+        activity_hotel_main_explore_view_pager
+    </item>
+    <item name="view_pager_item_image_view" type="id">view_pager_item_imager_view</item>
 </resources>

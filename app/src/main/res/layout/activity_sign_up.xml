@@ -7,6 +7,14 @@
     tools:context=".authflow.SignUpActivity"
     android:id="@id/sign_up_activity_parent">
 
+    <ProgressBar
+        android:id="@id/activity_sign_up_progress"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_gravity="top"
+        android:indeterminate="true"
+        android:visibility="gone"/>
+
     <!--<ImageView-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent" -->

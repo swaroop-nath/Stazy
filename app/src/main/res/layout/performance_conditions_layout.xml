@@ -55,20 +55,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:entries="@array/ap_conditions_dialog_duration_child_hours_spinner_entries" />
+            android:entries="@array/ap_conditions_dialog_duration_child_hours_spinner_entries"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="hr"
-            android:layout_weight="1"
+            android:layout_weight="1.2"
             android:textSize="@dimen/text_size_small"
             android:textColor="@color/colorPrimaryText"/>
         <Spinner
             android:id="@id/ap_conditions_dialog_duration_child_mins_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:entries="@array/ap_conditions_dialog_duration_child_mins_spinner" />
+            android:layout_weight="0.85"
+            android:entries="@array/ap_conditions_dialog_duration_child_mins_spinner"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

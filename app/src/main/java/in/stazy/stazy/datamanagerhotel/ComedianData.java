@@ -150,7 +150,7 @@ public class ComedianData implements DataManager {
 
     @Override
     public String getPrice() {
-        return lastRating;
+        return price;
     }
 
     @Override

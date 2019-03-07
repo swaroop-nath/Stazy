@@ -92,7 +92,8 @@ public class PerformanceConditionsDialog extends DialogFragment implements TimeP
 
     @Override
     public void onClick(View v) {
-        String durationTime = durationHoursSet + " hours " + durationMinsSet + " minutes.";
+        String durationTime = durationHours.getSelectedItem().toString() + " hours " + durationMins.getSelectedItem().toString() + " minutes.";
+        dialog.dismiss();
         conditionsSetListener.onConditionsSet(performanceTime, durationTime);
     }
 

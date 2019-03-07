@@ -10,7 +10,8 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_performer_bottom_margin">
+        android:layout_marginBottom="@dimen/activity_performer_bottom_margin"
+        android:id="@id/activity_performer_parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@id/activity_performer_display_picture"
