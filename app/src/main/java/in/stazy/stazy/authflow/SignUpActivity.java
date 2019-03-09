@@ -169,11 +169,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                 Log.e("Callback", "onVerificationFailed called");
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
-                    Snackbar.make(parent, "Please Enter a Valid Phone Number", Snackbar.LENGTH_LONG).show();
+                    Toast.makeText(context, "Please Enter a Valid Phone Number", Toast.LENGTH_SHORT).show();
                 } else if (e instanceof FirebaseTooManyRequestsException) {
-                    Snackbar.make(parent, "Server Error, Try Again later", Snackbar.LENGTH_LONG).show();
+                    Toast.makeText(context, "Server Error, Try Again later", Toast.LENGTH_SHORT).show();
                 } else {
-                    Snackbar.make(parent, "Please Try Again Later", Snackbar.LENGTH_LONG).show();
+                    Toast.makeText(context, "Please Try Again Later", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -367,7 +367,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void doSwipeAnimation() {
-        //TODO: Change the nature of this method to perform a swipe operation
         initialContainer.setVisibility(View.GONE);
         if (INITIAL_SELECTION == HOTEL) {
             hotelContainer.setVisibility(View.VISIBLE);

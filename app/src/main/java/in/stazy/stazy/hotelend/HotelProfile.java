@@ -35,8 +35,6 @@ public class HotelProfile extends AppCompatActivity implements OnCompleteListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_profile);
         ButterKnife.bind(this);
-        //TODO: Write Code to download data, store it in Manager.HOTEL_DATA.
-        //TODO: Fill the views.
         if (Manager.HOTEL_DATA == null) {
             FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
             DocumentReference documentReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE)

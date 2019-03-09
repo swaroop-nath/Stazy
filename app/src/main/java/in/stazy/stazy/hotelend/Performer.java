@@ -76,7 +76,6 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         ButterKnife.bind(this);
         /*
         TODO: Define behaviours for Shortlist and Hire buttons
-        TODO: Write code to download High Res profile picture here and find a way to keep this image in the performer object.
          */
 
         Intent receivedIntent = getIntent();
@@ -142,7 +141,6 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
     private void hirePerformer() {
         //TODO: Clear the shortlist database.
         //TODO: Put the hired candidate to SQLite Database.
-        //TODO: Think of some way to send the hired information to the performer
     }
 
     private void startShortlistProcedure() {
@@ -153,7 +151,6 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onConditionsSet(String performanceTime, String performanceDuration) {
-        //TODO: Add the shortlisted candidate to SQLite Database.
 //        phoneImageView.setVisibility(View.VISIBLE);
 //        phoneTextView.setVisibility(View.VISIBLE);
 

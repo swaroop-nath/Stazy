@@ -18,7 +18,7 @@
     <!--activity_main_hotel_explore_buttons_scroll_view_container margin dimens-->
     <dimen name="activity_hotel_main_explore_buttons_container_top_margin">16dp</dimen>
     <dimen name="activity_hotel_main_explore_buttons_container_start_padding">24dp</dimen>
-    <dimen name="activity_hotel_main_explore_buttons_container_end_padding">16dp</dimen>
+    <dimen name="activity_hotel_main_explore_buttons_container_end_padding">24dp</dimen>
 
     <!--activity_main_hotel_explore_cards dimens-->
     <dimen name="activity_hotel_main_explore_card_view_container_height">170dp</dimen>

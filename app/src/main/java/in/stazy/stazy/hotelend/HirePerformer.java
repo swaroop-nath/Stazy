@@ -62,9 +62,9 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
     //Constant Declaration
     public static int FLAG_SET = 1;
     public static int FLAG_UNSET = 0;
-    private static final String TYPE_VALUE_MUCISIANS_HP = "musicians";
-    private static final String TYPE_VALUE_COMEDIANS_HP = "comedians";
-    private static final String TYPE_VALUE_OTHERS_HP = "others";
+    private static final String TYPE_VALUE_MUCISIANS_HP = "Musicians";
+    private static final String TYPE_VALUE_COMEDIANS_HP = "Comedians";
+    private static final String TYPE_VALUE_OTHERS_HP = "Others";
 
     private static final String GENRE_VALUE_SINGER_HP = "Singer";
     private static final String GENRE_VALUE_GUITARIST_HP = "Guitarist";

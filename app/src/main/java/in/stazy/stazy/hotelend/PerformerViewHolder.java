@@ -35,7 +35,6 @@ class PerformerViewHolder {
     }
 
     void setProfilePicture(DataManager performer) {
-        //TODO: Use uid to parse profile picture from Cloud Storage
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference imageReference = storage.getReference().child(performer.getUID()+"/"+performer.getPicName());
         Glide.with(context).asBitmap().load(imageReference).into(new SimpleTarget<Bitmap>() {

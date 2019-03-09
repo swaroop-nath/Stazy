@@ -29,21 +29,23 @@ public class MessageService extends FirebaseMessagingService {
         String notificationBody = remoteMessage.getNotification().getBody();
 
         String revertToken = remoteMessage.getData().get("sender");
-        String dataIntent = remoteMessage.getData().get("intent");
+//        String dataIntent = remoteMessage.getData().get("intent");
 
         PendingIntent pendingIntent = null;
-        if (dataIntent.equals("HIRE")) {
-            //Define an activity that opens this notification up
-        } else if (dataIntent.equals("RESPONSE")) {
-            Intent intent = new Intent(this, MainActivityHotel.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-        }
+//        if (dataIntent.equals("HIRE")) {
+//            //Define an activity that opens this notification up
+//        } else if (dataIntent.equals("RESPONSE")) {
+//            Intent intent = new Intent(this, MainActivityHotel.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//            pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+//        }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher_foreground)
                 .setContentTitle(notificationTitle)
-                .setContentText(notificationBody)
+                .setContentText("")
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(notificationBody))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         if (pendingIntent != null) {

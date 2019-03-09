@@ -67,7 +67,7 @@ public class PaymentDialog extends DialogFragment implements DialogInterface.OnS
 
     @Override
     public void onClick(View v) {
-        //TODO: Write UPI code
+        //TODO: Write UPI code - on activity result.
         String creditsReq = String.valueOf(creditsReqText.getText());
         if (TextUtils.isEmpty(creditsReq))
             creditsReqText.setError("Please input a valid value");

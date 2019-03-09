@@ -59,9 +59,9 @@ public class MainActivityHotel extends AppCompatActivity {
 
     //Constant Field declarations
     public static final String EXPLORE_INTENT_EXTRA_KEY = "type";
-    public static final String TYPE_VALUE_MUCISIANS = "musicians";
-    public static final String TYPE_VALUE_COMEDIANS = "comedians";
-    public static final String TYPE_VALUE_OTHERS = "others";
+    public static final String TYPE_VALUE_MUCISIANS = "Musicians";
+    public static final String TYPE_VALUE_COMEDIANS = "Comedians";
+    public static final String TYPE_VALUE_OTHERS = "Others";
     public static final String VIEW_ALL_INTENT_EXTRA_KEY = "view_all_type";
     public static final String VIEW_ALL_INTENT_VALUE_MUCISIANS = "view_all_mucisians";
     public static final String VIEW_ALL_INTENT_VALUE_COMEDIANS = "view_all_comedians";

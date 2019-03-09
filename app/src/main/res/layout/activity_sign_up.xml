@@ -385,7 +385,7 @@
                         android:id="@id/sign_up_activity_performer_phone_number_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="phone"
+                        android:inputType="number"
                         android:hint="@string/sign_up_activity_phone_number_input_text" />
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
@@ -609,6 +609,7 @@
                     android:id="@id/activity_sign_up_performer_price_input"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:inputType="number"
                     android:hint="@string/activity_sign_up_performer_price_input_hint"/>
             </android.support.design.widget.TextInputLayout>
 

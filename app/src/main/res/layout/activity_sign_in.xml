@@ -74,7 +74,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/sign_in_activity_phone_number_hint"
-                    android:inputType="phone" />
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 

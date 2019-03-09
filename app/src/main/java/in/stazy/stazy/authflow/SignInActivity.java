@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
@@ -57,7 +58,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-                //TODO: Show some dialogs
                 if (otpFragment != null) {
                     otpFragment.dismiss();
                     otpFragment = null;
@@ -82,9 +82,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 Log.e("Callback Sign In", "onVerificationFailed called");
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
-                    Snackbar.make(parent, "Please Enter a Valid Phone Number", Snackbar.LENGTH_LONG).show();
+                    Toast.makeText(context, "Please Enter a Valid Phone Number", Toast.LENGTH_SHORT).show();
                 } else if (e instanceof FirebaseTooManyRequestsException) {
-                    Snackbar.make(parent, "Server Error, Try Again later", Snackbar.LENGTH_LONG).show();
+                    Toast.makeText(context, "Server Error, Try Again later", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
 

@@ -31,8 +31,6 @@ public class ComedianData implements DataManager {
             comedianData.setFacebook(docSnap.get("facebook").toString());
             comedianData.setInstagram(docSnap.get("instagram").toString());
             comedianData.setUID(docSnap.get("uid").toString());
-
-            //TODO: Write code to download low res profile picture
             comedians.add(comedianData);
         }
         return comedians;
