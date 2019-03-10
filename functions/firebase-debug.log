@@ -1,0 +1,19 @@
+[debug] [2019-03-06T10:29:54.858Z] ----------------------------------------------------------------------
+[debug] [2019-03-06T10:29:54.992Z] Command:       D:\Softwares\Node.js\node-v8.11.3\node.exe D:\Softwares\Node.js\node-v8.11.3\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2019-03-06T10:29:54.993Z] CLI Version:   6.4.0
+[debug] [2019-03-06T10:29:54.993Z] Platform:      win32
+[debug] [2019-03-06T10:29:54.993Z] Node Version:  v8.11.3
+[debug] [2019-03-06T10:29:55.276Z] Time:          Wed Mar 06 2019 15:59:54 GMT+0530 (India Standard Time)
+[debug] [2019-03-06T10:29:55.276Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-03-06T10:29:55.930Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-03-06T10:29:55.930Z] > authorizing via signed-in user
+[debug] [2019-03-06T10:29:55.930Z] [iam] checking project stazy-app for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2019-03-06T10:29:55.933Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/stazy-app:testIamPermissions  
+
+[debug] [2019-03-06T10:30:01.211Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'stazy-app'...
+[info] 
+[info] i  deploying functions
+[info] Running command: npm --prefix "%RESOURCE_DIR%" run lint

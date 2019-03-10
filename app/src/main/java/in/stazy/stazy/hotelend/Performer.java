@@ -158,7 +158,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         DocumentReference notificationsReferences = firebaseFirestore.collection("NotificationsPerformer").document(FirebaseAuth.getInstance().getUid())
                                                     .collection("To").document(receivedPerformer.getUID());
         Map<String, String> notificationBody = new HashMap<>();
-        notificationBody.put("token", Manager.FCM_TOKEN);
+        notificationBody.put("sender_uid", Manager.HOTEL_DATA.getUID());
         notificationBody.put("city", Manager.CITY_VALUE);
         notificationBody.put("type", receivedType);
         notificationBody.put("genre", receivedPerformer.getGenre());
