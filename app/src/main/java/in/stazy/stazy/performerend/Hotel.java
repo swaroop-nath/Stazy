@@ -1,27 +1,49 @@
 package in.stazy.stazy.performerend;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.stazy.stazy.R;
+import in.stazy.stazy.authflow.MessageService;
+import in.stazy.stazy.authflow.WaitFragment;
 import in.stazy.stazy.datamanagercrossend.HotelData;
+import in.stazy.stazy.datamanagercrossend.Manager;
 import in.stazy.stazy.datamanagerperformer.PerformerManager;
 
-public class Hotel extends AppCompatActivity {
+public class Hotel extends AppCompatActivity implements OnCompleteListener<DocumentSnapshot>, View.OnClickListener {
 
     //View References
     @BindView(R.id.activity_hotel_display_picture) ImageView profilePicture;
     @BindView(R.id.activity_hotel_hotel_name_text_view) TextView hotelNameTextView;
     @BindView(R.id.activity_hotel_hotel_location_text_view) TextView hotelCityTextView;
     @BindView(R.id.activity_hotel_hotel_description) TextView hotelDescriptionTextView;
+    @BindView(R.id.activity_hotel_shortlist_text) TextView hotelShortlistText;
+    @BindView(R.id.activity_hotel_reject_button) CardView rejectButton;
+    @BindView(R.id.activity_hotel_accept_button) CardView acceptButton;
 
     //Activity Specific References
     private int receivedPosition;
+    private String hireDesc;
+    private String hireUID;
+    private WaitFragment dataDownloading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +53,21 @@ public class Hotel extends AppCompatActivity {
 
         Intent intent = getIntent();
         receivedPosition = intent.getIntExtra(MainActivityPerformer.INTENT_HOTEL_OBJECT_KEY, 0);
-        setContentsOfViews();
+        if (intent.getBooleanExtra(MessageService.SHOW_EXTRA_CONTENT_PERFORMER_END, false)) {
+            hireDesc = "<i>" + intent.getStringExtra(MessageService.PERFORMANCE_DETAILS_PERFORMER_END) + " Are you available?</i>";
+            hireUID = intent.getStringExtra(MessageService.HIRING_HOTEL_UID);
+            downloadData();
+            dataDownloading = new WaitFragment();
+            dataDownloading.setData("Loading Data . . .");
+        } else
+            setContentsOfViews();
 
+    }
+
+    private void downloadData() {
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        DocumentReference reference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE).collection("hotels").document(hireUID);
+        reference.get().addOnCompleteListener(this);
     }
 
     private void setContentsOfViews() {
@@ -40,5 +75,54 @@ public class Hotel extends AppCompatActivity {
         hotelNameTextView.setText(PerformerManager.PREV_HOTELS.get(receivedPosition).getName());
         hotelCityTextView.setText(PerformerManager.PREV_HOTELS.get(receivedPosition).getCity());
         hotelDescriptionTextView.setText(PerformerManager.PREV_HOTELS.get(receivedPosition).getDescription());
+
+    }
+
+    @Override
+    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+        if (task.isSuccessful()) {
+            PerformerManager.SHORTLIST_HOTEL = HotelData.setData(task.getResult());
+            setSpecialContents();
+            dataDownloading.dismiss();
+        } else {
+            Toast.makeText(this, "Please press the refresh button to try again", Toast.LENGTH_SHORT).show();
+            //Introduce a refresh button
+        }
+    }
+
+    private void setSpecialContents() {
+        hotelNameTextView.setText(PerformerManager.SHORTLIST_HOTEL.getName());
+        hotelCityTextView.setText(PerformerManager.SHORTLIST_HOTEL.getCity());
+        hotelDescriptionTextView.setText(PerformerManager.SHORTLIST_HOTEL.getDescription());
+
+        hotelShortlistText.setText(hireDesc);
+
+        hotelShortlistText.setVisibility(View.VISIBLE);
+        acceptButton.setVisibility(View.VISIBLE);
+        rejectButton.setVisibility(View.VISIBLE);
+
+        acceptButton.setOnClickListener(this);
+        rejectButton.setOnClickListener(this);
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference imageReference = storage.getReference().child(PerformerManager.SHORTLIST_HOTEL.getUID()+"/"+PerformerManager.SHORTLIST_HOTEL.getPicName());
+        Glide.with(this).asBitmap().load(imageReference).into(profilePicture);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.activity_hotel_reject_button:
+                Toast.makeText(this, "Request Rejected", Toast.LENGTH_SHORT).show();
+                hotelShortlistText.setVisibility(View.GONE);
+                acceptButton.setVisibility(View.GONE);
+                rejectButton.setVisibility(View.GONE);
+                break;
+            case R.id.activity_hotel_accept_button:
+                Toast.makeText(this, "Nice Choice, We might be contacting you shortly", Toast.LENGTH_SHORT).show();
+                hotelShortlistText.setVisibility(View.GONE);
+                acceptButton.setVisibility(View.GONE);
+                rejectButton.setVisibility(View.GONE);
+                break;
+        }
     }
 }

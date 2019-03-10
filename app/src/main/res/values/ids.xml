@@ -376,4 +376,7 @@
     <item name="activity_main_performer_buy_priority_fab" type="id">
         activity_main_performer_buy_priority
     </item>
+    <item name="activity_hotel_shortlist_text" type="id">activity_hotel_shortlist_text</item>
+    <item name="activity_hotel_reject_button" type="id">activity_hotel_reject_button</item>
+    <item name="activity_hotel_accept_button" type="id">activity_hotel_accept_button</item>
 </resources>

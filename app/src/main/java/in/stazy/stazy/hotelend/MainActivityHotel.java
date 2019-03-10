@@ -40,7 +40,7 @@ import in.stazy.stazy.datamanagercrossend.Manager;
 import in.stazy.stazy.datamanagerhotel.MucisianData;
 import in.stazy.stazy.datamanagerperformer.PerformerManager;
 
-public class MainActivityHotel extends AppCompatActivity {
+public class MainActivityHotel extends AppCompatActivity implements Adapter.ActivityCommunication {
     //View references
     //Explore Section ViewPager
     @BindView(R.id.activity_hotel_main_explore_view_pager) ViewPager exploreViewPager;
@@ -176,5 +176,10 @@ public class MainActivityHotel extends AppCompatActivity {
                     Log.e("TOKEN ADDITION", task.getException().getMessage());
             }
         });
+    }
+
+    @Override
+    public void onViewPagerClick(Intent intent) {
+        startActivity(intent);
     }
 }

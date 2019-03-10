@@ -38,9 +38,11 @@ import in.stazy.stazy.performerend.MainActivityPerformer;
 public class SignInManager {
 
     private static Context varContext;
+    private static SignInCommunication communication;
 
     public static void signInWithNewCredentials(PhoneAuthCredential credential, final Context context, final Map data, final Uri profilePicture, final String city) {
         varContext = context;
+        communication = (SignInCommunication) context;
         FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -120,7 +122,7 @@ public class SignInManager {
         PerformerManager.PERFORMER = PerformerData.setDataOnSignUp(data);
         Intent intent = new Intent(varContext, MainActivityPerformer.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        varContext.startActivity(intent);
+        communication.fireIntentActivity(intent);
 
     }
 
@@ -161,11 +163,12 @@ public class SignInManager {
         Manager.HOTEL_DATA = HotelData.setDataOnSignUp(data);
         Intent intent = new Intent(varContext, MainActivityHotel.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        varContext.startActivity(intent);
+        communication.fireIntentActivity(intent);
     }
 
     public static void signInWithOldCredentials(PhoneAuthCredential credential, Context context) {
         varContext = context;
+        communication = (SignInCommunication) context;
 
         FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -211,13 +214,17 @@ public class SignInManager {
     private static void startUIHotel() {
         Intent intent = new Intent(varContext, MainActivityHotel.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        varContext.startActivity(intent);
+        communication.fireIntentActivity(intent);
     }
 
     private static void startUIPerformer() {
         Intent intent = new Intent(varContext, MainActivityPerformer.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        varContext.startActivity(intent);
+        communication.fireIntentActivity(intent);
+    }
+
+    interface SignInCommunication {
+        void fireIntentActivity(Intent intent);
     }
 
 }

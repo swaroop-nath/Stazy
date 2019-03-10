@@ -64,7 +64,10 @@ public class PerformanceConditionsDialog extends DialogFragment implements TimeP
 
     @Override
     public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-        performanceTime = hourOfDay + " : " + minute;
+        String AMPM = "AM";
+        if (hourOfDay >= 12)
+            AMPM = "PM";
+        performanceTime = hourOfDay + ":" + minute + " " + AMPM;
     }
 
     @Override

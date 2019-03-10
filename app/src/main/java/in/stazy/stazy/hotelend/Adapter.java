@@ -19,10 +19,12 @@ public class Adapter extends PagerAdapter {
     private ArrayList<ExploreCardModel> models;
     private LayoutInflater inflater;
     private Context context;
+    private ActivityCommunication communication;
 
     public Adapter(ArrayList<ExploreCardModel> models, Context context) {
         this.models = models;
         this.context = context;
+        communication = (ActivityCommunication) context;
     }
 
     @Override
@@ -66,7 +68,7 @@ public class Adapter extends PagerAdapter {
                         intent.putExtra(MainActivityHotel.EXPLORE_INTENT_EXTRA_KEY, MainActivityHotel.TYPE_VALUE_OTHERS);
                         break;
                 }
-                context.startActivity(intent);
+                communication.onViewPagerClick(intent);
             }
         });
 
@@ -76,6 +78,10 @@ public class Adapter extends PagerAdapter {
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView((View) object);
+    }
+
+    interface ActivityCommunication {
+        void onViewPagerClick(Intent intent);
     }
 }
 

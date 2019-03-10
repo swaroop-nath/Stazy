@@ -151,9 +151,6 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onConditionsSet(String performanceTime, String performanceDuration) {
-//        phoneImageView.setVisibility(View.VISIBLE);
-//        phoneTextView.setVisibility(View.VISIBLE);
-
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         DocumentReference notificationsReferences = firebaseFirestore.collection("NotificationsPerformer").document(FirebaseAuth.getInstance().getUid())
                                                     .collection("To").document(receivedPerformer.getUID());
@@ -163,7 +160,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         notificationBody.put("type", receivedType);
         notificationBody.put("genre", receivedPerformer.getGenre());
         notificationBody.put("notification_title", "Congratulations, " + Manager.HOTEL_DATA.getName() + " wants to hire you.");
-        notificationBody.put("notification_body", "You are expected to perform there at: " + performanceTime + ", for a duration of: " + performanceDuration);
+        notificationBody.put("notification_body", "We expect you to perform here at- " + performanceTime + ", for a duration of: " + performanceDuration);
 
         notificationsReferences.set(notificationBody).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

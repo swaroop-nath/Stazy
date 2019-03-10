@@ -20,26 +20,22 @@ exports.sendNotification = functions.firestore.document("NotificationsPerformer/
         console.log(city);
 
         const performer_data = admin.firestore().collection("Cities").doc(city).collection("type").doc(type).collection(genre).doc(to_id).get();
-        const hotel_data = admin.firestore().collection("Cities").doc(city).collection("hotels").doc(sender_id).get();
 
-        return Promise.all([performer_data, hotel_data]).then( result =>{
+        return Promise.all([performer_data, hotel_data]).then(result => {
             const token_performer = result[0].get("token");
-            const token_hotel = result[1].get("token");
 
             const payload = {
                 notification: {
                     title: notification_title,
                     body: notification_body
-                  },
+                },
                 data: {
-                    sender: token_hotel,
-		    intent: "HIRE"
+                    sender_uid: sender_id,
+                    intent: "SHORTLIST"
                 }
             }
-
             admin.messaging().sendToDevice(token_performer, payload).then(result => {
                 console.log("Notification Sent.");
-                
                 return 0;
             }).catch(error => {
                 console.log("Error Sending Message.");

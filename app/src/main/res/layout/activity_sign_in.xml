@@ -182,7 +182,6 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?attr/selectableItemBackground"
-        android:onClick="startSignUp"
         android:text="@string/sign_in_activity_sign_up_button_text"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/text_size_normal"

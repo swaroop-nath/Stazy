@@ -26,6 +26,7 @@ import java.util.Queue;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.stazy.stazy.R;
+import in.stazy.stazy.authflow.MessageService;
 import in.stazy.stazy.customtaskapi.CustomOnCompleteListener;
 import in.stazy.stazy.customtaskapi.CustomTaskCompletioner;
 import in.stazy.stazy.datamanagerhotel.ComedianData;
@@ -192,6 +193,7 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                 }
 
                 intent.putExtra(EXPLORE_INTENT_EXTRA_KEY, chosenType);
+                intent.putExtra(MessageService.SHOW_EXTRA_CONTENT_HOTEL_END, false);
                 intent.putExtra(INDIVIDUAL_PERFORMER_OBJECT_KEY, dataset.get(position));
                 startActivity(intent);
             }

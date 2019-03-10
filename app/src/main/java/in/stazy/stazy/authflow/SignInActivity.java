@@ -29,7 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.stazy.stazy.R;
 
-public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignInActivity extends AppCompatActivity implements View.OnClickListener, SignInManager.SignInCommunication {
 
     //View References
     @BindView(R.id.activity_sign_in_parent) ConstraintLayout parent;
@@ -39,6 +39,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     @BindView(R.id.sign_in_activity_password) TextInputEditText otpInput;
     @BindView(R.id.sign_in_activity_get_otp_button) CardView getOTPButton;
     @BindView(R.id.sign_in_activity_log_in_button) CardView logInButton;
+    @BindView(R.id.sign_in_activity_sign_up_button) TextView signUpButton;
 
     //Activity Specific References
     private Context context;
@@ -104,12 +105,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         };
 
         getOTPButton.setOnClickListener(this);
+        signUpButton.setOnClickListener(this);
     }
 
 
     public void startSignUp(View view) {
-        Intent intent = new Intent(context, SignUpActivity.class);
-        context.startActivity(intent);
     }
 
     private WaitFragment showWaitFragment(String s, String tag) {
@@ -137,6 +137,15 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 } else
                     phoneNumberInput.setError("Please input a Valid Phone Number");
                 break;
+            case R.id.sign_in_activity_sign_up_button:
+                Intent intent = new Intent(this, SignUpActivity.class);
+                startActivity(intent);
+                break;
         }
+    }
+
+    @Override
+    public void fireIntentActivity(Intent intent) {
+        startActivity(intent);
     }
 }

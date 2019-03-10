@@ -33,6 +33,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.stazy.stazy.R;
+import in.stazy.stazy.authflow.MessageService;
 import in.stazy.stazy.datamanagercrossend.HotelData;
 import in.stazy.stazy.datamanagercrossend.Manager;
 import in.stazy.stazy.datamanagerperformer.PerformerData;
@@ -184,6 +185,7 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this, Hotel.class);
+        intent.putExtra(MessageService.SHOW_EXTRA_CONTENT_PERFORMER_END, false);
         intent.putExtra(INTENT_HOTEL_OBJECT_KEY, position);
         startActivity(intent);
     }

@@ -14,10 +14,16 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import in.stazy.stazy.R;
 import in.stazy.stazy.datamanagercrossend.Manager;
-import in.stazy.stazy.hotelend.MainActivityHotel;
+import in.stazy.stazy.hotelend.Performer;
+import in.stazy.stazy.performerend.Hotel;
 
 public class MessageService extends FirebaseMessagingService {
 
+
+    public static final String SHOW_EXTRA_CONTENT_PERFORMER_END = "show_performer";
+    public static final String SHOW_EXTRA_CONTENT_HOTEL_END = "show_hotel";
+    public static final String PERFORMANCE_DETAILS_PERFORMER_END = "performance_details";
+    public static final String HIRING_HOTEL_UID = "hiring_hotel";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -28,17 +34,25 @@ public class MessageService extends FirebaseMessagingService {
         String notificationTitle = remoteMessage.getNotification().getTitle();
         String notificationBody = remoteMessage.getNotification().getBody();
 
-        String revertToken = remoteMessage.getData().get("sender");
-//        String dataIntent = remoteMessage.getData().get("intent");
+        String revertUID = remoteMessage.getData().get("sender");
+        String dataIntent = remoteMessage.getData().get("intent");
 
         PendingIntent pendingIntent = null;
-//        if (dataIntent.equals("HIRE")) {
-//            //Define an activity that opens this notification up
-//        } else if (dataIntent.equals("RESPONSE")) {
-//            Intent intent = new Intent(this, MainActivityHotel.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//            pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-//        }
+        if (dataIntent.equals("SHORTLIST")) {
+            //Notification is on the performer end
+            Intent intent = new Intent(this, Hotel.class);
+            intent.putExtra(SHOW_EXTRA_CONTENT_PERFORMER_END, true);
+            intent.putExtra(PERFORMANCE_DETAILS_PERFORMER_END, notificationBody);
+            intent.putExtra(HIRING_HOTEL_UID, revertUID);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        } else if (dataIntent.equals("RESPONSE")) {
+            //Notification is on the hotel end
+            Intent intent = new Intent(this, Performer.class);
+            intent.putExtra(SHOW_EXTRA_CONTENT_HOTEL_END, true);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher_foreground)

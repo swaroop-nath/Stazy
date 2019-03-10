@@ -39,7 +39,7 @@ import butterknife.ButterKnife;
 import in.stazy.stazy.R;
 import in.stazy.stazy.datamanagerperformer.PerformerManager;
 
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener, OTPFragment.OTPCommunication, AdapterView.OnItemSelectedListener {
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener, OTPFragment.OTPCommunication, AdapterView.OnItemSelectedListener, SignInManager.SignInCommunication {
 
     //View References
     //Common
@@ -414,5 +414,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    @Override
+    public void fireIntentActivity(Intent intent) {
+        startActivity(intent);
     }
 }

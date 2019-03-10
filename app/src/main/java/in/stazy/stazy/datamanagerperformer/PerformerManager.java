@@ -17,4 +17,7 @@ public class PerformerManager {
 
     //This stores the previous hotels that the performer performed in
     public static ArrayList<HotelData> PREV_HOTELS = new ArrayList<>();
+
+
+    public static HotelData SHORTLIST_HOTEL = null;
 }
