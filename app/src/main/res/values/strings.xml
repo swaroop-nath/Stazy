@@ -122,5 +122,11 @@
         <item>New Delhi</item>
     </string-array>
 
+    <string name="buy_priority_prompt">
+        This feature lets you get a higher priority in search results of someone who is trying to hire a performer. It will cost you 0.5 credits of your account.
+    \n\nPlease proceed if you want to promote yourself to a higher priority . . .
+        \n\n** Please note that you need to have atleast 1.5 credits.
+    </string>
+
 
 </resources>

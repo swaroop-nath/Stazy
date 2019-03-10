@@ -73,4 +73,8 @@ public interface DataManager extends Serializable {
     String getUID();
 
     void setUID(String uid);
+
+    double getDoubleRating();
+
+    void setDoubleRating(double doubleRating);
 }

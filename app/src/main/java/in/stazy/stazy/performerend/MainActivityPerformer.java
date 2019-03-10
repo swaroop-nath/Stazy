@@ -62,6 +62,7 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
     private static int MENU_CONTAINER_HEIGHT = 0;
     private static float MENU_CONTAINER_UNDER_CUT = 0f;
     public static final String INTENT_HOTEL_OBJECT_KEY = "hotel";
+    public static final int HIGH_PRIORITY = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +94,6 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             Log.e("MAIN_ACTIVITY_PERFORMER", "Performer Downloaded");
-
                             PerformerManager.PERFORMER = PerformerData.setData(task.getResult());
                             getDataForListView();
                         }
@@ -103,10 +103,9 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
         } else {
             getDataForListView();
         }
-
-       adapter = new PerformerAdapter(context, 0, PerformerManager.PREV_HOTELS);
-       hiresList.setAdapter(adapter);
-       hiresList.setOnItemClickListener(this);
+        adapter = new PerformerAdapter(context, 0, PerformerManager.PREV_HOTELS);
+        hiresList.setAdapter(adapter);
+        hiresList.setOnItemClickListener(this);
     }
 
     private void getDataForListView() {

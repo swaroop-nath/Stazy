@@ -12,6 +12,7 @@ public class MucisianData implements DataManager {
     private String name, phoneNumber, description, location, lastPerformed, rating, city, genre, lastRating, price, pic_name, token, facebook, instagram, uid;
     private Bitmap profilePictureLow = null;
     private Bitmap profilePictureHigh = null;
+    private double doubleRating;
 
     public static ArrayList<MucisianData> fetchMucisians(@NonNull List<DocumentSnapshot> documentSnapshots, String city, String genre) {
         ArrayList<MucisianData> mucisians = new ArrayList<>(10);
@@ -32,6 +33,7 @@ public class MucisianData implements DataManager {
             mucisianData.setFacebook(docSnap.get("facebook").toString());
             mucisianData.setInstagram(docSnap.get("instagram").toString());
             mucisianData.setUID(docSnap.get("uid").toString());
+            mucisianData.setDoubleRating(Double.valueOf(docSnap.get("rating").toString()));
             mucisians.add(mucisianData);
         }
         return mucisians;
@@ -205,5 +207,15 @@ public class MucisianData implements DataManager {
     @Override
     public void setUID(String uid) {
         this.uid = uid;
+    }
+
+    @Override
+    public double getDoubleRating() {
+        return doubleRating;
+    }
+
+    @Override
+    public void setDoubleRating(double doubleRating) {
+        this.doubleRating = doubleRating;
     }
 }

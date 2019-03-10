@@ -108,8 +108,8 @@
                 android:layout_height="@dimen/activity_performer_profile_social_links_item_facebook_height"
                 android:layout_marginEnd="@dimen/activity_performer_profile_social_links_item_facebook_end_margin"
                 android:background="@drawable/social_links_border"
-                android:drawableStart="@drawable/ic_facebook_logo"
                 android:drawablePadding="@dimen/activity_performer_profile_social_links_item_facebook_logo_padding"
+                android:drawableStart="@drawable/ic_facebook_logo"
                 android:paddingEnd="@dimen/activity_performer_profile_social_links_items_end_padding"
                 android:paddingStart="@dimen/activity_performer_profile_social_links_items_start_padding"
                 android:textAllCaps="false"
@@ -123,8 +123,8 @@
                 android:layout_height="@dimen/activity_performer_profile_social_links_item_instagram_height"
                 android:layout_marginStart="@dimen/activity_performer_profile_social_links_item_instagram_start_margin"
                 android:background="@drawable/social_links_border"
-                android:drawableStart="@drawable/ic_instagram_logo"
                 android:drawablePadding="@dimen/activity_performer_profile_social_links_item_instagram_logo_padding"
+                android:drawableStart="@drawable/ic_instagram_logo"
                 android:paddingEnd="@dimen/activity_performer_profile_social_links_items_end_padding"
                 android:paddingStart="@dimen/activity_performer_profile_social_links_items_start_padding"
                 android:textAllCaps="false"
@@ -160,11 +160,11 @@
             android:id="@id/activity_performer_profile_phone_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/activity_performer_profile_city_image"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="@dimen/activity_performer_profile_phone_image_top_margin"
             android:layout_marginStart="@dimen/activity_performer_profile_phone_image_start_margin"
-            android:src="@drawable/ic_phone_performer"/>
+            android:layout_marginTop="@dimen/activity_performer_profile_phone_image_top_margin"
+            android:src="@drawable/ic_phone_performer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_performer_profile_city_image" />
 
         <TextView
             android:id="@id/activity_performer_profile_phone_text_view"
@@ -172,36 +172,36 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_performer_profile_phone_text_view_start_margin"
             android:layout_marginTop="@dimen/activity_performer_profile_phone_text_view_top_margin"
+            android:autoLink="phone"
+            android:linksClickable="true"
             android:textColor="@color/colorPrimaryText"
             android:textSize="@dimen/text_size_small"
             app:layout_constraintStart_toEndOf="@id/activity_performer_profile_phone_image"
             app:layout_constraintTop_toBottomOf="@id/activity_performer_profile_city_text_view"
-            tools:text="+91999944422"
-            android:autoLink="phone"
-            android:linksClickable="true"/>
+            tools:text="+91999944422" />
 
         <ImageView
             android:id="@id/activity_performer_profile_credits_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/activity_performer_profile_phone_image"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="@dimen/activity_performer_profile_credits_image_top_margin"
             android:layout_marginStart="@dimen/activity_performer_profile_credits_image_start_margin"
-            android:src="@drawable/ic_credits_icon"/>
+            android:layout_marginTop="@dimen/activity_performer_profile_credits_image_top_margin"
+            android:src="@drawable/ic_credits_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_performer_profile_phone_image" />
 
         <TextView
             android:id="@id/activity_performer_profile_credits_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/activity_performer_profile_phone_text_view"
-            app:layout_constraintStart_toEndOf="@id/activity_performer_profile_credits_image"
-            app:layout_constraintBottom_toBottomOf="@id/activity_performer_profile_credits_image"
             android:layout_marginStart="@dimen/activity_performer_profile_credits_text_view_start_margin"
             android:layout_marginTop="@dimen/activity_performer_profile_credits_text_view_top_margin"
-            tools:text="Credits: 2"
+            android:textColor="@color/colorPrimaryText"
             android:textSize="@dimen/text_size_small"
-            android:textColor="@color/colorPrimaryText"/>
+            app:layout_constraintBottom_toBottomOf="@id/activity_performer_profile_credits_image"
+            app:layout_constraintStart_toEndOf="@id/activity_performer_profile_credits_image"
+            app:layout_constraintTop_toBottomOf="@id/activity_performer_profile_phone_text_view"
+            tools:text="Credits: 2" />
 
         <TextView
             android:id="@id/activity_performer_profile_description_text_view"
@@ -217,18 +217,29 @@
             app:layout_constraintTop_toBottomOf="@id/activity_performer_profile_credits_text_view"
             tools:text="        Description " />
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@id/activity_main_performer_buy_priority_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_main_performer_hires_fab_bottom_margin"
+            android:layout_marginEnd="@dimen/activity_main_performer_hires_fab_end_margin"
+            android:elevation="@dimen/activity_main_performer_fab_elevation"
+            android:src="@drawable/ic_credits_icon_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <android.support.v7.widget.CardView
             android:id="@id/activity_performer_profile_buy_credits_button"
             android:layout_width="@dimen/activity_performer_shortlist_button_width"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_performer_shortlist_button_top_margin"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
             app:cardBackgroundColor="@color/colorAccent"
             app:cardCornerRadius="@dimen/activity_performer_shortlist_button_corner_radius"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_performer_profile_description_text_view"
-            android:foreground="?attr/selectableItemBackground"
-            android:clickable="true">
+            app:layout_constraintTop_toBottomOf="@id/activity_performer_profile_description_text_view">
 
             <TextView
                 android:id="@id/activity_performer_hire_button_text_view"

@@ -1,6 +1,7 @@
 package in.stazy.stazy.performerend;
 
 import android.graphics.Bitmap;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -35,6 +36,7 @@ public class PerformerProfile extends AppCompatActivity implements View.OnClickL
     @BindView(R.id.activity_performer_profile_credits_text_view) TextView creditsTextView;
     @BindView(R.id.activity_performer_profile_description_text_view) TextView descriptionTextView;
     @BindView(R.id.activity_performer_profile_buy_credits_button) CardView buyCreditsButton;
+    @BindView(R.id.activity_main_performer_buy_priority_fab) FloatingActionButton buyPriority;
 
     //Activity References
 
@@ -44,9 +46,10 @@ public class PerformerProfile extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_performer_profile);
         ButterKnife.bind(this);
+        buyCreditsButton.setOnClickListener(this);
+        buyPriority.setOnClickListener(this);
         setContentsOfViews();
 
-        buyCreditsButton.setOnClickListener(this);
 
     }
 
@@ -87,7 +90,15 @@ public class PerformerProfile extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        PaymentDialog paymentDialog = new PaymentDialog();
-        paymentDialog.show(getSupportFragmentManager(), "payment_dialog");
+        switch (v.getId()) {
+            case R.id.activity_performer_profile_buy_credits_button:
+                PaymentDialog paymentDialog = new PaymentDialog();
+                paymentDialog.show(getSupportFragmentManager(), "payment_dialog");
+                break;
+            case R.id.activity_main_performer_buy_priority_fab:
+                DialogEarnPriority priority = new DialogEarnPriority();
+                priority.show(getSupportFragmentManager(), "priority_dialog");
+                break;
+        }
     }
 }

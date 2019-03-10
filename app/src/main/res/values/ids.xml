@@ -373,4 +373,7 @@
         activity_hotel_main_explore_view_pager
     </item>
     <item name="view_pager_item_image_view" type="id">view_pager_item_imager_view</item>
+    <item name="activity_main_performer_buy_priority_fab" type="id">
+        activity_main_performer_buy_priority
+    </item>
 </resources>

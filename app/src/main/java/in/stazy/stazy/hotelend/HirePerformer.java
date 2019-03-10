@@ -227,6 +227,8 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
 
     private void downloadDataNow(String typeChosen, String genreChosen) {
         childReference = baseReference.document(typeChosen).collection(genreChosen);
+        //TODO: Set one more clause: where credits > 1.1
+//        Query alphabeticalQuery = childReference.orderBy("priority", Query.Direction.DESCENDING);
         Query alphabeticalQuery = childReference.orderBy("name");
         alphabeticalQuery.get().addOnCompleteListener(new CustomTaskCompletioner(this, typeChosen, genreChosen));
     }

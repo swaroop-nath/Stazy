@@ -9,8 +9,9 @@ import java.util.List;
 
 public class OtherData implements DataManager{
     private String name, phoneNumber, description, location, lastPerformed, rating, city, genre, lastRating, price, pic_name, token, facebook, instagram, uid;
-    private Bitmap profilePictureLow;
+    private Bitmap profilePictureLow = null;
     private Bitmap profilePictureHigh = null;
+    private double doubleRating;
 
     public static ArrayList<OtherData> fetchOthers(List<DocumentSnapshot> documentSnapshots, String city, String genre) {
         ArrayList<OtherData> others = new ArrayList<>(10);
@@ -31,6 +32,7 @@ public class OtherData implements DataManager{
             otherData.setFacebook(docSnap.get("facebook").toString());
             otherData.setInstagram(docSnap.get("instagram").toString());
             otherData.setUID(docSnap.get("uid").toString());
+            otherData.setDoubleRating(Double.valueOf(docSnap.get("rating").toString()));
             others.add(otherData);
         }
         return others;
@@ -204,5 +206,15 @@ public class OtherData implements DataManager{
     @Override
     public void setUID(String uid) {
         this.uid = uid;
+    }
+
+    @Override
+    public double getDoubleRating() {
+        return doubleRating;
+    }
+
+    @Override
+    public void setDoubleRating(double doubleRating) {
+        this.doubleRating = doubleRating;
     }
 }

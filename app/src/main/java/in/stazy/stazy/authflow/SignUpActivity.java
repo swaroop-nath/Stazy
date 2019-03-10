@@ -82,7 +82,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private Context context;
     private Map<String, String> hotelData = new HashMap<>();
     private OTPFragment fragment = null;
-    private Map<String, String> performerData = new HashMap<>();
+    private Map<String, Object> performerData = new HashMap<>();
     private Uri selectedImage;
     private String picName;
     private ArrayAdapter<String> mucisiansAdapter, comediansAdapter, othersAdapter;
@@ -97,6 +97,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     static int INITIAL_SELECTION ;
     static int HOTEL = 0;
     static int PERFORMER = 1;
+    private static final int DEFAULT_PRIORITY = 3;
+    private static final int DEFAULT_RATING = 3;
+    private static final int DEFAULT_CREDITS = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -286,11 +289,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             performerData.put("price", performerPrice.getText().toString());
             performerData.put("location", "");
             performerData.put("last_performed", "");
-            performerData.put("rating", "3");
+            performerData.put("rating", DEFAULT_RATING);
             performerData.put("last_rating", "");
             performerData.put("prev_performances", "");
-            performerData.put("credits", "2");
+            performerData.put("credits", DEFAULT_CREDITS);
             performerData.put("pic_name", picName);
+            performerData.put("priority", DEFAULT_PRIORITY); //TODO: See if this is automatically converted to int
 
             PerformerManager.TYPE_VALUE = performerType.getSelectedItem().toString();
             PerformerManager.GENRE_VALUE = performerGenre.getSelectedItem().toString();

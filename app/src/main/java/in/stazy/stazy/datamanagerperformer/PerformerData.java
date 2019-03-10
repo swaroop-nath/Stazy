@@ -28,6 +28,7 @@ public class PerformerData implements DataManager {
     private String credits;
     private String uid;
     private Bitmap profilePictureHigh = null;
+    private double doubleRating, doubleCredits;
 
     public static PerformerData setData(DocumentSnapshot documentSnapshot) {
         PerformerData performerData = new PerformerData();
@@ -49,6 +50,8 @@ public class PerformerData implements DataManager {
         performerData.setPrevPerformances(documentSnapshot.get("prev_performances").toString());
         performerData.setCredits(documentSnapshot.get("credits").toString());
         performerData.setUID(documentSnapshot.get("uid").toString());
+        performerData.setDoubleRating(Double.valueOf(documentSnapshot.get("rating").toString()));
+        performerData.setDoubleCredits(Double.valueOf(documentSnapshot.get("credits").toString()));
 
         return performerData;
     }
@@ -61,7 +64,7 @@ public class PerformerData implements DataManager {
         performerData.setDescription(data.get("description"));
         performerData.setLocation(data.get("location"));
         performerData.setLastPerformed(data.get("last_performed"));
-        performerData.setRating(data.get("rating"));
+        performerData.setRating(String.valueOf(data.get("rating")));
         performerData.setCity(Manager.CITY_VALUE);
         performerData.setGenre(PerformerManager.GENRE_VALUE);
         performerData.setLastRating(data.get("last_rating"));
@@ -71,7 +74,7 @@ public class PerformerData implements DataManager {
         performerData.setFacebook(data.get("facebook"));
         performerData.setInstagram(data.get("instagram"));
         performerData.setPrevPerformances(data.get("prev_performances"));
-        performerData.setCredits(data.get("credits"));
+        performerData.setCredits(String.valueOf(data.get("credits")));
 
         return performerData;
     }
@@ -266,4 +269,21 @@ public class PerformerData implements DataManager {
         this.uid = uid;
     }
 
+    @Override
+    public double getDoubleRating() {
+        return doubleRating;
+    }
+
+    @Override
+    public void setDoubleRating(double doubleRating) {
+        this.doubleRating = doubleRating;
+    }
+
+    public double getDoubleCredits() {
+        return doubleCredits;
+    }
+
+    public void setDoubleCredits(double doubleCredits) {
+        this.doubleCredits = doubleCredits;
+    }
 }

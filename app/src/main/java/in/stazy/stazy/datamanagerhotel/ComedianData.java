@@ -11,6 +11,7 @@ public class ComedianData implements DataManager {
     private String name, phoneNumber, description, location, lastPerformed, rating, city, genre, lastRating, price, pic_name, token, facebook, instagram, uid;
     private Bitmap profilePictureLow;
     private Bitmap profilePictureHigh = null;
+    private double doubleRating;
 
     public static ArrayList<ComedianData> fetchComedians(List<DocumentSnapshot> documentSnapshots, String city, String genre) {
         ArrayList<ComedianData> comedians = new ArrayList<>(10);
@@ -31,6 +32,7 @@ public class ComedianData implements DataManager {
             comedianData.setFacebook(docSnap.get("facebook").toString());
             comedianData.setInstagram(docSnap.get("instagram").toString());
             comedianData.setUID(docSnap.get("uid").toString());
+            comedianData.setDoubleRating(Double.valueOf(docSnap.get("rating").toString()));
             comedians.add(comedianData);
         }
         return comedians;
@@ -204,5 +206,15 @@ public class ComedianData implements DataManager {
     @Override
     public void setUID(String uid) {
         this.uid = uid;
+    }
+
+    @Override
+    public double getDoubleRating() {
+        return doubleRating;
+    }
+
+    @Override
+    public void setDoubleRating(double doubleRating) {
+        this.doubleRating = doubleRating;
     }
 }
