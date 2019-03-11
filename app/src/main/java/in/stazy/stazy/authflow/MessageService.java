@@ -31,10 +31,12 @@ public class MessageService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
+        Log.e("CALLED MESSAGE", "called\n"+remoteMessage.getData().get("title")+"\n"+remoteMessage.getData().get("body"));
+
         final String CHANNEL_ID =  getResources().getString(R.string.default_notification_channel_id);
 
-        String notificationTitle = remoteMessage.getNotification().getTitle();
-        String notificationBody = remoteMessage.getNotification().getBody();
+        String notificationTitle = remoteMessage.getData().get("title");
+        String notificationBody = remoteMessage.getData().get("body");
 
         RECEIVED_UID = remoteMessage.getData().get("sender");
         String dataIntent = remoteMessage.getData().get("intent");
@@ -60,7 +62,7 @@ public class MessageService extends FirebaseMessagingService {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher_foreground)
                 .setContentTitle(notificationTitle)
-                .setContentText("")
+                .setContentText(notificationBody)
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(notificationBody))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);

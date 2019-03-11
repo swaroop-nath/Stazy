@@ -25,11 +25,9 @@ exports.sendNotification = functions.firestore.document("NotificationsPerformer/
             const token_performer = result[0].get("token");
 
             const payload = {
-                notification: {
-                    title: notification_title,
-                    body: notification_body
-                },
                 data: {
+                    title: notification_title,
+                    body: notification_body,
                     sender: sender_id,
                     intent: "SHORTLIST"
                 }
@@ -64,11 +62,9 @@ exports.respondNotification = functions.firestore.document("NotificationsHotel/{
             const token_hotel = result[0].get("token");
 
             const payload = {
-                notification : {
-                    title: notification_title,
-                    body: notification_body
-                },
                 data : {
+                    title: notification_title,
+                    body: notification_body,
                     sender: sender_id,
                     intent: "RESPONSE",
                     type: type,

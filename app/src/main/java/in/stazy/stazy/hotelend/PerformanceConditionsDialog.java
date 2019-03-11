@@ -107,7 +107,8 @@ public class PerformanceConditionsDialog extends DialogFragment implements TimeP
             String AMPM = "AM";
             if (hourOfDay >= 12) {
                 AMPM = "PM";
-                hourOfDay = hourOfDay - 12;
+                if (hourOfDay >= 13)
+                    hourOfDay = hourOfDay - 12;
             }
             performanceTime = hourOfDay + ":" + minute + " " + AMPM;
         }
