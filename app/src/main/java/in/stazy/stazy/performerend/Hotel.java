@@ -50,7 +50,8 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
     private int receivedPosition;
     private String hireDesc;
     private String hireUID;
-    private WaitFragment dataDownloading;
+    private WaitFragment dataDownloading = null;
+    private WaitFragment intentShowing = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,9 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
         if (intent.getBooleanExtra(MessageService.SHOW_EXTRA_CONTENT_PERFORMER_END, false)) {
             hireDesc = "<i>" + intent.getStringExtra(MessageService.PERFORMANCE_DETAILS_PERFORMER_END) + " Are you available?</i>";
             hireUID = MessageService.RECEIVED_UID;
-            //TODO: Show some dialogs.
+            dataDownloading = new WaitFragment();
+            dataDownloading.setData("Loading . . .");
+            dataDownloading.show(getSupportFragmentManager(), "data_downloading");
             downloadData();
         } else
             setContentsOfViews();
@@ -86,6 +89,8 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
 
     @Override
     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+        dataDownloading.dismiss();
+        dataDownloading = null;
         if (task.isSuccessful()) {
             PerformerManager.SHORTLIST_HOTEL = HotelData.setData(task.getResult());
             setSpecialContents();
@@ -117,21 +122,16 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.activity_hotel_reject_button:
-                Toast.makeText(this, "Request Rejected", Toast.LENGTH_SHORT).show();
-                hotelShortlistText.setVisibility(View.GONE);
-                acceptButton.setVisibility(View.GONE);
-                rejectButton.setVisibility(View.GONE);
+                deleteShortlistedCandidate();
                 break;
             case R.id.activity_hotel_accept_button:
-                //TODO: SHow some dialog
-                hotelShortlistText.setVisibility(View.GONE);
-                acceptButton.setVisibility(View.GONE);
-                rejectButton.setVisibility(View.GONE);
-                FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+                intentShowing = new WaitFragment();
+                intentShowing.setData("Passing your intent");
+                intentShowing.dismiss();
+                final FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
                 DocumentReference notificationReference = firebaseFirestore.collection("NotificationsHotel").document(FirebaseAuth.getInstance().getUid())
                                                             .collection("To").document(hireUID);
                 Map<String, String> notificationBody = new HashMap<>();
-//                notificationBody.put("sender_uid", PerformerManager.PERFORMER.getUID());
                 notificationBody.put("city", Manager.CITY_VALUE);
                 notificationBody.put("type", PerformerManager.TYPE_VALUE);
                 notificationBody.put("genre", PerformerManager.GENRE_VALUE);
@@ -141,14 +141,52 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(Hotel.this, "Nice Choice, We might be contacting you shortly", Toast.LENGTH_SHORT).show();
+                            DocumentReference shortlistReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE)
+                                                                .collection("Shortlists").document(hireUID).collection("List")
+                                                                .document(FirebaseAuth.getInstance().getUid());
+                            Map<String, Object> acceptedMap = new HashMap<>();
+                            acceptedMap.put("isAccepted", 1);
+                            shortlistReference.update(acceptedMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    intentShowing.dismiss();
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(Hotel.this, "Nice Choice, We might be contacting you shortly", Toast.LENGTH_SHORT).show();
+                                        hotelShortlistText.setVisibility(View.GONE);
+                                        acceptButton.setVisibility(View.GONE);
+                                        rejectButton.setVisibility(View.GONE);
+                                    } else {
+                                        Log.e("TAG NOTIF", task.getException().getMessage());
+                                        Toast.makeText(Hotel.this, "Couldn't Notify. Please press \"Accept\" again", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                         } else {
                             Log.e("TAG NOTIF", task.getException().getMessage());
-                            Toast.makeText(Hotel.this, "Server Error, Please try again later", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Hotel.this, "Couldn't Notify. Please press \"Accept\" again", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
                 break;
         }
+    }
+
+    private void deleteShortlistedCandidate() {
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        DocumentReference documentReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE).collection("Shortlists")
+                                                .document(hireUID).collection("List").document(FirebaseAuth.getInstance().getUid());
+        documentReference.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(Hotel.this, "Request Rejected", Toast.LENGTH_SHORT).show();
+                    hotelShortlistText.setVisibility(View.GONE);
+                    acceptButton.setVisibility(View.GONE);
+                    rejectButton.setVisibility(View.GONE);
+                } else {
+                    Toast.makeText(Hotel.this, "Couldn't notify. Please press \"Reject\" again.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

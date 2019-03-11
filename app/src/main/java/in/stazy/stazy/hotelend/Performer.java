@@ -35,6 +35,7 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import in.stazy.stazy.R;
 import in.stazy.stazy.authflow.MessageService;
+import in.stazy.stazy.authflow.WaitFragment;
 import in.stazy.stazy.datamanagercrossend.Manager;
 import in.stazy.stazy.datamanagerhotel.ComedianData;
 import in.stazy.stazy.datamanagerhotel.DataManager;
@@ -66,10 +67,11 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
     @BindView(R.id.activity_performer_hire_button) CardView hireButton;
 
     //Activity Specific References
-    DataManager receivedPerformer;
-    String receivedType;
-    String performerUID;
-    String notifGenre;
+    private DataManager receivedPerformer;
+    private String receivedType;
+    private String performerUID;
+    private String notifGenre;
+    private WaitFragment waitFragment;
 
     //Use this UID of hotel to access hotel details from database in Performer end to get the updated token of the hotel.
 
@@ -89,6 +91,9 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
             performerUID = MessageService.RECEIVED_UID;
             String performerType = receivedIntent.getStringExtra(MessageService.NOTIF_TYPE_RECEIVED);
             notifGenre = receivedIntent.getStringExtra(MessageService.NOTIF_GENRE_RECEIVED);
+            waitFragment = new WaitFragment();
+            waitFragment.setData("Loading Data . . .");
+            waitFragment.show(getSupportFragmentManager(), "loading_data");
             downloadData(performerType, notifGenre);
             shortlistButton.setVisibility(View.GONE);
         } else {
@@ -163,7 +168,6 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
     private void hirePerformer() {
         //TODO: Clear the shortlist database.
         //TODO: Put the hired candidate to SQLite Database.
-        Toast.makeText(this, "Congo", Toast.LENGTH_SHORT).show();
     }
 
     private void startShortlistProcedure() {
@@ -174,11 +178,25 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onConditionsSet(String performanceTime, String performanceDuration) {
+        final WaitFragment notify = new WaitFragment();
+        notify.setData("Notifying Performer . . .");
+        notify.show(getSupportFragmentManager(), "notify");
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         DocumentReference notificationsReferences = firebaseFirestore.collection("NotificationsPerformer").document(FirebaseAuth.getInstance().getUid())
                                                     .collection("To").document(receivedPerformer.getUID());
+
+        DocumentReference shortlistReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE).collection("Shortlists")
+                .document(FirebaseAuth.getInstance().getUid()).collection("List").document(receivedPerformer.getUID());
+        Map<String, Object> shortlistMap = new HashMap<>();
+        DocumentReference performerReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE).collection("type")
+                .document(receivedType).collection(receivedPerformer.getGenre()).document(receivedPerformer.getUID());
+        shortlistMap.put("performer", performerReference);
+        shortlistMap.put("isHired", 0);
+        shortlistMap.put("isAccepted", 0);
+
+        shortlistReference.set(shortlistMap);
+
         Map<String, String> notificationBody = new HashMap<>();
-//        notificationBody.put("sender_uid", Manager.HOTEL_DATA.getUID());
         notificationBody.put("city", Manager.CITY_VALUE);
         notificationBody.put("type", receivedType);
         notificationBody.put("genre", receivedPerformer.getGenre());
@@ -188,11 +206,12 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         notificationsReferences.set(notificationBody).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
+                notify.dismiss();
                 if (task.isSuccessful()) {
                     Snackbar.make(parent, "Performer has been notified.\nYou should contact him/her once (s)he has confirmed.", Snackbar.LENGTH_LONG).show();
                 } else {
                     Log.e("TAG NOTIF", task.getException().getMessage());
-                    Snackbar.make(parent, "Server Error, Please try again later", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(parent, "Server Error, Please try again.", Snackbar.LENGTH_LONG).show();
                 }
             }
         });
@@ -201,6 +220,8 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+        waitFragment.dismiss();
+        waitFragment = null;
         if (task.isSuccessful()) {
             //Set views
             setSpecialContents(task.getResult());
