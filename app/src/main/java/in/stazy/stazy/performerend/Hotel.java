@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,10 +57,9 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
         receivedPosition = intent.getIntExtra(MainActivityPerformer.INTENT_HOTEL_OBJECT_KEY, 0);
         if (intent.getBooleanExtra(MessageService.SHOW_EXTRA_CONTENT_PERFORMER_END, false)) {
             hireDesc = "<i>" + intent.getStringExtra(MessageService.PERFORMANCE_DETAILS_PERFORMER_END) + " Are you available?</i>";
-            hireUID = intent.getStringExtra(MessageService.HIRING_HOTEL_UID);
+            hireUID = MessageService.HIRING_HOTEL_UID;
+            //TODO: Show some dialogs.
             downloadData();
-            dataDownloading = new WaitFragment();
-            dataDownloading.setData("Loading Data . . .");
         } else
             setContentsOfViews();
 
@@ -83,7 +84,6 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
         if (task.isSuccessful()) {
             PerformerManager.SHORTLIST_HOTEL = HotelData.setData(task.getResult());
             setSpecialContents();
-            dataDownloading.dismiss();
         } else {
             Toast.makeText(this, "Please press the refresh button to try again", Toast.LENGTH_SHORT).show();
             //Introduce a refresh button
@@ -95,7 +95,7 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
         hotelCityTextView.setText(PerformerManager.SHORTLIST_HOTEL.getCity());
         hotelDescriptionTextView.setText(PerformerManager.SHORTLIST_HOTEL.getDescription());
 
-        hotelShortlistText.setText(hireDesc);
+        hotelShortlistText.setText(Html.fromHtml(hireDesc));
 
         hotelShortlistText.setVisibility(View.VISIBLE);
         acceptButton.setVisibility(View.VISIBLE);

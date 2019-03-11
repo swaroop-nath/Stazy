@@ -79,7 +79,7 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
         models.add(new ExploreCardModel(R.drawable.comedians));
         models.add(new ExploreCardModel(R.drawable.others));
 
-        Adapter adapter = new Adapter(models, getApplicationContext());
+        Adapter adapter = new Adapter(models, MainActivityHotel.this);
 
         exploreViewPager.setAdapter(adapter);
 

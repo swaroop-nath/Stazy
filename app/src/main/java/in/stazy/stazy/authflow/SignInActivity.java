@@ -68,7 +68,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     signInFragment = null;
                 }
                 verificationFragment = showWaitFragment("Conducting Automatic Verification . . .", "automatic_verification");
-                SignInManager.signInWithOldCredentials(phoneAuthCredential, context);
+                SignInManager.signInWithOldCredentials(phoneAuthCredential, SignInActivity.this);
             }
 
             @Override
@@ -126,7 +126,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 if (!TextUtils.isEmpty(otpInput.getText().toString())) {
                     signInFragment = showWaitFragment("Signing In . . .", "sign_in_fragment");
                     PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(mVerificationId, otpInput.getText().toString());
-                    SignInManager.signInWithOldCredentials(phoneAuthCredential, context);
+                    SignInManager.signInWithOldCredentials(phoneAuthCredential, SignInActivity.this);
                 } else
                     otpInput.setError("Please Input the sent OTP");
                 break;

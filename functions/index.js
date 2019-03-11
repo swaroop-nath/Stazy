@@ -21,7 +21,7 @@ exports.sendNotification = functions.firestore.document("NotificationsPerformer/
 
         const performer_data = admin.firestore().collection("Cities").doc(city).collection("type").doc(type).collection(genre).doc(to_id).get();
 
-        return Promise.all([performer_data, hotel_data]).then(result => {
+        return Promise.all([performer_data]).then(result => {
             const token_performer = result[0].get("token");
 
             const payload = {
@@ -30,7 +30,7 @@ exports.sendNotification = functions.firestore.document("NotificationsPerformer/
                     body: notification_body
                 },
                 data: {
-                    sender_uid: sender_id,
+                    sender: sender_id,
                     intent: "SHORTLIST"
                 }
             }

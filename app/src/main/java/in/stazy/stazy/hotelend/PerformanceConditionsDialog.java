@@ -23,6 +23,7 @@ public class PerformanceConditionsDialog extends DialogFragment implements TimeP
     private Spinner durationHours, durationMins;
     private String performanceTime;
     private String durationHoursSet, durationMinsSet;
+    private TimePicker performanceTimePicker;
 
     @Override
     public void onAttach(Context context) {
@@ -44,7 +45,8 @@ public class PerformanceConditionsDialog extends DialogFragment implements TimeP
                 PerformanceConditionsDialog.this.getDialog().cancel();
             }
         });
-        TimePicker performanceTimePicker = layout.findViewById(R.id.ap_conditions_dialog_performance_time_picker);
+
+        performanceTimePicker = layout.findViewById(R.id.ap_conditions_dialog_performance_time_picker);
         durationHours = layout.findViewById(R.id.ap_conditions_dialog_duration_child_hours_spinner);
         durationMins = layout.findViewById(R.id.ap_conditions_dialog_duration_child_mins_spinner);
 
@@ -65,8 +67,10 @@ public class PerformanceConditionsDialog extends DialogFragment implements TimeP
     @Override
     public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
         String AMPM = "AM";
-        if (hourOfDay >= 12)
+        if (hourOfDay >= 12) {
             AMPM = "PM";
+            hourOfDay = hourOfDay - 12;
+        }
         performanceTime = hourOfDay + ":" + minute + " " + AMPM;
     }
 
@@ -97,6 +101,16 @@ public class PerformanceConditionsDialog extends DialogFragment implements TimeP
     public void onClick(View v) {
         String durationTime = durationHours.getSelectedItem().toString() + " hours " + durationMins.getSelectedItem().toString() + " minutes.";
         dialog.dismiss();
+        if (performanceTime == null) {
+            int hourOfDay = performanceTimePicker.getCurrentHour();
+            int minute = performanceTimePicker.getCurrentMinute();
+            String AMPM = "AM";
+            if (hourOfDay >= 12) {
+                AMPM = "PM";
+                hourOfDay = hourOfDay - 12;
+            }
+            performanceTime = hourOfDay + ":" + minute + " " + AMPM;
+        }
         conditionsSetListener.onConditionsSet(performanceTime, durationTime);
     }
 

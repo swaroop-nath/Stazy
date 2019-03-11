@@ -328,6 +328,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
         if (TextUtils.isEmpty(performerPrice.getText().toString())) {
             performerPrice.setError("Please Input your hourly price");
+            return false;
         }
 
         return true;
@@ -366,6 +367,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         if (TextUtils.isEmpty(hotelImageName.getText().toString())) {
             hotelImageName.setError("");
             Snackbar.make(parent, "Click on the icon upload A Profile Picture" ,Snackbar.LENGTH_LONG).show();
+            return false;
         }
         return true;
     }
@@ -389,10 +391,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         fragment = null;
         if (INITIAL_SELECTION == HOTEL) {
             otpWaitFragmentHotel = showWaitFragment("Verifying OTP . . .", "otp_wait_fragment_hotel");
-            SignInManager.signInWithNewCredentials(mCredential, context, hotelData, selectedImage, hotelCity.getSelectedItem().toString());
+            SignInManager.signInWithNewCredentials(mCredential, SignUpActivity.this, hotelData, selectedImage, hotelCity.getSelectedItem().toString());
         } else if (INITIAL_SELECTION == PERFORMER) {
             otpWaitFragmentPerformer = showWaitFragment("Verifying OTP . . .", "otp_wait_fragment_performer");
-            SignInManager.signInWithNewCredentials(mCredential, context, performerData, selectedImage, performerCity.getSelectedItem().toString());
+            SignInManager.signInWithNewCredentials(mCredential, SignUpActivity.this, performerData, selectedImage, performerCity.getSelectedItem().toString());
         }
     }
 
