@@ -38,6 +38,60 @@
             android:overScrollMode="never"/>
 
         <TextView
+            android:id="@id/activity_hotel_main_shortlist_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_hotel_main_explore_text_view_start_margin"
+            android:layout_marginTop="@dimen/activity_hotel_main_explore_text_view_top_margin"
+            android:text="@string/activity_hotel_main_shortlist_text_view_text"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_explore_view_pager"
+            android:visibility="gone"/>
+        
+        <android.support.v7.widget.RecyclerView
+            android:id="@id/activity_hotel_main_shortlist_recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_shortlist_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:padding="8dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@id/activity_hotel_main_hire_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_hotel_main_explore_text_view_start_margin"
+            android:layout_marginTop="@dimen/activity_hotel_main_explore_text_view_top_margin"
+            android:text="@string/activity_hotel_main_hire_text_view_text"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_shortlist_recycler_view"
+            android:visibility="gone"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@id/activity_hotel_main_hire_recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_hire_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:padding="8dp"
+            android:visibility="gone"/>
+
+        <TextView
             android:id="@id/activity_hotel_main_prev_performances_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,153 +103,153 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_explore_view_pager" />
+            app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_hire_recycler_view" />
 
-        <LinearLayout
-            android:id="@id/activity_hotel_main_prev_performances_child_view_header_musicians"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/activity_hotel_main_prev_performances_child_view_headers_end_margin"
-            android:layout_marginStart="@dimen/activity_hotel_main_prev_performances_child_view_headers_start_margin"
-            android:layout_marginTop="@dimen/activity_hotel_main_prev_performances_child_view_headers_top_margin"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_prev_performances_text_view">
-            <!--Write Text View, "musicians", and a button "View All", add an onClick Listener to the button-->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@string/activity_hotel_main_prev_performances_child_view_header_musicians_text_view_text"
-                android:textSize="@dimen/text_size_normal"
-                android:textStyle="bold" />
+        <!--<LinearLayout-->
+            <!--android:id="@id/activity_hotel_main_prev_performances_child_view_header_musicians"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginEnd="@dimen/activity_hotel_main_prev_performances_child_view_headers_end_margin"-->
+            <!--android:layout_marginStart="@dimen/activity_hotel_main_prev_performances_child_view_headers_start_margin"-->
+            <!--android:layout_marginTop="@dimen/activity_hotel_main_prev_performances_child_view_headers_top_margin"-->
+            <!--android:orientation="horizontal"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_prev_performances_text_view">-->
+            <!--&lt;!&ndash;Write Text View, "musicians", and a button "View All", add an onClick Listener to the button&ndash;&gt;-->
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:text="@string/activity_hotel_main_prev_performances_child_view_header_musicians_text_view_text"-->
+                <!--android:textSize="@dimen/text_size_normal"-->
+                <!--android:textStyle="bold" />-->
 
-            <Button
-                android:id="@id/activity_hotel_main_prev_performances_child_view_header_musicians_view_all_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:background="@android:color/transparent"
-                android:textAllCaps="false"
-                android:text="@string/activity_hotel_main_prev_performances_child_view_headers_button_text"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/text_size_extra_small"
-                android:textStyle="bold"
-                android:onClick="viewAllMucisians"
-                android:visibility="gone"/>
-        </LinearLayout>
+            <!--<Button-->
+                <!--android:id="@id/activity_hotel_main_prev_performances_child_view_header_musicians_view_all_button"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="5"-->
+                <!--android:background="@android:color/transparent"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:text="@string/activity_hotel_main_prev_performances_child_view_headers_button_text"-->
+                <!--android:textColor="@color/colorAccent"-->
+                <!--android:textSize="@dimen/text_size_extra_small"-->
+                <!--android:textStyle="bold"-->
+                <!--android:onClick="viewAllMucisians"-->
+                <!--android:visibility="gone"/>-->
+        <!--</LinearLayout>-->
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@id/activity_hotel_main_prev_performances_child_mucisians_recycler_view"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_height"
-            android:layout_marginStart="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_start_margin"
-            android:paddingTop="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_top_padding"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_prev_performances_child_view_header_musicians"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:paddingBottom="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_bottom_padding"
-            android:paddingStart="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_start_padding"/>
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@id/activity_hotel_main_prev_performances_child_mucisians_recycler_view"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_height"-->
+            <!--android:layout_marginStart="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_start_margin"-->
+            <!--android:paddingTop="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_top_padding"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_prev_performances_child_view_header_musicians"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--android:paddingBottom="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_bottom_padding"-->
+            <!--android:paddingStart="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_start_padding"/>-->
 
-        <LinearLayout
-            android:id="@id/activity_hotel_main_prev_performances_child_view_header_comedians"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/activity_hotel_main_prev_performances_child_view_headers_end_margin"
-            android:layout_marginStart="@dimen/activity_hotel_main_prev_performances_child_view_headers_start_margin"
-            android:layout_marginTop="@dimen/activity_hotel_main_prev_performances_child_view_headers_top_margin"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_prev_performances_child_mucisians_recycler_view">
-            <!--Write Text View, "musicians", and a button "View All", add an onClick Listener to the button-->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@string/activity_hotel_main_prev_performances_child_view_header_comedians_text_view_text"
-                android:textSize="@dimen/text_size_normal"
-                android:textStyle="bold" />
+        <!--<LinearLayout-->
+            <!--android:id="@id/activity_hotel_main_prev_performances_child_view_header_comedians"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginEnd="@dimen/activity_hotel_main_prev_performances_child_view_headers_end_margin"-->
+            <!--android:layout_marginStart="@dimen/activity_hotel_main_prev_performances_child_view_headers_start_margin"-->
+            <!--android:layout_marginTop="@dimen/activity_hotel_main_prev_performances_child_view_headers_top_margin"-->
+            <!--android:orientation="horizontal"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_prev_performances_child_mucisians_recycler_view">-->
+            <!--&lt;!&ndash;Write Text View, "musicians", and a button "View All", add an onClick Listener to the button&ndash;&gt;-->
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:text="@string/activity_hotel_main_prev_performances_child_view_header_comedians_text_view_text"-->
+                <!--android:textSize="@dimen/text_size_normal"-->
+                <!--android:textStyle="bold" />-->
 
-            <Button
-                android:id="@id/activity_hotel_main_prev_performances_child_view_header_comedians_view_all_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:background="@android:color/transparent"
-                android:textAllCaps="false"
-                android:text="@string/activity_hotel_main_prev_performances_child_view_headers_button_text"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/text_size_extra_small"
-                android:textStyle="bold"
-                android:onClick="viewAllComedians"
-                android:visibility="gone"/>
-        </LinearLayout>
+            <!--<Button-->
+                <!--android:id="@id/activity_hotel_main_prev_performances_child_view_header_comedians_view_all_button"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="5"-->
+                <!--android:background="@android:color/transparent"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:text="@string/activity_hotel_main_prev_performances_child_view_headers_button_text"-->
+                <!--android:textColor="@color/colorAccent"-->
+                <!--android:textSize="@dimen/text_size_extra_small"-->
+                <!--android:textStyle="bold"-->
+                <!--android:onClick="viewAllComedians"-->
+                <!--android:visibility="gone"/>-->
+        <!--</LinearLayout>-->
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@id/activity_hotel_main_prev_performances_child_comedians_recycler_view"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_height"
-            android:layout_marginStart="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_start_margin"
-            android:paddingTop="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_top_padding"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_prev_performances_child_view_header_comedians"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:paddingBottom="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_bottom_padding"
-            android:paddingStart="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_start_padding"/>
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@id/activity_hotel_main_prev_performances_child_comedians_recycler_view"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_height"-->
+            <!--android:layout_marginStart="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_start_margin"-->
+            <!--android:paddingTop="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_top_padding"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_prev_performances_child_view_header_comedians"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--android:paddingBottom="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_bottom_padding"-->
+            <!--android:paddingStart="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_start_padding"/>-->
 
-        <LinearLayout
-            android:id="@id/activity_hotel_main_prev_performances_child_view_header_others"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/activity_hotel_main_prev_performances_child_view_headers_end_margin"
-            android:layout_marginStart="@dimen/activity_hotel_main_prev_performances_child_view_headers_start_margin"
-            android:layout_marginTop="@dimen/activity_hotel_main_prev_performances_child_view_headers_top_margin"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_prev_performances_child_comedians_recycler_view">
-            <!--Write Text View, "musicians", and a button "View All", add an onClick Listener to the button-->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@string/activity_hotel_main_prev_performances_child_view_header_others_text_view_text"
-                android:textSize="@dimen/text_size_normal"
-                android:textStyle="bold" />
+        <!--<LinearLayout-->
+            <!--android:id="@id/activity_hotel_main_prev_performances_child_view_header_others"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginEnd="@dimen/activity_hotel_main_prev_performances_child_view_headers_end_margin"-->
+            <!--android:layout_marginStart="@dimen/activity_hotel_main_prev_performances_child_view_headers_start_margin"-->
+            <!--android:layout_marginTop="@dimen/activity_hotel_main_prev_performances_child_view_headers_top_margin"-->
+            <!--android:orientation="horizontal"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_prev_performances_child_comedians_recycler_view">-->
+            <!--&lt;!&ndash;Write Text View, "musicians", and a button "View All", add an onClick Listener to the button&ndash;&gt;-->
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:text="@string/activity_hotel_main_prev_performances_child_view_header_others_text_view_text"-->
+                <!--android:textSize="@dimen/text_size_normal"-->
+                <!--android:textStyle="bold" />-->
 
-            <Button
-                android:id="@id/activity_hotel_main_prev_performances_child_view_header_others_view_all_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:background="@android:color/transparent"
-                android:textAllCaps="false"
-                android:text="@string/activity_hotel_main_prev_performances_child_view_headers_button_text"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/text_size_extra_small"
-                android:textStyle="bold"
-                android:onClick="viewAllOthers"
-                android:visibility="gone"/>
-        </LinearLayout>
+            <!--<Button-->
+                <!--android:id="@id/activity_hotel_main_prev_performances_child_view_header_others_view_all_button"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="5"-->
+                <!--android:background="@android:color/transparent"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:text="@string/activity_hotel_main_prev_performances_child_view_headers_button_text"-->
+                <!--android:textColor="@color/colorAccent"-->
+                <!--android:textSize="@dimen/text_size_extra_small"-->
+                <!--android:textStyle="bold"-->
+                <!--android:onClick="viewAllOthers"-->
+                <!--android:visibility="gone"/>-->
+        <!--</LinearLayout>-->
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@id/activity_hotel_main_prev_performances_child_others_recycler_view"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_height"
-            android:layout_marginStart="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_start_margin"
-            android:paddingTop="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_top_padding"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_prev_performances_child_view_header_others"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:paddingBottom="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_bottom_padding"
-            android:paddingStart="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_start_padding"
-            android:layout_marginBottom="@dimen/activity_hotel_main_bottom_margin"/>
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@id/activity_hotel_main_prev_performances_child_others_recycler_view"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_height"-->
+            <!--android:layout_marginStart="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_start_margin"-->
+            <!--android:paddingTop="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_top_padding"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/activity_hotel_main_prev_performances_child_view_header_others"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--android:paddingBottom="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_bottom_padding"-->
+            <!--android:paddingStart="@dimen/activity_hotel_main_prev_performances_child_views_recycler_view_start_padding"-->
+            <!--android:layout_marginBottom="@dimen/activity_hotel_main_bottom_margin"/>-->
 
 
     </android.support.constraint.ConstraintLayout>

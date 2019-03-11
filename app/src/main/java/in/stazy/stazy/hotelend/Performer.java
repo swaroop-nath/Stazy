@@ -185,16 +185,14 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         DocumentReference notificationsReferences = firebaseFirestore.collection("NotificationsPerformer").document(FirebaseAuth.getInstance().getUid())
                                                     .collection("To").document(receivedPerformer.getUID());
 
-        DocumentReference shortlistReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE).collection("Shortlists")
+        final DocumentReference shortlistReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE).collection("Shortlists")
                 .document(FirebaseAuth.getInstance().getUid()).collection("List").document(receivedPerformer.getUID());
-        Map<String, Object> shortlistMap = new HashMap<>();
+        final Map<String, Object> shortlistMap = new HashMap<>();
         DocumentReference performerReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE).collection("type")
                 .document(receivedType).collection(receivedPerformer.getGenre()).document(receivedPerformer.getUID());
         shortlistMap.put("performer", performerReference);
         shortlistMap.put("isHired", 0);
         shortlistMap.put("isAccepted", 0);
-
-        shortlistReference.set(shortlistMap);
 
         Map<String, String> notificationBody = new HashMap<>();
         notificationBody.put("city", Manager.CITY_VALUE);
@@ -206,9 +204,19 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         notificationsReferences.set(notificationBody).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                notify.dismiss();
                 if (task.isSuccessful()) {
-                    Snackbar.make(parent, "Performer has been notified.\nYou should contact him/her once (s)he has confirmed.", Snackbar.LENGTH_LONG).show();
+                    shortlistReference.set(shortlistMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            notify.dismiss();
+                            if (task.isSuccessful()) {
+                                Snackbar.make(parent, "Performer has been notified.\nYou should contact him/her once (s)he has confirmed.", Snackbar.LENGTH_LONG).show();
+                            } else {
+                                Log.e("TAG NOTIF", task.getException().getMessage());
+                                Snackbar.make(parent, "Server Error, Please try again.", Snackbar.LENGTH_LONG).show();
+                            }
+                        }
+                    });
                 } else {
                     Log.e("TAG NOTIF", task.getException().getMessage());
                     Snackbar.make(parent, "Server Error, Please try again.", Snackbar.LENGTH_LONG).show();

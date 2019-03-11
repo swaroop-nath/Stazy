@@ -127,6 +127,8 @@
     \n\nPlease proceed if you want to promote yourself to a higher priority . . .
         \n\n** Please note that you need to have atleast 1.5 credits.
     </string>
+    <string name="activity_hotel_main_shortlist_text_view_text">Shortlists</string>
+    <string name="activity_hotel_main_hire_text_view_text">Hires</string>
 
 
 </resources>

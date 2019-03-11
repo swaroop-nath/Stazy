@@ -379,4 +379,18 @@
     <item name="activity_hotel_shortlist_text" type="id">activity_hotel_shortlist_text</item>
     <item name="activity_hotel_reject_button" type="id">activity_hotel_reject_button</item>
     <item name="activity_hotel_accept_button" type="id">activity_hotel_accept_button</item>
+    <item name="activity_hotel_main_shortlist_text_view" type="id">
+        activity_hotel_main_shortlist_text_view
+    </item>
+    <item name="activity_hotel_main_shortlist_recycler_view" type="id">
+        activity_hotel_main_shortlist_recycler_view
+    </item>
+    <item name="activity_hotel_main_hire_text_view" type="id">activity_hotel_main_hire_text_view
+    </item>
+    <item name="activity_hotel_main_hire_recycler_view" type="id">
+        activity_hotel_main_hire_recycler_view
+    </item>
+    <item name="shortlist_hire_image_view" type="id">shortlist_hire_image_view</item>
+    <item name="shortlist_hire_divider" type="id">shortlist_hire_divider</item>
+    <item name="shortlist_hire_name_view" type="id">shortlist_hire_name_view</item>
 </resources>

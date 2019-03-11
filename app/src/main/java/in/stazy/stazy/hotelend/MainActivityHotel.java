@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -44,14 +45,12 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
     //View references
     //Explore Section ViewPager
     @BindView(R.id.activity_hotel_main_explore_view_pager) ViewPager exploreViewPager;
-    //Prev Performances Section Recycler Views
-    @BindView(R.id.activity_hotel_main_prev_performances_child_mucisians_recycler_view) RecyclerView prevMucisians;
-    @BindView(R.id.activity_hotel_main_prev_performances_child_comedians_recycler_view) RecyclerView prevComedians;
-    @BindView(R.id.activity_hotel_main_prev_performances_child_others_recycler_view) RecyclerView prevOthers;
     //Prev Performances Section "View all" Buttons
     @BindView(R.id.activity_hotel_main_prev_performances_child_view_header_musicians_view_all_button) Button mucisiansViewAllButton;
     @BindView(R.id.activity_hotel_main_prev_performances_child_view_header_comedians_view_all_button) Button comediansViewAllButton;
     @BindView(R.id.activity_hotel_main_prev_performances_child_view_header_others_view_all_button) Button othersViewAllButton;
+    @BindView(R.id.activity_hotel_main_shortlist_recycler_view) RecyclerView shortlistsList;
+    @BindView(R.id.activity_hotel_main_hire_recycler_view) RecyclerView hiresList;
 
     //Activity specific declarations
     private Context context;
@@ -62,10 +61,6 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
     public static final String TYPE_VALUE_MUCISIANS = "Musicians";
     public static final String TYPE_VALUE_COMEDIANS = "Comedians";
     public static final String TYPE_VALUE_OTHERS = "Others";
-    public static final String VIEW_ALL_INTENT_EXTRA_KEY = "view_all_type";
-    public static final String VIEW_ALL_INTENT_VALUE_MUCISIANS = "view_all_mucisians";
-    public static final String VIEW_ALL_INTENT_VALUE_COMEDIANS = "view_all_comedians";
-    public static final String VIEW_ALL_INTENT_VALUE_OTHERS = "view_all_others";
     public static final String INDIVIDUAL_PERFORMER_OBJECT_KEY = "performer_object";
 
     @Override
@@ -95,23 +90,12 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
         //Setting Intent for view all buttons in prev performances
         viewAllIntent = new Intent(context, ViewAllPerformers.class);
 
-        //Making the recycler views horizontal
-        LinearLayoutManager horizontalLayoutManagerMucisians = new LinearLayoutManager(context);
-        LinearLayoutManager horizontalLayoutManagerComedians = new LinearLayoutManager(context);
-        LinearLayoutManager horizontalLayoutManagerOthers = new LinearLayoutManager(context);
-        horizontalLayoutManagerMucisians.setOrientation(LinearLayoutManager.HORIZONTAL);
-        horizontalLayoutManagerComedians.setOrientation(LinearLayoutManager.HORIZONTAL);
-        horizontalLayoutManagerOthers.setOrientation(LinearLayoutManager.HORIZONTAL);
-        prevMucisians.setLayoutManager(horizontalLayoutManagerMucisians);
-        prevComedians.setLayoutManager(horizontalLayoutManagerComedians);
-        prevOthers.setLayoutManager(horizontalLayoutManagerOthers);
-
         /*
         TODO: Change the data structure of HotelData to incorporate previous performers
          */
 
         if (Manager.HOTEL_DATA == null) {
-            FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+            final FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
             DocumentReference documentReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE)
                                                     .collection("hotels").document(FirebaseAuth.getInstance().getUid());
             documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -120,6 +104,9 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
                     if (task.isSuccessful()) {
                         //Data Downloaded Successfully
                         Manager.HOTEL_DATA = HotelData.setData(task.getResult());
+                        //TODO: Write code here to download previous and shortlists and hires.
+                        CollectionReference shortlists = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE).collection("Shortlists")
+                                .document(FirebaseAuth.getInstance().getUid()).collection("List");
                     } else {
                         Log.e("HOTEL_DATA_DOWNLOAD", task.getException().getMessage());
                         Toast.makeText(context, "Can't Download Data Right Now, Try Again Later!!", Toast.LENGTH_SHORT).show();
@@ -128,36 +115,7 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
             });
         }
 
-        ArrayList<MucisianData> mucisians = Manager.PREVIOUS_MUCISIANS; // A ruse mucisian that shall be retrieved from firestore and used for debugging
-        PrevPerformersAdapter<MucisianData> mucisianAdapter = new PrevPerformersAdapter<>(mucisians, context, TYPE_VALUE_MUCISIANS);
-        prevMucisians.setAdapter(mucisianAdapter);
 
-        ArrayList<ComedianData> comedians = Manager.PREVIOUS_COMEDIANS;
-        PrevPerformersAdapter<ComedianData> comedianAdapter = new PrevPerformersAdapter<>(comedians, context, TYPE_VALUE_COMEDIANS);
-        prevComedians.setAdapter(comedianAdapter);
-
-        ArrayList<ComedianData> others = Manager.PREVIOUS_COMEDIANS;
-        PrevPerformersAdapter<ComedianData> otherAdapter = new PrevPerformersAdapter<>(others, context, TYPE_VALUE_OTHERS);
-        prevOthers.setAdapter(otherAdapter);
-
-    }
-
-    /**
-     * Following three callbacks refer to the three "View All" buttons in prev performances section.
-     * @param view
-     * Set intent extra in these methods and start activity.
-     */
-    public void viewAllMucisians(View view) {
-        viewAllIntent.putExtra(VIEW_ALL_INTENT_EXTRA_KEY, VIEW_ALL_INTENT_VALUE_MUCISIANS);
-        startActivity(viewAllIntent);
-    }
-    public void viewAllComedians(View view) {
-        viewAllIntent.putExtra(VIEW_ALL_INTENT_EXTRA_KEY, VIEW_ALL_INTENT_VALUE_COMEDIANS);
-        startActivity(viewAllIntent);
-    }
-    public void viewAllOthers(View view) {
-        viewAllIntent.putExtra(VIEW_ALL_INTENT_EXTRA_KEY, VIEW_ALL_INTENT_VALUE_OTHERS);
-        startActivity(viewAllIntent);
     }
 
     private void sendTokenToServer(String fcmToken) {
