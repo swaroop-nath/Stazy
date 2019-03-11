@@ -2,6 +2,7 @@ package in.stazy.stazy.performerend;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -15,11 +16,15 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,7 +62,7 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
         receivedPosition = intent.getIntExtra(MainActivityPerformer.INTENT_HOTEL_OBJECT_KEY, 0);
         if (intent.getBooleanExtra(MessageService.SHOW_EXTRA_CONTENT_PERFORMER_END, false)) {
             hireDesc = "<i>" + intent.getStringExtra(MessageService.PERFORMANCE_DETAILS_PERFORMER_END) + " Are you available?</i>";
-            hireUID = MessageService.HIRING_HOTEL_UID;
+            hireUID = MessageService.RECEIVED_UID;
             //TODO: Show some dialogs.
             downloadData();
         } else
@@ -118,10 +123,31 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
                 rejectButton.setVisibility(View.GONE);
                 break;
             case R.id.activity_hotel_accept_button:
-                Toast.makeText(this, "Nice Choice, We might be contacting you shortly", Toast.LENGTH_SHORT).show();
+                //TODO: SHow some dialog
                 hotelShortlistText.setVisibility(View.GONE);
                 acceptButton.setVisibility(View.GONE);
                 rejectButton.setVisibility(View.GONE);
+                FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+                DocumentReference notificationReference = firebaseFirestore.collection("NotificationsHotel").document(FirebaseAuth.getInstance().getUid())
+                                                            .collection("To").document(hireUID);
+                Map<String, String> notificationBody = new HashMap<>();
+//                notificationBody.put("sender_uid", PerformerManager.PERFORMER.getUID());
+                notificationBody.put("city", Manager.CITY_VALUE);
+                notificationBody.put("type", PerformerManager.TYPE_VALUE);
+                notificationBody.put("genre", PerformerManager.GENRE_VALUE);
+                notificationBody.put("notification_title", "Performer " + PerformerManager.PERFORMER.getName() + " is available.");
+                notificationBody.put("notification_body", PerformerManager.PERFORMER.getName() + " is free to perform at the specified time.");
+                notificationReference.set(notificationBody).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(Hotel.this, "Nice Choice, We might be contacting you shortly", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.e("TAG NOTIF", task.getException().getMessage());
+                            Toast.makeText(Hotel.this, "Server Error, Please try again later", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
                 break;
         }
     }

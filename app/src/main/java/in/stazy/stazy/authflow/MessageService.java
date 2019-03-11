@@ -23,7 +23,9 @@ public class MessageService extends FirebaseMessagingService {
     public static final String SHOW_EXTRA_CONTENT_PERFORMER_END = "show_performer";
     public static final String SHOW_EXTRA_CONTENT_HOTEL_END = "show_hotel";
     public static final String PERFORMANCE_DETAILS_PERFORMER_END = "performance_details";
-    public static String HIRING_HOTEL_UID = null;
+    public static final String NOTIF_TYPE_RECEIVED = "notif_type_received";
+    public static final String NOTIF_GENRE_RECEIVED = "notif_genre_received";
+    public static String RECEIVED_UID = null;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -34,7 +36,7 @@ public class MessageService extends FirebaseMessagingService {
         String notificationTitle = remoteMessage.getNotification().getTitle();
         String notificationBody = remoteMessage.getNotification().getBody();
 
-        HIRING_HOTEL_UID = remoteMessage.getData().get("sender");
+        RECEIVED_UID = remoteMessage.getData().get("sender");
         String dataIntent = remoteMessage.getData().get("intent");
 
         PendingIntent pendingIntent = null;
@@ -49,6 +51,8 @@ public class MessageService extends FirebaseMessagingService {
             //Notification is on the hotel end
             Intent intent = new Intent(this, Performer.class);
             intent.putExtra(SHOW_EXTRA_CONTENT_HOTEL_END, true);
+            intent.putExtra(NOTIF_TYPE_RECEIVED, remoteMessage.getData().get("type"));
+            intent.putExtra(NOTIF_GENRE_RECEIVED, remoteMessage.getData().get("genre"));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         }

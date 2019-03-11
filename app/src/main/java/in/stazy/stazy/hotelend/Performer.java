@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -33,6 +34,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import in.stazy.stazy.R;
+import in.stazy.stazy.authflow.MessageService;
 import in.stazy.stazy.datamanagercrossend.Manager;
 import in.stazy.stazy.datamanagerhotel.ComedianData;
 import in.stazy.stazy.datamanagerhotel.DataManager;
@@ -46,7 +48,7 @@ import static in.stazy.stazy.hotelend.MainActivityHotel.TYPE_VALUE_COMEDIANS;
 import static in.stazy.stazy.hotelend.MainActivityHotel.TYPE_VALUE_MUCISIANS;
 import static in.stazy.stazy.hotelend.MainActivityHotel.TYPE_VALUE_OTHERS;
 
-public class Performer extends AppCompatActivity implements View.OnClickListener, PerformanceConditionsDialog.ConditionsSetListener {
+public class Performer extends AppCompatActivity implements View.OnClickListener, PerformanceConditionsDialog.ConditionsSetListener, OnCompleteListener<DocumentSnapshot> {
 
     //View References
     @BindView(R.id.activity_performer_parent) ConstraintLayout parent;
@@ -66,6 +68,8 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
     //Activity Specific References
     DataManager receivedPerformer;
     String receivedType;
+    String performerUID;
+    String notifGenre;
 
     //Use this UID of hotel to access hotel details from database in Performer end to get the updated token of the hotel.
 
@@ -79,20 +83,38 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
          */
 
         Intent receivedIntent = getIntent();
-        receivedType = receivedIntent.getStringExtra(EXPLORE_INTENT_EXTRA_KEY);
-        switch (receivedType) {
-            case TYPE_VALUE_MUCISIANS:
-                receivedPerformer = (MucisianData) receivedIntent.getSerializableExtra(INDIVIDUAL_PERFORMER_OBJECT_KEY);
-                break;
-            case TYPE_VALUE_COMEDIANS:
-                receivedPerformer = (ComedianData) receivedIntent.getSerializableExtra(INDIVIDUAL_PERFORMER_OBJECT_KEY);
-                break;
-            case TYPE_VALUE_OTHERS:
-                receivedPerformer = (OtherData) receivedIntent.getSerializableExtra(INDIVIDUAL_PERFORMER_OBJECT_KEY);
-                break;
+        if (receivedIntent.getBooleanExtra(MessageService.SHOW_EXTRA_CONTENT_HOTEL_END, false)) {
+            //Notif clicked
+            //TODO: Show some dialogs
+            performerUID = MessageService.RECEIVED_UID;
+            String performerType = receivedIntent.getStringExtra(MessageService.NOTIF_TYPE_RECEIVED);
+            notifGenre = receivedIntent.getStringExtra(MessageService.NOTIF_GENRE_RECEIVED);
+            downloadData(performerType, notifGenre);
+            shortlistButton.setVisibility(View.GONE);
+        } else {
+            receivedType = receivedIntent.getStringExtra(EXPLORE_INTENT_EXTRA_KEY);
+            switch (receivedType) {
+                case TYPE_VALUE_MUCISIANS:
+                    receivedPerformer = (MucisianData) receivedIntent.getSerializableExtra(INDIVIDUAL_PERFORMER_OBJECT_KEY);
+                    break;
+                case TYPE_VALUE_COMEDIANS:
+                    receivedPerformer = (ComedianData) receivedIntent.getSerializableExtra(INDIVIDUAL_PERFORMER_OBJECT_KEY);
+                    break;
+                case TYPE_VALUE_OTHERS:
+                    receivedPerformer = (OtherData) receivedIntent.getSerializableExtra(INDIVIDUAL_PERFORMER_OBJECT_KEY);
+                    break;
+            }
+            setContentsOfViews();
         }
-        setContentsOfViews();
         shortlistButton.setOnClickListener(this);
+        hireButton.setOnClickListener(this);
+    }
+
+    private void downloadData(String performerType, String performerGenre) {
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        DocumentReference documentReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE)
+                                                .collection("type").document(performerType).collection(performerGenre).document(performerUID);
+        documentReference.get().addOnCompleteListener(this);
     }
 
     private void setContentsOfViews() {
@@ -141,6 +163,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
     private void hirePerformer() {
         //TODO: Clear the shortlist database.
         //TODO: Put the hired candidate to SQLite Database.
+        Toast.makeText(this, "Congo", Toast.LENGTH_SHORT).show();
     }
 
     private void startShortlistProcedure() {
@@ -155,7 +178,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         DocumentReference notificationsReferences = firebaseFirestore.collection("NotificationsPerformer").document(FirebaseAuth.getInstance().getUid())
                                                     .collection("To").document(receivedPerformer.getUID());
         Map<String, String> notificationBody = new HashMap<>();
-        notificationBody.put("sender_uid", Manager.HOTEL_DATA.getUID());
+//        notificationBody.put("sender_uid", Manager.HOTEL_DATA.getUID());
         notificationBody.put("city", Manager.CITY_VALUE);
         notificationBody.put("type", receivedType);
         notificationBody.put("genre", receivedPerformer.getGenre());
@@ -166,7 +189,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Snackbar.make(parent, "Notification sent to performer.\nYou should contact him/her once (s)he has confirmed.", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(parent, "Performer has been notified.\nYou should contact him/her once (s)he has confirmed.", Snackbar.LENGTH_LONG).show();
                 } else {
                     Log.e("TAG NOTIF", task.getException().getMessage());
                     Snackbar.make(parent, "Server Error, Please try again later", Snackbar.LENGTH_LONG).show();
@@ -174,5 +197,30 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
             }
         });
 
+    }
+
+    @Override
+    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+        if (task.isSuccessful()) {
+            //Set views
+            setSpecialContents(task.getResult());
+        } else {
+            Log.e("DOWNLOAD NOTIF HOTEL", task.getException().getMessage());
+        }
+    }
+
+    private void setSpecialContents(DocumentSnapshot result) {
+        ratingTextView.setText(result.get("rating").toString());
+        nameTextView.setText(result.get("name").toString());
+        genreTextView.setText(notifGenre);
+        facebookLink.setText(getCleanedUpLink(result.get("facebook").toString()));
+        instagramLink.setText(getCleanedUpLink(result.get("instagram").toString()));
+        cityTextView.setText(Manager.CITY_VALUE);
+        phoneTextView.setText(result.get("phone_number").toString());
+        descriptionTextView.setText(result.get("description").toString());
+        phoneTextView.setVisibility(View.VISIBLE);
+        hireButton.setVisibility(View.VISIBLE);
+
+        Toast.makeText(this, "You can now call the performer to interview him/her", Toast.LENGTH_SHORT).show();
     }
 }
