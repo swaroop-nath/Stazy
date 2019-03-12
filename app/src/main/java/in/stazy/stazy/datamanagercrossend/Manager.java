@@ -1,6 +1,8 @@
 package in.stazy.stazy.datamanagercrossend;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import in.stazy.stazy.R;
 import in.stazy.stazy.datamanagercrossend.HotelData;
@@ -17,10 +19,10 @@ public class Manager {
     It is also responsible for minimizing operations cost on data.
      */
 
-    public static ArrayList<Shortlists> SHORTLISTED_CANDIDATES = null;
+    public static ArrayList<Shortlists> SHORTLISTED_CANDIDATES = new ArrayList<>();
 
 
-    public static ArrayList<Shortlists> HIRED_CANDIDATES = null;
+    public static ArrayList<Shortlists> HIRED_CANDIDATES = new ArrayList<>();
 
     //This stores the list of recently fetched available mucisians.
     public static ArrayList<MucisianData> AVAILABLE_MUCISIANS = new ArrayList<>(0);
@@ -112,5 +114,9 @@ public class Manager {
     public static String FCM_TOKEN = null;
 
     public static int NEW_TOKEN_RECEIVED = 0;
+
+    public static Map<String, String> PERFORMANCE_TIME= new HashMap<>();
+
+    public static Map<String, String> PERFORMANCE_DURATION= new HashMap<>();
 
 }

@@ -23,8 +23,10 @@ public class Shortlists {
     private String uid;
     private Bitmap profilePictureHigh = null;
     private double doubleRating;
+    private long isHired;
+    private long isAccepted;
 
-    public Shortlists setData (DocumentSnapshot documentSnapshot) {
+    public static Shortlists setData (DocumentSnapshot documentSnapshot, long isHired, long isAccepted, String genre) {
 
         Shortlists performerData = new Shortlists();
 
@@ -34,7 +36,7 @@ public class Shortlists {
         performerData.setLocation(documentSnapshot.get("location").toString());
         performerData.setRating(documentSnapshot.get("rating").toString());
         performerData.setCity(Manager.CITY_VALUE);
-        performerData.setGenre(PerformerManager.GENRE_VALUE);
+        performerData.setGenre(genre);
         performerData.setPrice(documentSnapshot.get("price").toString());
         performerData.setPicName(documentSnapshot.get("pic_name").toString());
         performerData.setToken(documentSnapshot.get("token").toString());
@@ -42,6 +44,8 @@ public class Shortlists {
         performerData.setInstagram(documentSnapshot.get("instagram").toString());
         performerData.setUID(documentSnapshot.get("uid").toString());
         performerData.setDoubleRating(Double.valueOf(documentSnapshot.get("rating").toString()));
+        performerData.setIsAccepted(isAccepted);
+        performerData.setIsHired(isHired);
 
         return performerData;
     }
@@ -164,5 +168,21 @@ public class Shortlists {
 
     public void setDoubleRating(double doubleRating) {
         this.doubleRating = doubleRating;
+    }
+
+    public long getIsHired() {
+        return isHired;
+    }
+
+    public void setIsHired(long isHired) {
+        this.isHired = isHired;
+    }
+
+    public long getIsAccepted() {
+        return isAccepted;
+    }
+
+    public void setIsAccepted(long isAccepted) {
+        this.isAccepted = isAccepted;
     }
 }

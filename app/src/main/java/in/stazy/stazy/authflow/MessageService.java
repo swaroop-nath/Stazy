@@ -39,6 +39,7 @@ public class MessageService extends FirebaseMessagingService {
         String notificationBody = remoteMessage.getData().get("body");
 
         RECEIVED_UID = remoteMessage.getData().get("sender");
+//        Log.e("NOTIF", RECEIVED_UID);
         String dataIntent = remoteMessage.getData().get("intent");
 
         PendingIntent pendingIntent = null;

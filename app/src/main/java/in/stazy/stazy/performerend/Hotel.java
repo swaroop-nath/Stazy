@@ -75,6 +75,7 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
 
     private void downloadData() {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+//        Log.e("HIREUID", hireUID);
         DocumentReference reference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE).collection("hotels").document(hireUID);
         reference.get().addOnCompleteListener(this);
     }
@@ -127,7 +128,7 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
             case R.id.activity_hotel_accept_button:
                 intentShowing = new WaitFragment();
                 intentShowing.setData("Passing your intent");
-                intentShowing.dismiss();
+                intentShowing.show(getSupportFragmentManager(), "intent_showing");
                 final FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
                 DocumentReference notificationReference = firebaseFirestore.collection("NotificationsHotel").document(FirebaseAuth.getInstance().getUid())
                                                             .collection("To").document(hireUID);
@@ -150,6 +151,7 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     intentShowing.dismiss();
+                                    intentShowing = null;
                                     if (task.isSuccessful()) {
                                         Toast.makeText(Hotel.this, "Nice Choice, We might be contacting you shortly", Toast.LENGTH_SHORT).show();
                                         hotelShortlistText.setVisibility(View.GONE);

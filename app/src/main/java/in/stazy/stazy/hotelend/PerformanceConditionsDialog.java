@@ -99,7 +99,11 @@ public class PerformanceConditionsDialog extends DialogFragment implements TimeP
 
     @Override
     public void onClick(View v) {
-        String durationTime = durationHours.getSelectedItem().toString() + " hours " + durationMins.getSelectedItem().toString() + " minutes.";
+        String durationTime = "";
+        if (durationMins.getSelectedItem().toString().equals("00"))
+            durationTime = durationHours.getSelectedItem().toString() + " hours.";
+        else
+            durationTime = durationHours.getSelectedItem().toString() + " hours " + durationMins.getSelectedItem().toString() + " minutes.";
         dialog.dismiss();
         if (performanceTime == null) {
             int hourOfDay = performanceTimePicker.getCurrentHour();
