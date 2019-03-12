@@ -21,14 +21,22 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.annotation.Nullable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,10 +44,13 @@ import in.stazy.stazy.R;
 import in.stazy.stazy.authflow.MessageService;
 import in.stazy.stazy.datamanagercrossend.HotelData;
 import in.stazy.stazy.datamanagercrossend.Manager;
+import in.stazy.stazy.datamanagerhotel.Shortlists;
+import in.stazy.stazy.datamanagerperformer.HotelDataPerformerSide;
 import in.stazy.stazy.datamanagerperformer.PerformerData;
 import in.stazy.stazy.datamanagerperformer.PerformerManager;
+import in.stazy.stazy.hotelend.Performer;
 
-public class MainActivityPerformer extends AppCompatActivity implements View.OnClickListener, OnCompleteListener<QuerySnapshot>, AdapterView.OnItemClickListener {
+public class MainActivityPerformer extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     //View References
     @BindView(R.id.activity_main_performer_list_view) ListView hiresList;
@@ -56,6 +67,8 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
     private float locationOnShow, locationOnRemove;
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private PerformerAdapter adapter;
+    private ListenerRegistration listenerRegistration;
+    private CollectionReference hotelsReference;
 
     //Constant field declarations
     private static final long ANIMATION_DURATION = 500;
@@ -64,6 +77,75 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
     private static float MENU_CONTAINER_UNDER_CUT = 0f;
     public static final String INTENT_HOTEL_OBJECT_KEY = "hotel";
     public static final int HIGH_PRIORITY = 5;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Query selectedUIDHotels = hotelsReference.orderBy("date");
+        final SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd yyyy");
+
+        listenerRegistration = selectedUIDHotels.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
+                //Define Structure here
+                if (e != null) {
+                    Log.e("SHORTLIST LISTENER", "listen:error", e);
+                    return;
+                }
+
+                for (DocumentChange dc : snapshots.getDocumentChanges()) {
+                    switch (dc.getType()) {
+                        case ADDED:
+                            Log.e("PREV", "ADDED");
+                            final QueryDocumentSnapshot documentSnapshotAdded = dc.getDocument();
+                            DocumentReference hotel = documentSnapshotAdded.getDocumentReference("hotel");
+                            hotel.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        PerformerManager.PREV_HOTELS.add(HotelDataPerformerSide.setData(task.getResult(), documentSnapshotAdded.get("rating_received").toString(), formatter.format(documentSnapshotAdded.getTimestamp("date").toDate())));
+                                        Log.e("PREV", "Name: "+PerformerManager.PREV_HOTELS.get(0).getName());
+                                        adapter.notifyDataSetChanged();
+                                    } else {
+                                        Log.e("TAG", task.getException().getMessage());
+                                    }
+                                }
+                            });
+                            break;
+                        case MODIFIED:
+                            Log.e("PREV", "MODIFIED");
+                            QueryDocumentSnapshot documentSnapshotModified = dc.getDocument();
+                            int index = findHotel(documentSnapshotModified.get("uid").toString());
+                            if (index != -1) {
+                                PerformerManager.PREV_HOTELS.get(index).setRating(documentSnapshotModified.get("rating_received").toString());
+                                adapter.notifyDataSetChanged();
+                            }
+                            break;
+                        case REMOVED:
+                            break;
+                    }
+                }
+            }
+        });
+    }
+
+    private int findHotel(String uid) {
+        int index = -1;
+        for (int i = 0; i < PerformerManager.PREV_HOTELS.size(); i++) {
+            if (PerformerManager.PREV_HOTELS.get(i).getUID().equals(uid)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        listenerRegistration.remove();
+        PerformerManager.PREV_HOTELS.clear();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,13 +162,11 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
         SCREEN_HEIGHT = getScreenHeight();
         locationOnRemove = SCREEN_HEIGHT;
         MENU_CONTAINER_UNDER_CUT = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, getResources().getDisplayMetrics());
-        Log.e("MAIN_ACTIVITY_PERFORMER", PerformerManager.PERFORMER + "");
         if (PerformerManager.PERFORMER == null) {
             DocumentReference mapperReference = firebaseFirestore.collection("Mapper").document(FirebaseAuth.getInstance().getUid());
             mapperReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    Log.e("MAIN_ACTIVITY_PERFORMER", "Mapper Downloaded");
 
                     DocumentReference documentReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE)
                                 .collection("type").document(PerformerManager.TYPE_VALUE)
@@ -94,26 +174,18 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
                     documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            Log.e("MAIN_ACTIVITY_PERFORMER", "Performer Downloaded");
                             PerformerManager.PERFORMER = PerformerData.setData(task.getResult());
-                            getDataForListView();
+
                         }
                     });
                 }
             });
-        } else {
-            getDataForListView();
         }
+        hotelsReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE).collection("PreviousHotels")
+                .document(FirebaseAuth.getInstance().getUid()).collection("List");
         adapter = new PerformerAdapter(context, 0, PerformerManager.PREV_HOTELS);
         hiresList.setAdapter(adapter);
         hiresList.setOnItemClickListener(this);
-    }
-
-    private void getDataForListView() {
-        CollectionReference hotelsReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE)
-                                               .collection("hotels");
-        Query selectedUIDHotels = hotelsReference.orderBy("name");
-        selectedUIDHotels.get().addOnCompleteListener(this);
     }
 
     @Override
@@ -157,16 +229,6 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
         animation.start();
     }
 
-    @Override
-    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-        QuerySnapshot querySnapshot = task.getResult();
-        for (DocumentSnapshot documentSnapshot : querySnapshot) {
-            if (contains(documentSnapshot.get("uid").toString())) {
-                PerformerManager.PREV_HOTELS.add(HotelData.setData(documentSnapshot));
-                adapter.notifyDataSetChanged();
-            }
-        }
-    }
 
     private boolean contains(String uid) {
         String[] uidsAvailable = PerformerManager.PERFORMER.getPrevPerformances();

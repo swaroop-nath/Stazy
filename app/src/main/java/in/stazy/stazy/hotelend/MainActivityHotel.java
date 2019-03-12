@@ -56,10 +56,6 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
     //View references
     //Explore Section ViewPager
     @BindView(R.id.activity_hotel_main_explore_view_pager) ViewPager exploreViewPager;
-//    //Prev Performances Section "View all" Buttons
-//    @BindView(R.id.activity_hotel_main_prev_performances_child_view_header_musicians_view_all_button) Button mucisiansViewAllButton;
-//    @BindView(R.id.activity_hotel_main_prev_performances_child_view_header_comedians_view_all_button) Button comediansViewAllButton;
-//    @BindView(R.id.activity_hotel_main_prev_performances_child_view_header_others_view_all_button) Button othersViewAllButton;
     @BindView(R.id.activity_hotel_main_shortlist_recycler_view) RecyclerView shortlistsList;
     @BindView(R.id.activity_hotel_main_hire_recycler_view) RecyclerView hiresList;
     @BindView(R.id.activity_hotel_main_shortlist_text_view) TextView shortlistText;

@@ -393,4 +393,12 @@
     <item name="shortlist_hire_image_view" type="id">shortlist_hire_image_view</item>
     <item name="shortlist_hire_divider" type="id">shortlist_hire_divider</item>
     <item name="shortlist_hire_name_view" type="id">shortlist_hire_name_view</item>
+    <item name="amp_list_item_hotel_perf_date_text_view" type="id">
+        amp_list_item_hotel_perf_date_text_view
+    </item>
+    <item name="amp_list_item_hotel_rating" type="id">amp_list_item_hotel_rating</item>
+    <item name="amp_list_item_hotel_rating_received" type="id">amp_list_item_hotel_rating_received
+    </item>
+    <item name="amp_list_item_hotel_rating_card" type="id">amp_list_item_hotel_rating_card</item>
+    <item name="amp_list_item_current_hotel" type="id">amp_list_item_current_hotel</item>
 </resources>

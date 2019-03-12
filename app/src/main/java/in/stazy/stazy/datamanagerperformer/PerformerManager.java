@@ -1,6 +1,7 @@
 package in.stazy.stazy.datamanagerperformer;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import in.stazy.stazy.datamanagercrossend.HotelData;
 
@@ -16,7 +17,7 @@ public class PerformerManager {
     public static PerformerData PERFORMER = null;
 
     //This stores the previous hotels that the performer performed in
-    public static ArrayList<HotelData> PREV_HOTELS = new ArrayList<>();
+    public static ArrayList<HotelDataPerformerSide> PREV_HOTELS = new ArrayList<>();
 
 
     public static HotelData SHORTLIST_HOTEL = null;

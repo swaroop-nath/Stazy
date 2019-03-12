@@ -213,6 +213,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
 
         prevHotelsMap.put("hotel", hiringHotel);
         prevHotelsMap.put("rating_received", -1);
+        prevHotelsMap.put("uid", shortlist.getUID());
 
         DocumentReference notificationReference = FirebaseFirestore.getInstance().collection("NotificationsPerformer").document(FirebaseAuth.getInstance().getUid())
                                                 .collection("To").document(shortlist.getUID());

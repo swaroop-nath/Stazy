@@ -13,15 +13,16 @@ import java.util.List;
 
 import in.stazy.stazy.R;
 import in.stazy.stazy.datamanagercrossend.HotelData;
+import in.stazy.stazy.datamanagerperformer.HotelDataPerformerSide;
 
-public class PerformerAdapter extends ArrayAdapter<HotelData> {
-    private ArrayList<HotelData> prevPerformances;
+public class PerformerAdapter extends ArrayAdapter<HotelDataPerformerSide> {
+    private ArrayList<HotelDataPerformerSide> prevPerformances;
     private Context context;
     private int resource;
 
-    public PerformerAdapter(@NonNull Context context, int resource, @NonNull List<HotelData> prevPerformances) {
+    public PerformerAdapter(@NonNull Context context, int resource, @NonNull ArrayList<HotelDataPerformerSide> prevPerformances) {
         super(context, resource, prevPerformances);
-        this.prevPerformances = (ArrayList<HotelData>) prevPerformances;
+        this.prevPerformances = prevPerformances;
         this.context = context;
         this.resource = R.layout.prev_performances_list_item;
     }
