@@ -65,9 +65,8 @@
 
     <string-array name="spinner_genre_others_entries">
         <item>Magician</item>
-        <item>Sand-Artist</item>
         <item>Motivational Speaker</item>
-        <item>Dramatist</item>
+        <item>DJ</item>
         <item>Others</item>
     </string-array>
     <!--spinner_sort texts-->

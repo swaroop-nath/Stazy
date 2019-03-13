@@ -74,10 +74,9 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
     private static final String GENRE_VALUE_STAND_UP_HP = "Stand-Ups";
     private static final String GENRE_VALUE_SHAYARI_HP = "Shayari";
     private static final String GENRE_VALUE_MAGICIAN_HP = "Magician";
-    private static final String GENRE_VALUE_SAND_ARTIST_HP = "Sand-Artist";
     private static final String GENRE_VALUE_MOTIVATIONAL_SPEAKER_HP = "Motivational Speaker";
-    private static final String GENRE_VALUE_DRAMATIST_HP = "Dramatist";
-    private static final String GENRE_VALUE_OTHERS_HP = "others";
+    private static final String GENRE_VALUE_DJ_HP = "DJ";
+    private static final String GENRE_VALUE_OTHERS_HP = "Others";
 
     /*
     TODO: Define the characteristic of sort spinner.
@@ -282,16 +281,14 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                     case GENRE_VALUE_MAGICIAN_HP:
                         fillDataSet(Manager.AVAILABLE_OTHERS, Manager.AVAILABLE_MAGICIAN_START_INDEX, setGenre);
                         break;
-                    case GENRE_VALUE_SAND_ARTIST_HP:
-                        fillDataSet(Manager.AVAILABLE_OTHERS, Manager.AVAILABLE_SAND_ARTIST_START_INDEX, setGenre);
-                        break;
                     case GENRE_VALUE_MOTIVATIONAL_SPEAKER_HP:
                         fillDataSet(Manager.AVAILABLE_OTHERS, Manager.AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX, setGenre);
                         break;
-                    case GENRE_VALUE_DRAMATIST_HP:
-                        fillDataSet(Manager.AVAILABLE_OTHERS, Manager.AVAILABLE_DRAMATIST_START_INDEX, setGenre);
+                    case GENRE_VALUE_DJ_HP:
+                        fillDataSet(Manager.AVAILABLE_OTHERS, Manager.AVAILABLE_DJ_START_INDEX, setGenre);
                         break;
                     case GENRE_VALUE_OTHERS_HP:
+                        Log.e(TAG,"Others start indes = "+Manager.AVAILABLE_OTHERS_START_INDEX);
                         fillDataSet(Manager.AVAILABLE_OTHERS, Manager.AVAILABLE_OTHERS_START_INDEX, setGenre);
                         break;
                 }
@@ -302,6 +299,7 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
     private void fillDataSet(ArrayList<? extends DataManager> dataSource, int startIndex, String chosenGenre) {
         Log.e(TAG, "Filling dataset");
         dataset.clear();
+        Log.e(TAG, startIndex +", "+dataSource.size());
         while (startIndex < dataSource.size() && dataSource.get(startIndex).getGenre().equals(chosenGenre)) {
             dataset.add(dataSource.get(startIndex));
             startIndex++;
@@ -411,41 +409,24 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                     switch (genreChosen) {
                         case GENRE_VALUE_MAGICIAN_HP:
                             Manager.AVAILABLE_MAGICIAN_START_INDEX_SET = FLAG_SET;
-                            if (Manager.AVAILABLE_SAND_ARTIST_START_INDEX_SET == FLAG_UNSET)
-                                Manager.AVAILABLE_SAND_ARTIST_START_INDEX = Manager.AVAILABLE_OTHERS.size();
                             if (Manager.AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX = Manager.AVAILABLE_OTHERS.size();
-                            if (Manager.AVAILABLE_DRAMATIST_START_INDEX_SET == FLAG_UNSET)
-                                Manager.AVAILABLE_DRAMATIST_START_INDEX = Manager.AVAILABLE_OTHERS.size();
-                            if (Manager.AVAILABLE_OTHERS_START_INDEX_SET == FLAG_UNSET)
-                                Manager.AVAILABLE_OTHERS_START_INDEX = Manager.AVAILABLE_OTHERS.size();
-                            notifyChangesToAdapter(typeChosen, genreChosen);
-                        case GENRE_VALUE_SAND_ARTIST_HP:
-                            Manager.AVAILABLE_SAND_ARTIST_START_INDEX_SET = FLAG_SET;
-                            if (Manager.AVAILABLE_MAGICIAN_START_INDEX_SET == FLAG_UNSET)
-                                Manager.AVAILABLE_MAGICIAN_START_INDEX = Manager.AVAILABLE_OTHERS.size();
-                            if (Manager.AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX_SET == FLAG_UNSET)
-                                Manager.AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX = Manager.AVAILABLE_OTHERS.size();
-                            if (Manager.AVAILABLE_DRAMATIST_START_INDEX_SET == FLAG_UNSET)
-                                Manager.AVAILABLE_DRAMATIST_START_INDEX = Manager.AVAILABLE_OTHERS.size();
+                            if (Manager.AVAILABLE_DJ_START_INDEX_SET == FLAG_UNSET)
+                                Manager.AVAILABLE_DJ_START_INDEX = Manager.AVAILABLE_OTHERS.size();
                             if (Manager.AVAILABLE_OTHERS_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_OTHERS_START_INDEX = Manager.AVAILABLE_OTHERS.size();
                             notifyChangesToAdapter(typeChosen, genreChosen);
                         case GENRE_VALUE_MOTIVATIONAL_SPEAKER_HP:
                             Manager.AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX_SET = FLAG_SET;
-                            if (Manager.AVAILABLE_SAND_ARTIST_START_INDEX_SET == FLAG_UNSET)
-                                Manager.AVAILABLE_SAND_ARTIST_START_INDEX = Manager.AVAILABLE_OTHERS.size();
                             if (Manager.AVAILABLE_MAGICIAN_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_MAGICIAN_START_INDEX = Manager.AVAILABLE_OTHERS.size();
-                            if (Manager.AVAILABLE_DRAMATIST_START_INDEX_SET == FLAG_UNSET)
-                                Manager.AVAILABLE_DRAMATIST_START_INDEX = Manager.AVAILABLE_OTHERS.size();
+                            if (Manager.AVAILABLE_DJ_START_INDEX_SET == FLAG_UNSET)
+                                Manager.AVAILABLE_DJ_START_INDEX = Manager.AVAILABLE_OTHERS.size();
                             if (Manager.AVAILABLE_OTHERS_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_OTHERS_START_INDEX = Manager.AVAILABLE_OTHERS.size();
                             notifyChangesToAdapter(typeChosen, genreChosen);
-                        case GENRE_VALUE_DRAMATIST_HP:
-                            Manager.AVAILABLE_DRAMATIST_START_INDEX_SET = FLAG_SET;
-                            if (Manager.AVAILABLE_SAND_ARTIST_START_INDEX_SET == FLAG_UNSET)
-                                Manager.AVAILABLE_SAND_ARTIST_START_INDEX = Manager.AVAILABLE_OTHERS.size();
+                        case GENRE_VALUE_DJ_HP:
+                            Manager.AVAILABLE_DJ_START_INDEX_SET = FLAG_SET;
                             if (Manager.AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX = Manager.AVAILABLE_OTHERS.size();
                             if (Manager.AVAILABLE_MAGICIAN_START_INDEX_SET == FLAG_UNSET)
@@ -455,12 +436,10 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                             notifyChangesToAdapter(typeChosen, genreChosen);
                         case GENRE_VALUE_OTHERS_HP:
                             Manager.AVAILABLE_OTHERS_START_INDEX_SET = FLAG_SET;
-                            if (Manager.AVAILABLE_SAND_ARTIST_START_INDEX_SET == FLAG_UNSET)
-                                Manager.AVAILABLE_SAND_ARTIST_START_INDEX = Manager.AVAILABLE_OTHERS.size();
                             if (Manager.AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX = Manager.AVAILABLE_OTHERS.size();
-                            if (Manager.AVAILABLE_DRAMATIST_START_INDEX_SET == FLAG_UNSET)
-                                Manager.AVAILABLE_DRAMATIST_START_INDEX = Manager.AVAILABLE_OTHERS.size();
+                            if (Manager.AVAILABLE_DJ_START_INDEX_SET == FLAG_UNSET)
+                                Manager.AVAILABLE_DJ_START_INDEX = Manager.AVAILABLE_OTHERS.size();
                             if (Manager.AVAILABLE_MAGICIAN_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_MAGICIAN_START_INDEX = Manager.AVAILABLE_OTHERS.size();
                             notifyChangesToAdapter(typeChosen, genreChosen);

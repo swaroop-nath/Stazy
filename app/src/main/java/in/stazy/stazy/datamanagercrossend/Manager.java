@@ -67,13 +67,10 @@ public class Manager {
     public static int AVAILABLE_MAGICIAN_START_INDEX = 0;
 
 
-    public static int AVAILABLE_SAND_ARTIST_START_INDEX = 0;
-
-
     public static int AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX = 0;
 
 
-    public static int AVAILABLE_DRAMATIST_START_INDEX = 0;
+    public static int AVAILABLE_DJ_START_INDEX = 0;
 
 
     public static int AVAILABLE_OTHERS_START_INDEX = 0;
@@ -100,13 +97,10 @@ public class Manager {
     public static int AVAILABLE_MAGICIAN_START_INDEX_SET = FLAG_UNSET;
 
 
-    public static int AVAILABLE_SAND_ARTIST_START_INDEX_SET = FLAG_UNSET;
-
-
     public static int AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX_SET = FLAG_UNSET;
 
 
-    public static int AVAILABLE_DRAMATIST_START_INDEX_SET = FLAG_UNSET;
+    public static int AVAILABLE_DJ_START_INDEX_SET = FLAG_UNSET;
 
 
     public static int AVAILABLE_OTHERS_START_INDEX_SET = FLAG_UNSET;
@@ -114,9 +108,5 @@ public class Manager {
     public static String FCM_TOKEN = null;
 
     public static int NEW_TOKEN_RECEIVED = 0;
-
-    public static Map<String, String> PERFORMANCE_TIME= new HashMap<>();
-
-    public static Map<String, String> PERFORMANCE_DURATION= new HashMap<>();
 
 }
