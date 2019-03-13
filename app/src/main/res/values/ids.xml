@@ -401,4 +401,25 @@
     </item>
     <item name="amp_list_item_hotel_rating_card" type="id">amp_list_item_hotel_rating_card</item>
     <item name="amp_list_item_current_hotel" type="id">amp_list_item_current_hotel</item>
+    <item name="activity_performer_rate_and_pay_button" type="id">
+        activity_performer_rate_and_pay_button
+    </item>
+    <item name="activity_performer_rate_and_pay_button_text_view" type="id">
+        activity_performer_rate_and_pay_button_text_view
+    </item>
+    <item name="rate_and_pay_intro" type="id">rate_and_pay_intro</item>
+    <item name="hirer_rating" type="id">hirer_rating</item>
+    <item name="customer_rating_layout_one" type="id">customer_rating_layout_one</item>
+    <item name="customer_rating_email_layout_one" type="id">customer_rating_email_layout_one</item>
+    <item name="customer_rating_email_input_one" type="id">customer_rating_email_input_one</item>
+    <item name="customer_rating_email_layout_two" type="id">customer_rating_email_layout_two</item>
+    <item name="customer_rating_email_input_two" type="id">customer_rating_email_input_two</item>
+    <item name="customer_one_rating" type="id">customer_one_rating</item>
+    <item name="customer_two_rating" type="id">customer_two_rating</item>
+    <item name="payment_intro" type="id">payment_intro</item>
+    <item name="payment_body_text" type="id">payment_body_text</item>
+    <item name="duration_prompt_layout" type="id">intro_layout</item>
+    <item name="duration_spinner_layout" type="id">duration_spinner_layout</item>
+    <item name="date_of_performance" type="id">date_of_performance</item>
+    <item name="date_of_performance_setter" type="id">date_of_performance_setter</item>
 </resources>

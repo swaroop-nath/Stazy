@@ -249,5 +249,33 @@
                 android:textSize="@dimen/text_size_normal"
                 android:textStyle="bold" />
         </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@id/activity_performer_rate_and_pay_button"
+            android:layout_width="@dimen/activity_performer_shortlist_button_width"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_performer_shortlist_button_top_margin"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/colorAccent"
+            app:cardCornerRadius="@dimen/activity_performer_shortlist_button_corner_radius"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_performer_description_text_view"
+            android:foreground="?attr/selectableItemBackground"
+            android:clickable="true">
+
+            <TextView
+                android:id="@id/activity_performer_rate_and_pay_button_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/activity_performer_shortlist_button_text_view_vertical_padding"
+                android:paddingTop="@dimen/activity_performer_shortlist_button_text_view_vertical_padding"
+                android:text="@string/activity_performer_rate_and_pay_button_text"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_normal"
+                android:textStyle="bold" />
+        </android.support.v7.widget.CardView>
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

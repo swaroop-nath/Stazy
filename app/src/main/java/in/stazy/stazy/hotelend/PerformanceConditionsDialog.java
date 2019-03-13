@@ -11,8 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import in.stazy.stazy.R;
 
@@ -24,6 +28,7 @@ public class PerformanceConditionsDialog extends DialogFragment implements TimeP
     private String performanceTime;
     private String durationHoursSet, durationMinsSet;
     private TimePicker performanceTimePicker;
+    private DatePicker perfomanceDatePicker;
 
     @Override
     public void onAttach(Context context) {
@@ -49,6 +54,7 @@ public class PerformanceConditionsDialog extends DialogFragment implements TimeP
         performanceTimePicker = layout.findViewById(R.id.ap_conditions_dialog_performance_time_picker);
         durationHours = layout.findViewById(R.id.ap_conditions_dialog_duration_child_hours_spinner);
         durationMins = layout.findViewById(R.id.ap_conditions_dialog_duration_child_mins_spinner);
+        perfomanceDatePicker = layout.findViewById(R.id.date_of_performance_setter);
 
         performanceTimePicker.setOnTimeChangedListener(this);
         durationHours.setOnItemSelectedListener(this);
@@ -116,10 +122,23 @@ public class PerformanceConditionsDialog extends DialogFragment implements TimeP
             }
             performanceTime = hourOfDay + ":" + minute + " " + AMPM;
         }
-        conditionsSetListener.onConditionsSet(performanceTime, durationTime);
+        Date performanceDate = getDateFromDatePicker(perfomanceDatePicker);
+        double payment = (Integer.valueOf(durationHours.getSelectedItem().toString()) + Integer.valueOf(durationMins.getSelectedItem().toString())/60);
+        conditionsSetListener.onConditionsSet(performanceTime, durationTime, payment, performanceDate);
     }
 
     interface ConditionsSetListener {
-        void onConditionsSet(String performanceTime, String performanceDuration);
+        void onConditionsSet(String performanceTime, String performanceDuration, double payment, Date performanceDate);
+    }
+
+    private Date getDateFromDatePicker(DatePicker datePicker){
+        int day = datePicker.getDayOfMonth();
+        int month = datePicker.getMonth();
+        int year =  datePicker.getYear();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+
+        return calendar.getTime();
     }
 }

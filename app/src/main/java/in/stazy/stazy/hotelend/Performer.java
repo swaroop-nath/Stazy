@@ -29,8 +29,10 @@ import com.google.firebase.storage.StorageReference;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,7 +54,7 @@ import static in.stazy.stazy.hotelend.MainActivityHotel.TYPE_VALUE_COMEDIANS;
 import static in.stazy.stazy.hotelend.MainActivityHotel.TYPE_VALUE_MUCISIANS;
 import static in.stazy.stazy.hotelend.MainActivityHotel.TYPE_VALUE_OTHERS;
 
-public class Performer extends AppCompatActivity implements View.OnClickListener, PerformanceConditionsDialog.ConditionsSetListener, OnCompleteListener<DocumentSnapshot> {
+public class Performer extends AppCompatActivity implements View.OnClickListener, PerformanceConditionsDialog.ConditionsSetListener, OnCompleteListener<DocumentSnapshot>, RateAndPayDialog.RateCommunication {
 
     //View References
     @BindView(R.id.activity_performer_parent) ConstraintLayout parent;
@@ -68,6 +70,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
     @BindView(R.id.activity_performer_description_text_view) TextView descriptionTextView;
     @BindView(R.id.activity_performer_shortlist_button) CardView shortlistButton;
     @BindView(R.id.activity_performer_hire_button) CardView hireButton;
+    @BindView(R.id.activity_performer_rate_and_pay_button) CardView rateAndPay;
 
     //Activity Specific References
     private DataManager receivedPerformer;
@@ -115,7 +118,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
                     phoneTextView.setVisibility(View.VISIBLE);
                     phoneImageView.setVisibility(View.VISIBLE);
                     hireButton.setVisibility(View.GONE);
-                    //Set visibility of Rate and Pay
+                    rateAndPay.setVisibility(View.VISIBLE);
                 }
 
                 profilePicture.setImageBitmap(shortlist.getProfilePictureHigh());
@@ -146,6 +149,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         }
         shortlistButton.setOnClickListener(this);
         hireButton.setOnClickListener(this);
+        rateAndPay.setOnClickListener(this);
     }
 
     private void downloadData(String performerType, String performerGenre) {
@@ -195,7 +199,35 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
             case R.id.activity_performer_hire_button:
                 hirePerformer();
                 break;
+            case R.id.activity_performer_rate_and_pay_button:
+                rateAndPayPerformer();
+                break;
         }
+    }
+
+    private void rateAndPayPerformer() {
+        final DocumentReference prevHotelsList = FirebaseFirestore.getInstance().collection("Cities").document(Manager.CITY_VALUE).collection("PreviousHotels")
+                .document(shortlist.getUID()).collection("List").document(FirebaseAuth.getInstance().getUid());
+        final WaitFragment justAMinute = new WaitFragment();
+        justAMinute.setData("Just a Minute");
+        justAMinute.show(getSupportFragmentManager(), "just_a_minute");
+        prevHotelsList.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                justAMinute.dismiss();
+                if (task.isSuccessful()) {
+                    String payment = task.getResult().get("payment").toString();
+                    //Start the dialog.
+                    RateAndPayDialog dialog = new RateAndPayDialog();
+                    dialog.setData(payment, shortlist.getDoubleRating(), shortlist.getPrice(), shortlist.getName());
+                    dialog.attachRateListener(Performer.this);
+                    dialog.show(getSupportFragmentManager(), "rating_dialog");
+
+                } else {
+                    Toast.makeText(Performer.this, "Server Error, Please try again.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void hirePerformer() {
@@ -211,9 +243,11 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         final DocumentReference shortlistReference = FirebaseFirestore.getInstance().collection("Cities").document(Manager.CITY_VALUE).collection("Shortlists")
                 .document(FirebaseAuth.getInstance().getUid()).collection("List").document(shortlist.getUID());
 
+        //TODO: Define a field that stores the timestamp of the day of performance
         prevHotelsMap.put("hotel", hiringHotel);
         prevHotelsMap.put("rating_received", -1);
         prevHotelsMap.put("uid", shortlist.getUID());
+        prevHotelsMap.put("date", shortlist.getTentativeDate());
 
         DocumentReference notificationReference = FirebaseFirestore.getInstance().collection("NotificationsPerformer").document(FirebaseAuth.getInstance().getUid())
                                                 .collection("To").document(shortlist.getUID());
@@ -224,6 +258,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
                 if (task.isSuccessful()) {
                     prevHotelsMap.put("performance_time", task.getResult().get("performance_time"));
                     prevHotelsMap.put("performance_duration", task.getResult().get("performance_duration"));
+                    prevHotelsMap.put("payment", task.getResult().get("payment"));
 
                     Map<String, Object> hiredMap = new HashMap<>();
                     hiredMap.put("isHired", 1);
@@ -238,7 +273,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
                                         if (task.isSuccessful()) {
                                             Toast.makeText(Performer.this, "Congrats, you have hired " + shortlist.getName(), Toast.LENGTH_SHORT).show();
                                             hireButton.setVisibility(View.GONE);
-                                            //Display Rate and Pay button
+                                            rateAndPay.setVisibility(View.VISIBLE);
                                         } else {
                                             Toast.makeText(Performer.this, "Server Error, Please Try Again.", Toast.LENGTH_SHORT).show();
                                         }
@@ -266,7 +301,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
     }
 
     @Override
-    public void onConditionsSet(final String performanceTime, final String performanceDuration) {
+    public void onConditionsSet(final String performanceTime, final String performanceDuration, final double payment, Date performanceDate) {
         final WaitFragment notify = new WaitFragment();
         notify.setData("Notifying Performer . . .");
         notify.show(getSupportFragmentManager(), "notify");
@@ -284,14 +319,16 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         shortlistMap.put("isAccepted", 0);
         shortlistMap.put("uid", receivedPerformer.getUID());
         shortlistMap.put("genre", receivedPerformer.getGenre());
+        shortlistMap.put("type", receivedType);
+        shortlistMap.put("date", performanceDate);
 
-        Map<String, String> notificationBody = new HashMap<>();
+        Map<String, Object> notificationBody = new HashMap<>();
         notificationBody.put("city", Manager.CITY_VALUE);
         notificationBody.put("type", receivedType);
         notificationBody.put("genre", receivedPerformer.getGenre());
         notificationBody.put("performance_time", performanceTime);
         notificationBody.put("performance_duration", performanceDuration);
-        //Make a field for hiring date too.
+        notificationBody.put("payment", payment);
         notificationBody.put("notification_title", "Congratulations, " + Manager.HOTEL_DATA.getName() + " wants to hire you.");
         notificationBody.put("notification_body", "We expect you to perform here at- " + performanceTime + ", for a duration of: " + performanceDuration);
 
@@ -349,5 +386,89 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         //TODO: Write code to display profile picture.
 
         Toast.makeText(this, "You can now call the performer to interview him/her", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRatingSet(double rating, double ratingReceived, double price, String emailOne, String emailTwo) {
+        //TODO: Remove the performer from the hire section and move to prev performers for hotel section.
+        final WaitFragment uploadRating = new WaitFragment();
+        uploadRating.setData("Uploading . . .");
+        uploadRating.show(getSupportFragmentManager(), "upload_rating");
+        DocumentReference prevHotelsList = FirebaseFirestore.getInstance().collection("Cities").document(Manager.CITY_VALUE).collection("PreviousHotels")
+                .document(shortlist.getUID()).collection("List").document(FirebaseAuth.getInstance().getUid());
+        Map<String, Object> ratingMap = new HashMap<>();
+        ratingMap.put("rating_received", ratingReceived);
+
+        final DocumentReference performerReference = FirebaseFirestore.getInstance().collection("Cities").document(Manager.CITY_VALUE).collection("type")
+                                            .document(shortlist.getType()).collection(shortlist.getGenre()).document(shortlist.getUID());
+
+        final Map<String, Object> ratingPriceMap = new HashMap<>();
+
+        final DocumentReference shortlistReference = FirebaseFirestore.getInstance().collection("Cities").document(Manager.CITY_VALUE).collection("Shortlists")
+                                            .document(FirebaseAuth.getInstance().getUid()).collection("List").document(shortlist.getUID());
+
+        final DocumentReference prevPerformances = FirebaseFirestore.getInstance().collection("Cities").document(Manager.CITY_VALUE).collection("PreviousPerformances")
+                                            .document(FirebaseAuth.getInstance().getUid()).collection(shortlist.getGenre()).document(shortlist.getUID());
+
+        final Map<String, Object> prevPerformancesMap = new HashMap<>();
+        prevPerformancesMap.put("rating_received", ratingReceived);
+
+        ratingPriceMap.put("rating", rating);
+        ratingPriceMap.put("price", price);
+
+        shortlistReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    prevPerformancesMap.put("performer", task.getResult().getDocumentReference("performer"));
+                    prevPerformancesMap.put("date", task.getResult().getTimestamp("date"));
+                    prevPerformances.set(prevPerformancesMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            uploadRating.dismiss();
+                            if (task.isSuccessful()) {
+                                shortlistReference.delete();
+                                Toast.makeText(Performer.this, "Successfully Uploaded Rating.\nThank You", Toast.LENGTH_SHORT).show();
+                                rateAndPay.setVisibility(View.GONE);
+                            } else {
+                                Toast.makeText(Performer.this, "Server Error, Please Try Again", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                } else {
+                    uploadRating.dismiss();
+                    Toast.makeText(Performer.this, "Server Error. Please Try Again", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        String randomIdOne = UUID.randomUUID().toString();
+        String randomIdTwo = UUID.randomUUID().toString();
+
+        DocumentReference emailRef = FirebaseFirestore.getInstance().collection("Cities").document(Manager.CITY_VALUE).collection("email").document(FirebaseAuth.getInstance().getUid());
+        Map<String, String> emailMap = new HashMap<>();
+
+        emailMap.put(randomIdOne, emailOne);
+        emailMap.put(randomIdTwo, emailTwo);
+
+        emailRef.set(emailMap);
+
+        prevHotelsList.update(ratingMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    performerReference.update(ratingPriceMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                            }
+                        }
+                    });
+                } else {
+                    Toast.makeText(Performer.this, "Server Error. Please Try Again", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 }

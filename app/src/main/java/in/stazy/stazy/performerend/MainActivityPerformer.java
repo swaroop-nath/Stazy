@@ -81,52 +81,54 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
     @Override
     protected void onStart() {
         super.onStart();
-        Query selectedUIDHotels = hotelsReference.orderBy("date");
-        final SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd yyyy");
+        if (hotelsReference != null) {
+            Query selectedUIDHotels = hotelsReference.orderBy("date");
+            final SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd yyyy");
 
-        listenerRegistration = selectedUIDHotels.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
-                //Define Structure here
-                if (e != null) {
-                    Log.e("SHORTLIST LISTENER", "listen:error", e);
-                    return;
-                }
+            listenerRegistration = selectedUIDHotels.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
+                    //Define Structure here
+                    if (e != null) {
+                        Log.e("SHORTLIST LISTENER", "listen:error", e);
+                        return;
+                    }
 
-                for (DocumentChange dc : snapshots.getDocumentChanges()) {
-                    switch (dc.getType()) {
-                        case ADDED:
-                            Log.e("PREV", "ADDED");
-                            final QueryDocumentSnapshot documentSnapshotAdded = dc.getDocument();
-                            DocumentReference hotel = documentSnapshotAdded.getDocumentReference("hotel");
-                            hotel.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        PerformerManager.PREV_HOTELS.add(HotelDataPerformerSide.setData(task.getResult(), documentSnapshotAdded.get("rating_received").toString(), formatter.format(documentSnapshotAdded.getTimestamp("date").toDate())));
-                                        Log.e("PREV", "Name: "+PerformerManager.PREV_HOTELS.get(0).getName());
-                                        adapter.notifyDataSetChanged();
-                                    } else {
-                                        Log.e("TAG", task.getException().getMessage());
+                    for (DocumentChange dc : snapshots.getDocumentChanges()) {
+                        switch (dc.getType()) {
+                            case ADDED:
+                                Log.e("PREV", "ADDED");
+                                final QueryDocumentSnapshot documentSnapshotAdded = dc.getDocument();
+                                DocumentReference hotel = documentSnapshotAdded.getDocumentReference("hotel");
+                                hotel.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            PerformerManager.PREV_HOTELS.add(HotelDataPerformerSide.setData(task.getResult(), documentSnapshotAdded.get("rating_received").toString(), formatter.format(documentSnapshotAdded.getTimestamp("date").toDate())));
+                                            Log.e("PREV", "Name: " + PerformerManager.PREV_HOTELS.get(0).getName());
+                                            adapter.notifyDataSetChanged();
+                                        } else {
+                                            Log.e("TAG", task.getException().getMessage());
+                                        }
                                     }
+                                });
+                                break;
+                            case MODIFIED:
+                                Log.e("PREV", "MODIFIED");
+                                QueryDocumentSnapshot documentSnapshotModified = dc.getDocument();
+                                int index = findHotel(documentSnapshotModified.get("uid").toString());
+                                if (index != -1) {
+                                    PerformerManager.PREV_HOTELS.get(index).setRating(documentSnapshotModified.get("rating_received").toString());
+                                    adapter.notifyDataSetChanged();
                                 }
-                            });
-                            break;
-                        case MODIFIED:
-                            Log.e("PREV", "MODIFIED");
-                            QueryDocumentSnapshot documentSnapshotModified = dc.getDocument();
-                            int index = findHotel(documentSnapshotModified.get("uid").toString());
-                            if (index != -1) {
-                                PerformerManager.PREV_HOTELS.get(index).setRating(documentSnapshotModified.get("rating_received").toString());
-                                adapter.notifyDataSetChanged();
-                            }
-                            break;
-                        case REMOVED:
-                            break;
+                                break;
+                            case REMOVED:
+                                break;
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
     private int findHotel(String uid) {
@@ -181,6 +183,7 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
                 }
             });
         }
+        PerformerManager.PREV_HOTELS.clear();
         hotelsReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE).collection("PreviousHotels")
                 .document(FirebaseAuth.getInstance().getUid()).collection("List");
         adapter = new PerformerAdapter(context, 0, PerformerManager.PREV_HOTELS);

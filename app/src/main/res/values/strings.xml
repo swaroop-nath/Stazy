@@ -129,6 +129,8 @@
     </string>
     <string name="activity_hotel_main_shortlist_text_view_text">Shortlists</string>
     <string name="activity_hotel_main_hire_text_view_text">Hires</string>
+    <string name="activity_performer_rate_and_pay_button_text">Rate and Pay</string>
+    <string name="rate_and_pay_intro_text">Please fill out the rating form - Input 3 ratings for the customer (one from yourself and rest from customers).</string>
 
 
 </resources>

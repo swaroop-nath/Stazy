@@ -4,8 +4,9 @@ import android.graphics.Bitmap;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.util.Date;
+
 import in.stazy.stazy.datamanagercrossend.Manager;
-import in.stazy.stazy.datamanagerperformer.PerformerManager;
 
 public class Shortlists {
     private String name;
@@ -21,12 +22,14 @@ public class Shortlists {
     private String facebook;
     private String instagram;
     private String uid;
+    private String type;
+    private Date tentativeDate;
     private Bitmap profilePictureHigh = null;
     private double doubleRating;
     private long isHired;
     private long isAccepted;
 
-    public static Shortlists setData (DocumentSnapshot documentSnapshot, long isHired, long isAccepted, String genre) {
+    public static Shortlists setData(DocumentSnapshot documentSnapshot, long isHired, long isAccepted, String genre, String type, Date tentativeDate) {
 
         Shortlists performerData = new Shortlists();
 
@@ -37,6 +40,7 @@ public class Shortlists {
         performerData.setRating(documentSnapshot.get("rating").toString());
         performerData.setCity(Manager.CITY_VALUE);
         performerData.setGenre(genre);
+        performerData.setType(type);
         performerData.setPrice(documentSnapshot.get("price").toString());
         performerData.setPicName(documentSnapshot.get("pic_name").toString());
         performerData.setToken(documentSnapshot.get("token").toString());
@@ -46,6 +50,7 @@ public class Shortlists {
         performerData.setDoubleRating(Double.valueOf(documentSnapshot.get("rating").toString()));
         performerData.setIsAccepted(isAccepted);
         performerData.setIsHired(isHired);
+        performerData.setTentativeDate(tentativeDate);
 
         return performerData;
     }
@@ -184,5 +189,21 @@ public class Shortlists {
 
     public void setIsAccepted(long isAccepted) {
         this.isAccepted = isAccepted;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Date getTentativeDate() {
+        return tentativeDate;
+    }
+
+    public void setTentativeDate(Date tentativeDate) {
+        this.tentativeDate = tentativeDate;
     }
 }

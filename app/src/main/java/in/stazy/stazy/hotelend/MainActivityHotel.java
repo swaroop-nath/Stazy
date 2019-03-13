@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
@@ -36,7 +37,9 @@ import com.google.firebase.storage.FirebaseStorage;
 
 import org.w3c.dom.Document;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -81,92 +84,95 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
     @Override
     protected void onStart() {
         super.onStart();
+        if (shortlists != null) {
+            Query shortlistsQuery = shortlists.whereGreaterThan("isHired", -1);
+            shortlistListener = shortlistsQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
+                    if (e != null) {
+                        Log.e("SHORTLIST LISTENER", "listen:error", e);
+                        return;
+                    }
 
-        Query shortlistsQuery = shortlists.whereGreaterThan("isHired", -1);
-        shortlistListener = shortlistsQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.e("SHORTLIST LISTENER", "listen:error", e);
-                    return;
-                }
-
-                for (DocumentChange dc : snapshots.getDocumentChanges()) {
-                    switch (dc.getType()) {
-                        case ADDED:
-                            QueryDocumentSnapshot documentSnapshotAdded = dc.getDocument();
-                            DocumentReference performer = documentSnapshotAdded.getDocumentReference("performer");
-                            final long isHired = (long) documentSnapshotAdded.get("isHired");
-                            final long isAccepted = (long) documentSnapshotAdded.get("isAccepted");
-                            final String genre = documentSnapshotAdded.get("genre").toString();
-                            performer.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        if (isHired == 0) {
-                                            Manager.SHORTLISTED_CANDIDATES.add(Shortlists.setData(task.getResult(), isHired, isAccepted, genre));
-                                            shortlistAdapter.notifyDataSetChanged();
-                                            if (shortlistText.getVisibility() == View.GONE && shortlistsList.getVisibility() == View.GONE) {
-                                                shortlistText.setVisibility(View.VISIBLE);
-                                                shortlistsList.setVisibility(View.VISIBLE);
-                                            }
-                                        } else if (isHired == 1) {
-                                            Manager.HIRED_CANDIDATES.add(Shortlists.setData(task.getResult(), isHired, isAccepted, genre));
-                                            hiresAdapter.notifyDataSetChanged();
-                                            if (hiresText.getVisibility() == View.GONE && hiresList.getVisibility() == View.GONE) {
-                                                hiresText.setVisibility(View.VISIBLE);
-                                                hiresList.setVisibility(View.VISIBLE);
+                    for (DocumentChange dc : snapshots.getDocumentChanges()) {
+                        switch (dc.getType()) {
+                            case ADDED:
+                                QueryDocumentSnapshot documentSnapshotAdded = dc.getDocument();
+                                DocumentReference performer = documentSnapshotAdded.getDocumentReference("performer");
+                                final long isHired = (long) documentSnapshotAdded.get("isHired");
+                                final long isAccepted = (long) documentSnapshotAdded.get("isAccepted");
+                                final String type = documentSnapshotAdded.get("type").toString();
+                                final String genre = documentSnapshotAdded.get("genre").toString();
+                                final Date tentativeDate = documentSnapshotAdded.getTimestamp("date").toDate();
+                                performer.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            if (isHired == 0) {
+                                                Manager.SHORTLISTED_CANDIDATES.add(Shortlists.setData(task.getResult(), isHired, isAccepted, genre, type, tentativeDate));
+                                                shortlistAdapter.notifyDataSetChanged();
+                                                if (shortlistText.getVisibility() == View.GONE && shortlistsList.getVisibility() == View.GONE) {
+                                                    shortlistText.setVisibility(View.VISIBLE);
+                                                    shortlistsList.setVisibility(View.VISIBLE);
+                                                }
+                                            } else if (isHired == 1) {
+                                                Manager.HIRED_CANDIDATES.add(Shortlists.setData(task.getResult(), isHired, isAccepted, genre, type, tentativeDate));
+                                                hiresAdapter.notifyDataSetChanged();
+                                                if (hiresText.getVisibility() == View.GONE && hiresList.getVisibility() == View.GONE) {
+                                                    hiresText.setVisibility(View.VISIBLE);
+                                                    hiresList.setVisibility(View.VISIBLE);
+                                                }
                                             }
                                         }
                                     }
+                                });
+                                break;
+                            case MODIFIED:
+                                QueryDocumentSnapshot documentSnapshotModified = dc.getDocument();
+                                int index = findShortlist(documentSnapshotModified.get("uid").toString());
+                                if (index != -1) {
+                                    Manager.SHORTLISTED_CANDIDATES.get(index).setIsAccepted((long) documentSnapshotModified.get("isAccepted"));
+                                    Manager.SHORTLISTED_CANDIDATES.get(index).setIsHired((long) documentSnapshotModified.get("isHired"));
+                                    if (Manager.SHORTLISTED_CANDIDATES.get(index).getIsHired() == 1) {
+                                        Manager.HIRED_CANDIDATES.add(Manager.SHORTLISTED_CANDIDATES.remove(index));
+                                        shortlistAdapter.notifyDataSetChanged();
+                                        hiresAdapter.notifyDataSetChanged();
+                                        if (Manager.SHORTLISTED_CANDIDATES.size() == 0) {
+                                            shortlistText.setVisibility(View.GONE);
+                                            shortlistsList.setVisibility(View.GONE);
+                                        }
+                                        if (hiresList.getVisibility() == View.GONE && hiresText.getVisibility() == View.GONE) {
+                                            hiresText.setVisibility(View.VISIBLE);
+                                            hiresList.setVisibility(View.VISIBLE);
+                                        }
+                                    }
                                 }
-                            });
-                            break;
-                        case MODIFIED:
-                            QueryDocumentSnapshot documentSnapshotModified = dc.getDocument();
-                            int index = findShortlist(documentSnapshotModified.get("uid").toString());
-                            if (index != -1) {
-                                Manager.SHORTLISTED_CANDIDATES.get(index).setIsAccepted((long) documentSnapshotModified.get("isAccepted"));
-                                Manager.SHORTLISTED_CANDIDATES.get(index).setIsHired((long) documentSnapshotModified.get("isHired"));
-                                if (Manager.SHORTLISTED_CANDIDATES.get(index).getIsHired() == 1){
-                                    Manager.HIRED_CANDIDATES.add(Manager.SHORTLISTED_CANDIDATES.remove(index));
+
+                                break;
+                            case REMOVED:
+                                QueryDocumentSnapshot documentSnapshotRemoved = dc.getDocument();
+                                int indexTwo = findShortlist(documentSnapshotRemoved.get("uid").toString());
+                                int indexThree = findHire(documentSnapshotRemoved.get("uid").toString());
+                                if (indexTwo != -1) {
+                                    Manager.SHORTLISTED_CANDIDATES.remove(indexTwo);
                                     shortlistAdapter.notifyDataSetChanged();
-                                    hiresAdapter.notifyDataSetChanged();
                                     if (Manager.SHORTLISTED_CANDIDATES.size() == 0) {
                                         shortlistText.setVisibility(View.GONE);
                                         shortlistsList.setVisibility(View.GONE);
                                     }
-                                    if (hiresList.getVisibility() == View.GONE && hiresText.getVisibility() == View.GONE) {
-                                        hiresText.setVisibility(View.VISIBLE);
-                                        hiresList.setVisibility(View.VISIBLE);
+                                } else if (indexThree != -1) {
+                                    Manager.HIRED_CANDIDATES.remove(indexThree);
+                                    if (Manager.HIRED_CANDIDATES.size() == 0) {
+                                        hiresText.setVisibility(View.GONE);
+                                        hiresList.setVisibility(View.GONE);
                                     }
                                 }
-                            }
-
-                            break;
-                        case REMOVED:
-                            QueryDocumentSnapshot documentSnapshotRemoved = dc.getDocument();
-                            int indexTwo = findShortlist(documentSnapshotRemoved.get("uid").toString());
-                            int indexThree = findHire(documentSnapshotRemoved.get("uid").toString());
-                            if (indexTwo != -1) {
-                                Manager.SHORTLISTED_CANDIDATES.remove(indexTwo);
-                                shortlistAdapter.notifyDataSetChanged();
-                                if (Manager.SHORTLISTED_CANDIDATES.size() == 0) {
-                                    shortlistText.setVisibility(View.GONE);
-                                    shortlistsList.setVisibility(View.GONE);
-                                }
-                            } else if (indexThree != -1) {
-                                Manager.HIRED_CANDIDATES.remove(indexThree);
-                                if (Manager.HIRED_CANDIDATES.size() == 0) {
-                                    hiresText.setVisibility(View.GONE);
-                                    hiresList.setVisibility(View.GONE);
-                                }
-                            }
-                            break;
+                                break;
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
     private int findHire(String uid) {

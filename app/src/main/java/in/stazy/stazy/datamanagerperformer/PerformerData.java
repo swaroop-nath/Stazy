@@ -68,7 +68,7 @@ public class PerformerData implements DataManager {
         performerData.setCity(Manager.CITY_VALUE);
         performerData.setGenre(PerformerManager.GENRE_VALUE);
         performerData.setLastRating(data.get("last_rating"));
-        performerData.setPrice(data.get("price"));
+        performerData.setPrice(String.valueOf(data.get("price")));
         performerData.setPicName(data.get("pic_name"));
         performerData.setToken(data.get("token"));
         performerData.setFacebook(data.get("facebook"));

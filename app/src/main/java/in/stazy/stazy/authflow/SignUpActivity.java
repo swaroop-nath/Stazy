@@ -286,7 +286,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             performerData.put("description", performerDescription.getText().toString());
             performerData.put("facebook", performerFacebook.getText().toString());
             performerData.put("instagram", performerInstagram.getText().toString());
-            performerData.put("price", performerPrice.getText().toString());
+            performerData.put("price", Integer.valueOf(performerPrice.getText().toString()));
             performerData.put("location", "");
             performerData.put("last_performed", "");
             performerData.put("rating", DEFAULT_RATING);
