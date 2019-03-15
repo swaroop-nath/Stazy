@@ -3,7 +3,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="4dp"
+    android:paddingEnd="4dp"
+    android:paddingStart="4dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@id/shortlist_hire_image_view"
@@ -16,12 +19,13 @@
 
     <View
         android:id="@id/shortlist_hire_divider"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/sign_in_activity_divider_height"
+        android:layout_width="80dp"
+        android:layout_height="1dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/shortlist_hire_image_view" />
+        app:layout_constraintTop_toBottomOf="@id/shortlist_hire_image_view"
+        android:layout_marginTop="6dp"/>
 
     <TextView
         android:id="@id/shortlist_hire_name_view"
@@ -32,7 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textAlignment="center"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="6dp"
         android:textStyle="bold"
         android:textSize="@dimen/text_size_normal"
         android:textColor="@color/colorPrimaryText"
