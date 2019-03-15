@@ -5,7 +5,9 @@ import android.support.annotation.NonNull;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MucisianData implements DataManager {
@@ -13,6 +15,7 @@ public class MucisianData implements DataManager {
     private Bitmap profilePictureLow = null;
     private Bitmap profilePictureHigh = null;
     private double doubleRating;
+    private long numPerformances;
 
     public static ArrayList<MucisianData> fetchMucisians(@NonNull List<DocumentSnapshot> documentSnapshots, String city, String genre) {
         ArrayList<MucisianData> mucisians = new ArrayList<>(10);
@@ -22,7 +25,11 @@ public class MucisianData implements DataManager {
             mucisianData.setPhoneNumber(docSnap.get("phone_number").toString());
             mucisianData.setDescription(docSnap.get("description").toString());
             mucisianData.setLocation(docSnap.get("location").toString());
-            mucisianData.setLastPerformed(docSnap.get("last_performed").toString());
+            mucisianData.setNumPerformances(Long.valueOf(docSnap.get("num_performances").toString()));
+            if (docSnap.getTimestamp("last_performed") != null)
+                mucisianData.setLastPerformed(docSnap.getTimestamp("last_performed").toDate());
+            else
+                mucisianData.setLastPerformed(null);
             mucisianData.setRating(docSnap.get("rating").toString());
             mucisianData.setCity(city);
             mucisianData.setGenre(genre);
@@ -85,8 +92,12 @@ public class MucisianData implements DataManager {
     }
 
     @Override
-    public void setLastPerformed(String lastPerformed) {
-        this.lastPerformed = lastPerformed;
+    public void setLastPerformed(Date lastPerformed) {
+        if (lastPerformed != null) {
+            SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd yyyy");
+            this.lastPerformed = formatter.format(lastPerformed);
+        } else
+            this.lastPerformed = "- - -";
     }
 
     @Override
@@ -217,5 +228,15 @@ public class MucisianData implements DataManager {
     @Override
     public void setDoubleRating(double doubleRating) {
         this.doubleRating = doubleRating;
+    }
+
+    @Override
+    public long getNumPerformances() {
+        return numPerformances;
+    }
+
+    @Override
+    public void setNumPerformances(long numPerformances) {
+        this.numPerformances = numPerformances;
     }
 }

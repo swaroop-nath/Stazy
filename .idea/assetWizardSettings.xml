@@ -69,7 +69,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/D:/Softwares/Android/Studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_broken_image_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/D:/Softwares/Android/Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_sort_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -79,12 +79,10 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="717171" />
-                            <entry key="height" value="60" />
-                            <entry key="outputName" value="ic_glide_error" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_sort" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\Swaroop Nath\Desktop\coin.svg" />
-                            <entry key="width" value="60" />
                           </map>
                         </option>
                       </PersistentState>

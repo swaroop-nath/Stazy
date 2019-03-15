@@ -288,10 +288,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             performerData.put("instagram", performerInstagram.getText().toString());
             performerData.put("price", Integer.valueOf(performerPrice.getText().toString()));
             performerData.put("location", "");
-            performerData.put("last_performed", "");
+            performerData.put("num_performances", 0);
             performerData.put("rating", DEFAULT_RATING);
-            performerData.put("last_rating", "");
-            performerData.put("prev_performances", "");
+            performerData.put("last_rating", 0);
             performerData.put("credits", DEFAULT_CREDITS);
             performerData.put("pic_name", picName);
             performerData.put("priority", DEFAULT_PRIORITY); //TODO: See if this is automatically converted to int

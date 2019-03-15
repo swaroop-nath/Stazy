@@ -200,9 +200,11 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
     @Override
     protected void onStop() {
         super.onStop();
-        shortlistListener.remove();
-        Manager.SHORTLISTED_CANDIDATES.clear();
-        Manager.HIRED_CANDIDATES.clear();
+        if (shortlistListener != null) {
+            shortlistListener.remove();
+            Manager.SHORTLISTED_CANDIDATES.clear();
+            Manager.HIRED_CANDIDATES.clear();
+        }
     }
 
 

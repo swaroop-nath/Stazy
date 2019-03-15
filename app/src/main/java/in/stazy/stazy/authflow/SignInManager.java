@@ -74,6 +74,10 @@ public class SignInManager {
                 } else {
                     // Sign in failed, display a message and update the UI
                     if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                        if (SignUpActivity.otpWaitFragmentPerformer != null)
+                            SignUpActivity.otpWaitFragmentPerformer.dismiss();
+                        if (SignUpActivity.otpWaitFragmentHotel != null)
+                            SignUpActivity.otpWaitFragmentHotel.dismiss();
                         Toast.makeText(context, "Invalid OTP Detected, Try Again Later", Toast.LENGTH_SHORT).show();
                     }
                 }

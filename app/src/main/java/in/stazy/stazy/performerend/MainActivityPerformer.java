@@ -232,16 +232,6 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
         animation.start();
     }
 
-
-    private boolean contains(String uid) {
-        String[] uidsAvailable = PerformerManager.PERFORMER.getPrevPerformances();
-        for (String uidAvailable : uidsAvailable) {
-            if (uidAvailable.equals(uid))
-                return true;
-        }
-        return false;
-    }
-
     public void openMyAccount(View view) {
         Intent intent = new Intent(this, PerformerProfile.class);
         startActivity(intent);

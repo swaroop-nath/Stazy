@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 import in.stazy.stazy.datamanagercrossend.Manager;
@@ -29,6 +31,7 @@ public class PerformerData implements DataManager {
     private String uid;
     private Bitmap profilePictureHigh = null;
     private double doubleRating, doubleCredits;
+    private long numPerformances;
 
     public static PerformerData setData(DocumentSnapshot documentSnapshot) {
         PerformerData performerData = new PerformerData();
@@ -37,7 +40,11 @@ public class PerformerData implements DataManager {
         performerData.setPhoneNumber(documentSnapshot.get("phone_number").toString());
         performerData.setDescription(documentSnapshot.get("description").toString());
         performerData.setLocation(documentSnapshot.get("location").toString());
-        performerData.setLastPerformed(documentSnapshot.get("last_performed").toString());
+        performerData.setNumPerformances(Long.valueOf(documentSnapshot.get("num_performances").toString()));
+        if (documentSnapshot.getTimestamp("last_performed") != null)
+            performerData.setLastPerformed(documentSnapshot.getTimestamp("last_performed").toDate());
+        else
+            performerData.setLastPerformed(null);
         performerData.setRating(documentSnapshot.get("rating").toString());
         performerData.setCity(Manager.CITY_VALUE);
         performerData.setGenre(PerformerManager.GENRE_VALUE);
@@ -47,7 +54,6 @@ public class PerformerData implements DataManager {
         performerData.setToken(documentSnapshot.get("token").toString());
         performerData.setFacebook(documentSnapshot.get("facebook").toString());
         performerData.setInstagram(documentSnapshot.get("instagram").toString());
-        performerData.setPrevPerformances(documentSnapshot.get("prev_performances").toString());
         performerData.setCredits(documentSnapshot.get("credits").toString());
         performerData.setUID(documentSnapshot.get("uid").toString());
         performerData.setDoubleRating(Double.valueOf(documentSnapshot.get("rating").toString()));
@@ -63,17 +69,16 @@ public class PerformerData implements DataManager {
         performerData.setPhoneNumber(data.get("phone_number"));
         performerData.setDescription(data.get("description"));
         performerData.setLocation(data.get("location"));
-        performerData.setLastPerformed(data.get("last_performed"));
+        performerData.setLastPerformed(null);
         performerData.setRating(String.valueOf(data.get("rating")));
         performerData.setCity(Manager.CITY_VALUE);
         performerData.setGenre(PerformerManager.GENRE_VALUE);
-        performerData.setLastRating(data.get("last_rating"));
+        performerData.setLastRating(String.valueOf(data.get("last_rating")));
         performerData.setPrice(String.valueOf(data.get("price")));
         performerData.setPicName(data.get("pic_name"));
         performerData.setToken(data.get("token"));
         performerData.setFacebook(data.get("facebook"));
         performerData.setInstagram(data.get("instagram"));
-        performerData.setPrevPerformances(data.get("prev_performances"));
         performerData.setCredits(String.valueOf(data.get("credits")));
 
         return performerData;
@@ -133,8 +138,12 @@ public class PerformerData implements DataManager {
     }
 
     @Override
-    public void setLastPerformed(String lastPerformed) {
-        this.lastPerformed = lastPerformed;
+    public void setLastPerformed(Date lastPerformed) {
+        if (lastPerformed != null) {
+            SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd yyyy");
+            this.lastPerformed = formatter.format(lastPerformed);
+        } else
+            this.lastPerformed = "- - -";
     }
 
     @Override
@@ -237,18 +246,6 @@ public class PerformerData implements DataManager {
         this.instagram = instagram;
     }
 
-    public String[] getPrevPerformances() {
-        return prevPerformances;
-    }
-
-    public void setPrevPerformances(String prevPerformances) {
-        String[] prevPerformancesReverse = prevPerformances.split(",");
-        int n = prevPerformancesReverse.length;
-        this.prevPerformances = new String[n];
-        for (int i = 0; i < n; i++)
-            this.prevPerformances[i] = prevPerformancesReverse[n - i -1];
-    }
-
     @Override
     public Bitmap getProfilePictureHigh() {
         return profilePictureHigh;
@@ -277,6 +274,16 @@ public class PerformerData implements DataManager {
     @Override
     public void setDoubleRating(double doubleRating) {
         this.doubleRating = doubleRating;
+    }
+
+    @Override
+    public long getNumPerformances() {
+        return numPerformances;
+    }
+
+    @Override
+    public void setNumPerformances(long numPerformances) {
+        this.numPerformances = numPerformances;
     }
 
     public double getDoubleCredits() {

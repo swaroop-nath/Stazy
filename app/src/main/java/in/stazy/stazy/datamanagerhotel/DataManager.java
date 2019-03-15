@@ -3,6 +3,7 @@ package in.stazy.stazy.datamanagerhotel;
 import android.graphics.Bitmap;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public interface DataManager extends Serializable {
 
@@ -24,7 +25,7 @@ public interface DataManager extends Serializable {
 
     String getLastPerformed();
 
-    void setLastPerformed(String lastPerformed);
+    void setLastPerformed(Date lastPerformed);
 
     String getRating();
 
@@ -77,4 +78,8 @@ public interface DataManager extends Serializable {
     double getDoubleRating();
 
     void setDoubleRating(double doubleRating);
+
+    long getNumPerformances();
+
+    void setNumPerformances(long numPerformances);
 }

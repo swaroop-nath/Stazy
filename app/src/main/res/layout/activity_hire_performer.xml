@@ -6,37 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".hotelend.HirePerformer">
 
-    <LinearLayout
-        android:id="@id/acitivity_hire_performer_top_content_container"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/activity_hire_performer_top_content_container_height"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/activity_hire_performer_top_content_container_top_margin">
-        <!--Set the default text using onNothingSelected callback in code-->
-        <Spinner
-            android:id="@id/activity_hire_performer_spinner_type"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:entries="@array/spinner_type_entries"/>
-        <Spinner
-            android:id="@id/activity_hire_performer_spinner_genre"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-        <!--Change the following spinner to a button in refine stage
-        Show a card that appears on top through some animation, that contains the same entries-->
-        <Spinner
-            android:id="@id/activity_hire_performer_spinner_sort"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:entries="@array/spinner_sort_entries"/>
-    </LinearLayout>
-
     <ListView
         android:id="@id/activity_hire_performer_list_view"
         android:layout_width="match_parent"
@@ -47,11 +16,52 @@
         android:layout_marginTop="@dimen/activity_hire_performer_list_view_top_margin"
         android:divider="@drawable/list_view_divider"
         android:dividerHeight="@dimen/activity_view_hire_performer_list_view_divider_height"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/filter_card_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/acitivity_hire_performer_top_content_container"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+    <android.support.v7.widget.CardView
+        android:id="@id/filter_card_container"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardElevation="8dp"
+        android:paddingBottom="8dp"
+        app:cardBackgroundColor="#c2c2c2">
+        <LinearLayout
+            android:id="@id/activity_hire_performer_top_content_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_hire_performer_top_content_container_height"
+            android:orientation="horizontal">
+            <Spinner
+                android:id="@id/activity_hire_performer_spinner_type"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:entries="@array/spinner_type_entries"/>
+            <Spinner
+                android:id="@id/activity_hire_performer_spinner_genre"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <!--Change the following spinner to a button in refine stage
+            Show a card that appears on top through some animation, that contains the same entries-->
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@id/sort_floating_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/filter_card_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_sort"/>
 
 </android.support.constraint.ConstraintLayout>

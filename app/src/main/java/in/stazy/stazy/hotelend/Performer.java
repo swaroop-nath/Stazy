@@ -415,6 +415,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
 
         ratingPriceMap.put("rating", rating);
         ratingPriceMap.put("price", price);
+        ratingPriceMap.put("last_rating", ratingReceived);
 
         shortlistReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -422,15 +423,27 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
                 if (task.isSuccessful()) {
                     prevPerformancesMap.put("performer", task.getResult().getDocumentReference("performer"));
                     prevPerformancesMap.put("date", task.getResult().getTimestamp("date"));
+                    ratingPriceMap.put("last_performed", task.getResult().getTimestamp("date"));
                     prevPerformances.set(prevPerformancesMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            uploadRating.dismiss();
                             if (task.isSuccessful()) {
                                 shortlistReference.delete();
-                                Toast.makeText(Performer.this, "Successfully Uploaded Rating.\nThank You", Toast.LENGTH_SHORT).show();
-                                rateAndPay.setVisibility(View.GONE);
+                                performerReference.update(ratingPriceMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        uploadRating.dismiss();
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(Performer.this, "Successfully Uploaded Rating.\nThank You", Toast.LENGTH_SHORT).show();
+                                            rateAndPay.setVisibility(View.GONE);
+                                        } else {
+                                            uploadRating.dismiss();
+                                            Toast.makeText(Performer.this, "Server Error, Please Try Again", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
                             } else {
+                                uploadRating.dismiss();
                                 Toast.makeText(Performer.this, "Server Error, Please Try Again", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -453,22 +466,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
 
         emailRef.set(emailMap);
 
-        prevHotelsList.update(ratingMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    performerReference.update(ratingPriceMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                            }
-                        }
-                    });
-                } else {
-                    Toast.makeText(Performer.this, "Server Error. Please Try Again", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        prevHotelsList.update(ratingMap);
 
     }
 }

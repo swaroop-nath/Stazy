@@ -101,7 +101,7 @@
     <item name="activity_view_all_performers_list_view" type="id">
         activity_view_all_performers_list_view
     </item>
-    <item name="acitivity_hire_performer_top_content_container" type="id">
+    <item name="activity_hire_performer_top_content_container" type="id">
         acitivity_hire_performer_top_content_container_height
     </item>
     <item name="activity_hire_performer_spinner_type" type="id">
@@ -422,4 +422,11 @@
     <item name="duration_spinner_layout" type="id">duration_spinner_layout</item>
     <item name="date_of_performance" type="id">date_of_performance</item>
     <item name="date_of_performance_setter" type="id">date_of_performance_setter</item>
+    <item name="filter_card_container" type="id">filter_card_container</item>
+    <item name="sort_floating_button" type="id">sort_floating_button</item>
+    <item name="sorting_radio_group" type="id">sorting_radio_group</item>
+    <item name="radio_button_alphabetical" type="id">radio_button_alphabetical</item>
+    <item name="radio_button_rating" type="id">radio_button_rating</item>
+    <item name="radio_button_price" type="id">radio_button_price</item>
+    <item name="radio_button_popularity" type="id">radio_button_popularity</item>
 </resources>

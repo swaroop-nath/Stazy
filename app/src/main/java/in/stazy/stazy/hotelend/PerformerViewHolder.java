@@ -47,7 +47,7 @@ class PerformerViewHolder {
 
     void setContents(DataManager performer) {
         nameTextView.setText(performer.getName());
-        extrasTextView.setText("Last Rating: " + performer.getLastRating());
+        extrasTextView.setText("# Performances: " + performer.getNumPerformances());
         overallRatingTextView.setText(performer.getRating());
         priceTag.setText(performer.getPrice() + "/hr");
         setProfilePicture(performer);

@@ -4,7 +4,9 @@ import android.graphics.Bitmap;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ComedianData implements DataManager {
@@ -12,6 +14,7 @@ public class ComedianData implements DataManager {
     private Bitmap profilePictureLow;
     private Bitmap profilePictureHigh = null;
     private double doubleRating;
+    private long numPerformances;
 
     public static ArrayList<ComedianData> fetchComedians(List<DocumentSnapshot> documentSnapshots, String city, String genre) {
         ArrayList<ComedianData> comedians = new ArrayList<>(10);
@@ -21,7 +24,11 @@ public class ComedianData implements DataManager {
             comedianData.setPhoneNumber(docSnap.get("phone_number").toString());
             comedianData.setDescription(docSnap.get("description").toString());
             comedianData.setLocation(docSnap.get("location").toString());
-            comedianData.setLastPerformed(docSnap.get("last_performed").toString());
+            comedianData.setNumPerformances(Long.valueOf(docSnap.get("num_performances").toString()));
+            if (docSnap.getTimestamp("last_performed") != null)
+                comedianData.setLastPerformed(docSnap.getTimestamp("last_performed").toDate());
+            else
+                comedianData.setLastPerformed(null);
             comedianData.setRating(docSnap.get("rating").toString());
             comedianData.setCity(city);
             comedianData.setGenre(genre);
@@ -84,8 +91,12 @@ public class ComedianData implements DataManager {
     }
 
     @Override
-    public void setLastPerformed(String lastPerformed) {
-        this.lastPerformed = lastPerformed;
+    public void setLastPerformed(Date lastPerformed) {
+        if (lastPerformed != null) {
+            SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd yyyy");
+            this.lastPerformed = formatter.format(lastPerformed);
+        } else
+            this.lastPerformed = "- - -";
     }
 
     @Override
@@ -216,5 +227,15 @@ public class ComedianData implements DataManager {
     @Override
     public void setDoubleRating(double doubleRating) {
         this.doubleRating = doubleRating;
+    }
+
+    @Override
+    public long getNumPerformances() {
+        return numPerformances;
+    }
+
+    @Override
+    public void setNumPerformances(long numPerformances) {
+        this.numPerformances = numPerformances;
     }
 }

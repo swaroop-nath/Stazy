@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -38,13 +40,13 @@ import in.stazy.stazy.datamanagerhotel.OtherData;
 import static in.stazy.stazy.hotelend.MainActivityHotel.EXPLORE_INTENT_EXTRA_KEY;
 import static in.stazy.stazy.hotelend.MainActivityHotel.INDIVIDUAL_PERFORMER_OBJECT_KEY;
 
-public class HirePerformer extends AppCompatActivity implements CustomOnCompleteListener {
+public class HirePerformer extends AppCompatActivity implements CustomOnCompleteListener, SortDialog.SortCommunication {
 
     //View References
     @BindView(R.id.activity_hire_performer_spinner_type) Spinner type;
     @BindView(R.id.activity_hire_performer_spinner_genre) Spinner genre;
-    @BindView(R.id.activity_hire_performer_spinner_sort) Spinner sort;
     @BindView(R.id.activity_hire_performer_list_view) ListView availablePerformers;
+    @BindView(R.id.sort_floating_button) FloatingActionButton sortFAB;
 
     //Activity Specific References
     private Context context;
@@ -198,6 +200,16 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
             }
         });
         downloadData();
+
+
+        sortFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SortDialog dialog = new SortDialog();
+                dialog.attachSortSetListener(HirePerformer.this);
+                dialog.show(getSupportFragmentManager(), "sort_dialog");
+            }
+        });
     }
 
 
@@ -448,6 +460,29 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                     break;
             }
             setData();
+        }
+    }
+
+    @Override
+    public void onSortSet(int id) {
+        //Sort the dataset.
+        switch (id) {
+            case R.id.radio_button_alphabetical:
+                Collections.sort(dataset, (o1, o2) -> o1.getName().compareTo(o2.getName()));
+                adapter.notifyDataSetChanged();
+                break;
+            case R.id.radio_button_rating:
+                Collections.sort(dataset, (o1, o2) -> String.valueOf(o1.getDoubleRating()).compareTo(String.valueOf(o2.getDoubleRating())));
+                adapter.notifyDataSetChanged();
+                break;
+            case R.id.radio_button_price:
+                Collections.sort(dataset, (o1, o2) -> o1.getPrice().compareTo(o2.getPrice()));
+                adapter.notifyDataSetChanged();
+                break;
+            case R.id.radio_button_popularity:
+                Collections.sort(dataset, Collections.reverseOrder( (o1, o2) -> String.valueOf(o1.getNumPerformances()).compareTo(String.valueOf(o2.getNumPerformances()))));
+                adapter.notifyDataSetChanged();
+                break;
         }
     }
 }

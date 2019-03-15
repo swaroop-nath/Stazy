@@ -4,7 +4,9 @@ import android.graphics.Bitmap;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class OtherData implements DataManager{
@@ -12,6 +14,7 @@ public class OtherData implements DataManager{
     private Bitmap profilePictureLow = null;
     private Bitmap profilePictureHigh = null;
     private double doubleRating;
+    private long numPerformances;
 
     public static ArrayList<OtherData> fetchOthers(List<DocumentSnapshot> documentSnapshots, String city, String genre) {
         ArrayList<OtherData> others = new ArrayList<>(10);
@@ -21,7 +24,11 @@ public class OtherData implements DataManager{
             otherData.setPhoneNumber(docSnap.get("phone_number").toString());
             otherData.setDescription(docSnap.get("description").toString());
             otherData.setLocation(docSnap.get("location").toString());
-            otherData.setLastPerformed(docSnap.get("last_performed").toString());
+            otherData.setNumPerformances(Long.valueOf(docSnap.get("num_performances").toString()));
+            if (docSnap.getTimestamp("last_performed") != null)
+                otherData.setLastPerformed(docSnap.getTimestamp("last_performed").toDate());
+            else
+                otherData.setLastPerformed(null);
             otherData.setRating(docSnap.get("rating").toString());
             otherData.setCity(city);
             otherData.setGenre(genre);
@@ -84,8 +91,12 @@ public class OtherData implements DataManager{
     }
 
     @Override
-    public void setLastPerformed(String lastPerformed) {
-        this.lastPerformed = lastPerformed;
+    public void setLastPerformed(Date lastPerformed) {
+        if (lastPerformed != null) {
+            SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd yyyy");
+            this.lastPerformed = formatter.format(lastPerformed);
+        } else
+            this.lastPerformed = "- - -";
     }
 
     @Override
@@ -216,5 +227,15 @@ public class OtherData implements DataManager{
     @Override
     public void setDoubleRating(double doubleRating) {
         this.doubleRating = doubleRating;
+    }
+
+    @Override
+    public long getNumPerformances() {
+        return numPerformances;
+    }
+
+    @Override
+    public void setNumPerformances(long numPerformances) {
+        this.numPerformances = numPerformances;
     }
 }
