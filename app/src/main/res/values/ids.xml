@@ -429,4 +429,20 @@
     <item name="radio_button_rating" type="id">radio_button_rating</item>
     <item name="radio_button_price" type="id">radio_button_price</item>
     <item name="radio_button_popularity" type="id">radio_button_popularity</item>
+    <item name="activity_hotel_main_prev_performances_mucisians_text_view" type="id">
+        activity_hotel_main_prev_performances_mucisians_text_view
+    </item>
+    <item name="prev_mucisians_genre_container" type="id">prev_mucisians_genre_container</item>
+    <item name="prev_comedians_genre_container" type="id">prev_comedians_genre_container</item>
+    <item name="activity_hotel_main_prev_performances_comedians_text_view" type="id">
+        activity_hotel_main_prev_performances_comedians_text_view
+    </item>
+    <item name="activity_hotel_main_prev_performances_others_text_view" type="id">
+        activity_hotel_main_prev_performances_others_text_view
+    </item>
+    <item name="prev_others_genre_container" type="id">prev_others_genre_container</item>
+    <item name="prev_perform_profile_photo" type="id">prev_perform_profile_photo</item>
+    <item name="prev_perform_name" type="id">prev_perform_name</item>
+    <item name="prev_perform_date_performed" type="id">prev_perform_date_performed</item>
+    <item name="prev_perform_rating" type="id">prev_perform_rating</item>
 </resources>

@@ -62,7 +62,7 @@ public class Adapter extends PagerAdapter {
                         intent.putExtra(MainActivityHotel.EXPLORE_INTENT_EXTRA_KEY, MainActivityHotel.TYPE_VALUE_COMEDIANS);
                         break;
                     case 2:
-                        //Others clicked
+                        //others clicked
                         intent.putExtra(MainActivityHotel.EXPLORE_INTENT_EXTRA_KEY, MainActivityHotel.TYPE_VALUE_OTHERS);
                         break;
                 }

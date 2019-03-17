@@ -9,6 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.google.firebase.storage.FirebaseStorage;
@@ -37,12 +41,15 @@ class PerformerViewHolder {
     void setProfilePicture(DataManager performer) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference imageReference = storage.getReference().child(performer.getUID()+"/"+performer.getPicName());
-        Glide.with(context).asBitmap().load(imageReference).into(new SimpleTarget<Bitmap>() {
-            @Override
-            public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
-                profilePicture.setImageBitmap(resource);
-            }
-        });
+        RequestOptions requestOptions = new RequestOptions()
+                .centerCrop()
+                .placeholder(R.drawable.ic_glide_placeholder)
+                .error(R.drawable.ic_glide_error)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .priority(Priority.HIGH)
+                .dontAnimate()
+                .dontTransform();
+        Glide.with(context).asBitmap().load(imageReference).into(profilePicture);
     }
 
     void setContents(DataManager performer) {
@@ -50,6 +57,7 @@ class PerformerViewHolder {
         extrasTextView.setText("# Performances: " + performer.getNumPerformances());
         overallRatingTextView.setText(performer.getRating());
         priceTag.setText(performer.getPrice() + "/hr");
+        Glide.with(context).clear(profilePicture);
         setProfilePicture(performer);
     }
 }

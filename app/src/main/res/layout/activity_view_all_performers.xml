@@ -10,8 +10,6 @@
         android:id="@id/activity_view_all_performers_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginEnd="@dimen/activity_view_all_performers_list_view_end_margin"
-        android:layout_marginStart="@dimen/activity_view_all_performers_list_view_start_margin"
         android:layout_marginTop="@dimen/activity_view_all_performers_list_view_top_margin"
         android:divider="@drawable/list_view_divider"
         android:dividerHeight="@dimen/activity_view_all_performers_list_view_divider_height"

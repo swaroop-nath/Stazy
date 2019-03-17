@@ -75,15 +75,28 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
     public static final String EXPLORE_INTENT_EXTRA_KEY = "type";
     public static final String TYPE_VALUE_MUCISIANS = "Musicians";
     public static final String TYPE_VALUE_COMEDIANS = "Comedians";
-    public static final String TYPE_VALUE_OTHERS = "Others";
+    public static final String TYPE_VALUE_OTHERS = "others";
     public static final String INDIVIDUAL_PERFORMER_OBJECT_KEY = "performer_object";
     public static final int FLAG_SHORTLIST = 1;
     public static final int FLAG_HIRE = 2;
     public static final String SHORTLIST_HIRE_INTENT_KEY = "shortlist_hire";
 
+    private static final String GENRE_VALUE_SINGER = "Singer";
+    private static final String GENRE_VALUE_GUITARIST = "Guitarist";
+    private static final String GENRE_VALUE_BAND = "Band";
+    private static final String GENRE_VALUE_STAND_UP = "Stand-Ups";
+    private static final String GENRE_VALUE_SHAYARI = "Shayari";
+    private static final String GENRE_VALUE_MAGICIAN = "Magician";
+    private static final String GENRE_VALUE_MOTIVATIONAL_SPEAKER = "Motivational Speaker";
+    private static final String GENRE_VALUE_DJ = "DJ";
+    private static final String GENRE_VALUE_OTHERS = "Others";
+    public static final String PREV_PERFORMERS_GENRE_KEY = "prev_genre";
     @Override
     protected void onStart() {
         super.onStart();
+        Log.e("TAG", "Resume called");
+        shortlists = FirebaseFirestore.getInstance().collection("Cities").document(Manager.CITY_VALUE).collection("Shortlists")
+                .document(FirebaseAuth.getInstance().getUid()).collection("List");
         if (shortlists != null) {
             Query shortlistsQuery = shortlists.whereGreaterThan("isHired", -1);
             shortlistListener = shortlistsQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -200,6 +213,7 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
     @Override
     protected void onStop() {
         super.onStop();
+        Log.e("TAG", "Pause called");
         if (shortlistListener != null) {
             shortlistListener.remove();
             Manager.SHORTLISTED_CANDIDATES.clear();
@@ -257,9 +271,6 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
                 }
             });
 
-            shortlists = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE).collection("Shortlists")
-                    .document(FirebaseAuth.getInstance().getUid()).collection("List");
-
             LinearLayoutManager horizontalLayoutShortlist = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
             shortlistsList.setLayoutManager(horizontalLayoutShortlist);
             LinearLayoutManager horizontalLayoutHire = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -295,6 +306,48 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
 
     @Override
     public void onViewPagerClick(Intent intent) {
+        startActivity(intent);
+    }
+
+    public void openPrevSingers(View view) {
+        showPrevPerformers(GENRE_VALUE_SINGER);
+    }
+
+    public void openPrevGuitarist(View view) {
+        showPrevPerformers(GENRE_VALUE_GUITARIST);
+    }
+
+    public void openPrevBand(View view) {
+        showPrevPerformers(GENRE_VALUE_BAND);
+    }
+
+    public void openPrevStandUPs(View view) {
+        showPrevPerformers(GENRE_VALUE_STAND_UP);
+    }
+
+    public void openPrevShayari(View view) {
+        showPrevPerformers(GENRE_VALUE_SHAYARI);
+    }
+
+    public void openPrevMagicians(View view) {
+        showPrevPerformers(GENRE_VALUE_MAGICIAN);
+    }
+
+    public void openPrevDJs(View view) {
+        showPrevPerformers(GENRE_VALUE_DJ);
+    }
+
+    public void openPrevSpeakers(View view) {
+        showPrevPerformers(GENRE_VALUE_MOTIVATIONAL_SPEAKER);
+    }
+
+    public void openPrevOthers(View view) {
+        showPrevPerformers(GENRE_VALUE_OTHERS);
+    }
+
+    private void showPrevPerformers(String genre) {
+        Intent intent = new Intent(this, ViewAllPerformers.class);
+        intent.putExtra(PREV_PERFORMERS_GENRE_KEY, genre);
         startActivity(intent);
     }
 }

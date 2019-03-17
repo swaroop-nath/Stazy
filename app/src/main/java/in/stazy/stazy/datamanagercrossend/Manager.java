@@ -52,9 +52,6 @@ public class Manager {
     public static int AVAILABLE_GUITARIST_START_INDEX = 0;
 
 
-    public static int AVAILABLE_DANCER_START_INDEX = 0;
-
-
     public static int AVAILABLE_BAND_START_INDEX = 0;
 
 
@@ -80,9 +77,6 @@ public class Manager {
 
 
     public static int AVAILABLE_GUITARIST_START_INDEX_SET = FLAG_UNSET;
-
-
-    public static int AVAILABLE_DANCER_START_INDEX_SET = FLAG_UNSET;
 
 
     public static int AVAILABLE_BAND_START_INDEX_SET = FLAG_UNSET;

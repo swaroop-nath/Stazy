@@ -81,6 +81,8 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
     @Override
     protected void onStart() {
         super.onStart();
+        hotelsReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE).collection("PreviousHotels")
+                .document(FirebaseAuth.getInstance().getUid()).collection("List");
         if (hotelsReference != null) {
             Query selectedUIDHotels = hotelsReference.orderBy("date");
             final SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd yyyy");
@@ -184,8 +186,7 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
             });
         }
         PerformerManager.PREV_HOTELS.clear();
-        hotelsReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE).collection("PreviousHotels")
-                .document(FirebaseAuth.getInstance().getUid()).collection("List");
+
         adapter = new PerformerAdapter(context, 0, PerformerManager.PREV_HOTELS);
         hiresList.setAdapter(adapter);
         hiresList.setOnItemClickListener(this);

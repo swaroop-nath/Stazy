@@ -176,14 +176,6 @@ public class SignInManager {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    if (SignInActivity.verificationFragment != null) {
-                        SignInActivity.verificationFragment.dismiss();
-                        SignInActivity.verificationFragment = null;
-                    }
-                    if (SignInActivity.signInFragment != null) {
-                        SignInActivity.signInFragment.dismiss();
-                        SignInActivity.signInFragment = null;
-                    }
                     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
                     DocumentReference mapperReference = firebaseFirestore.collection("Mapper").document(FirebaseAuth.getInstance().getUid());
                     mapperReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -214,12 +206,28 @@ public class SignInManager {
     }
 
     private static void startUIHotel() {
+        if (SignInActivity.verificationFragment != null) {
+            SignInActivity.verificationFragment.dismiss();
+            SignInActivity.verificationFragment = null;
+        }
+        if (SignInActivity.signInFragment != null) {
+            SignInActivity.signInFragment.dismiss();
+            SignInActivity.signInFragment = null;
+        }
         Intent intent = new Intent(varContext, MainActivityHotel.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         varContext.startActivity(intent);
     }
 
     private static void startUIPerformer() {
+        if (SignInActivity.verificationFragment != null) {
+            SignInActivity.verificationFragment.dismiss();
+            SignInActivity.verificationFragment = null;
+        }
+        if (SignInActivity.signInFragment != null) {
+            SignInActivity.signInFragment.dismiss();
+            SignInActivity.signInFragment = null;
+        }
         Intent intent = new Intent(varContext, MainActivityPerformer.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         varContext.startActivity(intent);

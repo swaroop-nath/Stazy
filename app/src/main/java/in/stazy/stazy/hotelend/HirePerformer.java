@@ -71,7 +71,6 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
 
     private static final String GENRE_VALUE_SINGER_HP = "Singer";
     private static final String GENRE_VALUE_GUITARIST_HP = "Guitarist";
-    private static final String GENRE_VALUE_DANCER_HP = "Dancer";
     private static final String GENRE_VALUE_BAND_HP = "Band";
     private static final String GENRE_VALUE_STAND_UP_HP = "Stand-Ups";
     private static final String GENRE_VALUE_SHAYARI_HP = "Shayari";
@@ -270,8 +269,8 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                     case GENRE_VALUE_GUITARIST_HP:
                         fillDataSet(Manager.AVAILABLE_MUCISIANS, Manager.AVAILABLE_GUITARIST_START_INDEX, setGenre);
                         break;
-                    case GENRE_VALUE_DANCER_HP:
-                        fillDataSet(Manager.AVAILABLE_MUCISIANS, Manager.AVAILABLE_DANCER_START_INDEX, setGenre);
+                    case GENRE_VALUE_DJ_HP:
+                        fillDataSet(Manager.AVAILABLE_MUCISIANS, Manager.AVAILABLE_DJ_START_INDEX, setGenre);
                         break;
                     case GENRE_VALUE_BAND_HP:
                         fillDataSet(Manager.AVAILABLE_MUCISIANS, Manager.AVAILABLE_BAND_START_INDEX, setGenre);
@@ -296,11 +295,8 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                     case GENRE_VALUE_MOTIVATIONAL_SPEAKER_HP:
                         fillDataSet(Manager.AVAILABLE_OTHERS, Manager.AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX, setGenre);
                         break;
-                    case GENRE_VALUE_DJ_HP:
-                        fillDataSet(Manager.AVAILABLE_OTHERS, Manager.AVAILABLE_DJ_START_INDEX, setGenre);
-                        break;
                     case GENRE_VALUE_OTHERS_HP:
-                        Log.e(TAG,"Others start indes = "+Manager.AVAILABLE_OTHERS_START_INDEX);
+                        Log.e(TAG,"others start index = "+Manager.AVAILABLE_OTHERS_START_INDEX);
                         fillDataSet(Manager.AVAILABLE_OTHERS, Manager.AVAILABLE_OTHERS_START_INDEX, setGenre);
                         break;
                 }
@@ -363,8 +359,8 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                                 Manager.AVAILABLE_GUITARIST_START_INDEX = Manager.AVAILABLE_MUCISIANS.size();
                             if (Manager.AVAILABLE_BAND_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_BAND_START_INDEX = Manager.AVAILABLE_MUCISIANS.size();
-                            if (Manager.AVAILABLE_DANCER_START_INDEX_SET == FLAG_UNSET)
-                                Manager.AVAILABLE_DANCER_START_INDEX = Manager.AVAILABLE_MUCISIANS.size();
+                            if (Manager.AVAILABLE_DJ_START_INDEX_SET == FLAG_UNSET)
+                                Manager.AVAILABLE_DJ_START_INDEX = Manager.AVAILABLE_MUCISIANS.size();
                             notifyChangesToAdapter(typeChosen, genreChosen);
                             break;
                         case GENRE_VALUE_GUITARIST_HP:
@@ -373,12 +369,12 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                                 Manager.AVAILABLE_SINGERS_START_INDEX = Manager.AVAILABLE_MUCISIANS.size();
                             if (Manager.AVAILABLE_BAND_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_BAND_START_INDEX = Manager.AVAILABLE_MUCISIANS.size();
-                            if (Manager.AVAILABLE_DANCER_START_INDEX_SET == FLAG_UNSET)
-                                Manager.AVAILABLE_DANCER_START_INDEX = Manager.AVAILABLE_MUCISIANS.size();
+                            if (Manager.AVAILABLE_DJ_START_INDEX_SET == FLAG_UNSET)
+                                Manager.AVAILABLE_DJ_START_INDEX = Manager.AVAILABLE_MUCISIANS.size();
                             notifyChangesToAdapter(typeChosen, genreChosen);
                             break;
-                        case GENRE_VALUE_DANCER_HP:
-                            Manager.AVAILABLE_DANCER_START_INDEX_SET = FLAG_SET;
+                        case GENRE_VALUE_DJ_HP:
+                            Manager.AVAILABLE_DJ_START_INDEX_SET = FLAG_SET;
                             if (Manager.AVAILABLE_GUITARIST_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_GUITARIST_START_INDEX = Manager.AVAILABLE_MUCISIANS.size();
                             if (Manager.AVAILABLE_BAND_START_INDEX_SET == FLAG_UNSET)
@@ -393,8 +389,8 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                                 Manager.AVAILABLE_GUITARIST_START_INDEX = Manager.AVAILABLE_MUCISIANS.size();
                             if (Manager.AVAILABLE_SINGERS_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_SINGERS_START_INDEX = Manager.AVAILABLE_MUCISIANS.size();
-                            if (Manager.AVAILABLE_DANCER_START_INDEX_SET == FLAG_UNSET)
-                                Manager.AVAILABLE_DANCER_START_INDEX = Manager.AVAILABLE_MUCISIANS.size();
+                            if (Manager.AVAILABLE_DJ_START_INDEX_SET == FLAG_UNSET)
+                                Manager.AVAILABLE_DJ_START_INDEX = Manager.AVAILABLE_MUCISIANS.size();
                             notifyChangesToAdapter(typeChosen, genreChosen);
                             break;
                     }
@@ -423,24 +419,11 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                             Manager.AVAILABLE_MAGICIAN_START_INDEX_SET = FLAG_SET;
                             if (Manager.AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX = Manager.AVAILABLE_OTHERS.size();
-                            if (Manager.AVAILABLE_DJ_START_INDEX_SET == FLAG_UNSET)
-                                Manager.AVAILABLE_DJ_START_INDEX = Manager.AVAILABLE_OTHERS.size();
                             if (Manager.AVAILABLE_OTHERS_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_OTHERS_START_INDEX = Manager.AVAILABLE_OTHERS.size();
                             notifyChangesToAdapter(typeChosen, genreChosen);
                         case GENRE_VALUE_MOTIVATIONAL_SPEAKER_HP:
                             Manager.AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX_SET = FLAG_SET;
-                            if (Manager.AVAILABLE_MAGICIAN_START_INDEX_SET == FLAG_UNSET)
-                                Manager.AVAILABLE_MAGICIAN_START_INDEX = Manager.AVAILABLE_OTHERS.size();
-                            if (Manager.AVAILABLE_DJ_START_INDEX_SET == FLAG_UNSET)
-                                Manager.AVAILABLE_DJ_START_INDEX = Manager.AVAILABLE_OTHERS.size();
-                            if (Manager.AVAILABLE_OTHERS_START_INDEX_SET == FLAG_UNSET)
-                                Manager.AVAILABLE_OTHERS_START_INDEX = Manager.AVAILABLE_OTHERS.size();
-                            notifyChangesToAdapter(typeChosen, genreChosen);
-                        case GENRE_VALUE_DJ_HP:
-                            Manager.AVAILABLE_DJ_START_INDEX_SET = FLAG_SET;
-                            if (Manager.AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX_SET == FLAG_UNSET)
-                                Manager.AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX = Manager.AVAILABLE_OTHERS.size();
                             if (Manager.AVAILABLE_MAGICIAN_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_MAGICIAN_START_INDEX = Manager.AVAILABLE_OTHERS.size();
                             if (Manager.AVAILABLE_OTHERS_START_INDEX_SET == FLAG_UNSET)
@@ -450,8 +433,6 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                             Manager.AVAILABLE_OTHERS_START_INDEX_SET = FLAG_SET;
                             if (Manager.AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX = Manager.AVAILABLE_OTHERS.size();
-                            if (Manager.AVAILABLE_DJ_START_INDEX_SET == FLAG_UNSET)
-                                Manager.AVAILABLE_DJ_START_INDEX = Manager.AVAILABLE_OTHERS.size();
                             if (Manager.AVAILABLE_MAGICIAN_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_MAGICIAN_START_INDEX = Manager.AVAILABLE_OTHERS.size();
                             notifyChangesToAdapter(typeChosen, genreChosen);
