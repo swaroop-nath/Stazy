@@ -86,7 +86,8 @@
     <string name="activity_performer_profile_buy_credits_button_text">Buy Credits</string>
 
     <string name="PAYMENT_ID">9455687935@ybl</string>
-    <string name="payment_dialog_informatory_text_view_text">Lorem Ipsum Dolor SIt Amer</string>
+    <string name="payment_dialog_informatory_text_view_text">Please input the amount of credits you want to buy.
+    \n**Cost of 1 credit = Rs. 50\n**Please enter the message "STAZY CREDITS PAYMENT" while paying using PhonePe</string>
     <string name="payment_dialog_credits_text_view_text">Credits:</string>
     <string name="payment_dialog_input_credits_hint">CREDITS . . .</string>
     <string name="sign_in_activity_welcome_text_view_text">Welcome</string>
