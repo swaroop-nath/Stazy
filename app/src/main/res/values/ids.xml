@@ -516,4 +516,14 @@
         performer_contacts_card_city_container
     </item>
     <item name="bio_card_view_performer" type="id">bio_card_view_performer</item>
+    <item name="activity_hotel_profile_hotel_phone_icon" type="id">
+        activity_hotel_profile_hotel_phone_icon
+    </item>
+    <item name="activity_hotel_profile_hotel_phone_text_view" type="id">
+        activity_hotel_profile_hotel_phone_text_view
+    </item>
+    <item name="activity_hotel_hotel_phone_icon" type="id">activity_hotel_hotel_phone_icon</item>
+    <item name="activity_hotel_hotel_phone_text_view" type="id">
+        activity_hotel_hotel_phone_text_view
+    </item>
 </resources>

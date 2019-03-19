@@ -54,7 +54,7 @@ public class PerformerProfile extends AppCompatActivity implements View.OnClickL
     @BindView(R.id.activity_performer_profile_last_performed_text_view) TextView lastPerformedTextView;
     @BindView(R.id.activity_performer_profile_buy_credits_button) Button buyCreditsButton;
     @BindView(R.id.activity_main_performer_buy_priority_fab) FloatingActionButton buyPriority;
-    @BindView(R.id.activity_performer_profile_back_button) ImageView backButton;
+    @BindView(R.id.activity_performer_profile_back_button) CircleImageView backButton;
     @BindView(R.id.activity_performer_profile_edit_button) ImageView editButton;
     @BindView(R.id.performer_profile_contacts_card_facebook_container) LinearLayout facebookLinkContainer;
     @BindView(R.id.performer_profile_contacts_card_instagram_container) LinearLayout instagramLinkContainer;

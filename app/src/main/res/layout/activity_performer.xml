@@ -303,7 +303,7 @@
             app:layout_constraintTop_toBottomOf="@id/activity_performer_name_text_view"
             tools:text="Singer" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@id/activity_performer_back_button"
             android:layout_width="24dp"
             android:layout_height="24dp"

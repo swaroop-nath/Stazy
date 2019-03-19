@@ -27,6 +27,7 @@ public class HotelProfile extends AppCompatActivity implements OnCompleteListene
     @BindView(R.id.activity_hotel_profile_hotel_name_text_view) TextView hotelName;
     @BindView(R.id.activity_hotel_profile_hotel_location_text_view) TextView hotelCity;
     @BindView(R.id.activity_hotel_profile_hotel_description) TextView hotelDescription;
+    @BindView(R.id.activity_hotel_hotel_phone_text_view) TextView hotelPhone;
 
     //Activity Specific References
 
@@ -61,5 +62,6 @@ public class HotelProfile extends AppCompatActivity implements OnCompleteListene
         hotelName.setText(Manager.HOTEL_DATA.getName());
         hotelCity.setText(Manager.HOTEL_DATA.getCity());
         hotelDescription.setText("        Description: " + Manager.HOTEL_DATA.getDescription());
+        hotelPhone.setText(Manager.HOTEL_DATA.getPhoneNumber());
     }
 }

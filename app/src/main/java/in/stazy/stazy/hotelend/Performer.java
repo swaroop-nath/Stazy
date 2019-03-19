@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,8 +47,6 @@ import in.stazy.stazy.datamanagerhotel.DataManager;
 import in.stazy.stazy.datamanagerhotel.MucisianData;
 import in.stazy.stazy.datamanagerhotel.OtherData;
 import in.stazy.stazy.datamanagerhotel.Shortlists;
-import in.stazy.stazy.datamanagerperformer.PerformerManager;
-import in.stazy.stazy.performerend.PerformerProfile;
 import in.stazy.stazy.performerend.YoutubeAdapter;
 
 import static in.stazy.stazy.hotelend.MainActivityHotel.EXPLORE_INTENT_EXTRA_KEY;
@@ -93,6 +92,8 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
     RecyclerView youtubeLinks;
     @BindView(R.id.prev_works_youtube_card_view_performer)
     CardView youtubeContainer;
+    @BindView(R.id.activity_performer_back_button)
+    CircleImageView backButton;
 
     //Activity Specific References
     private DataManager receivedPerformer;
@@ -197,6 +198,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         rateAndPay.setOnClickListener(this);
         facebookLinkContainer.setOnClickListener(this);
         instagramLinkContainer.setOnClickListener(this);
+        backButton.setOnClickListener(this);
     }
 
     private void downloadData(String performerType, String performerGenre) {
@@ -274,6 +276,9 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
                 break;
             case R.id.performer_contacts_card_instagram_container:
                 startActivity(instagramIntent);
+                break;
+            case R.id.activity_performer_back_button:
+                finish();
                 break;
         }
     }

@@ -14,73 +14,116 @@
         <ImageView
             android:id="@id/activity_hotel_profile_display_picture"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/activity_hotel_profile_display_picture_height"
+            android:layout_height="250dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:src="@mipmap/hotel_display_picture_placeholder"
             android:scaleType="centerCrop"/>
 
-        <ImageView
-            android:id="@id/activity_hotel_profile_hotel_name_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/activity_hotel_profile_display_picture"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="@dimen/activity_hotel_profile_hotel_name_icon_top_margin"
-            android:layout_marginStart="@dimen/activity_hotel_profile_hotel_name_icon_start_margin"
-            android:src="@drawable/ic_hotel_name"/>
-
-        <ImageView
-            android:id="@id/activity_hotel_profile_hotel_location_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/activity_hotel_profile_hotel_name_icon"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="@dimen/activity_hotel_profile_hotel_location_icon_top_margin"
-            android:layout_marginStart="@dimen/activity_hotel_profile_hotel_location_icon_start_margin"
-            android:src="@drawable/ic_hotel_location"/>
-
-        <TextView
-            android:id="@id/activity_hotel_profile_hotel_name_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/activity_hotel_profile_display_picture"
-            app:layout_constraintStart_toEndOf="@id/activity_hotel_profile_hotel_name_icon"
-            app:layout_constraintBottom_toBottomOf="@id/activity_hotel_profile_hotel_name_icon"
-            android:layout_marginTop="@dimen/activity_hotel_profile_hotel_name_text_view_top_margin"
-            android:layout_marginStart="@dimen/activity_hotel_profile_hotel_name_text_view_start_margin"
-            tools:text="Hotel Milan Palace"
-            android:textSize="@dimen/text_size_large"
-            android:textColor="@color/colorPrimaryText"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@id/activity_hotel_profile_hotel_location_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/activity_hotel_profile_hotel_name_text_view"
-            app:layout_constraintStart_toEndOf="@id/activity_hotel_profile_hotel_location_icon"
-            app:layout_constraintBottom_toBottomOf="@id/activity_hotel_profile_hotel_location_icon"
-            android:layout_marginTop="@dimen/activity_hotel_profile_hotel_location_text_view_top_margin"
-            android:layout_marginStart="@dimen/activity_hotel_profile_hotel_location_text_view_start_margin"
-            tools:text="Prayagraj"
-            android:textSize="@dimen/text_size_normal"
-            android:textColor="@color/colorPrimaryText"/>
-
-        <TextView
-            android:id="@id/activity_hotel_profile_hotel_description"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/activity_hotel_profile_hotel_location_text_view"
+            app:layout_constraintTop_toBottomOf="@id/activity_hotel_profile_display_picture"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/activity_hotel_profile_hotel_description_top_margin"
-            android:layout_marginStart="@dimen/activity_hotel_profile_hotel_description_start_margin"
-            android:layout_marginEnd="@dimen/activity_hotel_profile_hotel_description_end_margin"
-            tools:text="        Description: "
-            android:textSize="@dimen/text_size_normal"
-            android:textColor="@color/colorSecondaryText"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.45">
+                <ImageView
+                    android:id="@id/activity_hotel_profile_hotel_name_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.30"
+                    android:src="@drawable/ic_hotel_name"
+                    android:layout_marginStart="16dp"/>
+                <TextView
+                    android:id="@id/activity_hotel_profile_hotel_name_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/activity_hotel_profile_hotel_name_icon"
+                    app:layout_constraintTop_toTopOf="@id/activity_hotel_profile_hotel_name_icon"
+                    app:layout_constraintBottom_toBottomOf="@id/activity_hotel_profile_hotel_name_icon"
+                    android:layout_marginStart="16dp"
+                    tools:text="Hotel Milan Palace"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="@dimen/text_size_large"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:maxLines="3"/>
+                <TextView
+                    android:id="@id/activity_hotel_profile_hotel_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="        Description: Lorem Ipsum Dolor Sit amer hello hullbaaloafshaskjfalsnfackbasjvgsjvsljdghdkfjgajksfg,asvhfjkasgfj,shvcjkashgscjlasvjhasgcjashvbjg"
+                    app:layout_constraintTop_toBottomOf="@id/activity_hotel_profile_hotel_name_text_view"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.10"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:textStyle="italic"
+                    android:textSize="@dimen/text_size_normal"
+                    android:textColor="@color/colorSecondaryText"
+                    android:layout_marginEnd="4dp"/>
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <ImageView
+                    android:id="@id/activity_hotel_profile_hotel_location_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintVertical_bias="0.30"
+                    android:src="@drawable/ic_hotel_location"/>
+                <TextView
+                    android:id="@id/activity_hotel_profile_hotel_location_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/activity_hotel_profile_hotel_location_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="12dp"
+                    tools:text="Prayagraj"
+                    android:textStyle="bold|italic"
+                    android:textSize="@dimen/text_size_normal"
+                    android:textColor="@color/colorSecondaryText"/>
+                <ImageView
+                    android:id="@id/activity_hotel_profile_hotel_phone_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/activity_hotel_profile_hotel_location_text_view"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="24dp"
+                    android:src="@drawable/ic_phone_hotel"/>
+                <TextView
+                    android:id="@id/activity_hotel_profile_hotel_phone_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/activity_hotel_profile_hotel_phone_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="12dp"
+                    tools:text="+919435541097"
+                    android:autoLink="phone"
+                    android:linksClickable="true"
+                    android:textSize="@dimen/text_size_small"/>
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 
 </ScrollView>

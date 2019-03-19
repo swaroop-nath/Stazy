@@ -45,6 +45,7 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
     @BindView(R.id.activity_hotel_shortlist_text) TextView hotelShortlistText;
     @BindView(R.id.activity_hotel_reject_button) CardView rejectButton;
     @BindView(R.id.activity_hotel_accept_button) CardView acceptButton;
+    @BindView(R.id.activity_hotel_hotel_phone_text_view) TextView hotelPhone;
 
     //Activity Specific References
     private int receivedPosition;
@@ -84,8 +85,8 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
         profilePicture.setImageBitmap(PerformerManager.PREV_HOTELS.get(receivedPosition).getProfilePictureHigh());
         hotelNameTextView.setText(PerformerManager.PREV_HOTELS.get(receivedPosition).getName());
         hotelCityTextView.setText(PerformerManager.PREV_HOTELS.get(receivedPosition).getCity());
-        hotelDescriptionTextView.setText(PerformerManager.PREV_HOTELS.get(receivedPosition).getDescription());
-
+        hotelDescriptionTextView.setText("        Description: "+PerformerManager.PREV_HOTELS.get(receivedPosition).getDescription());
+        hotelPhone.setText(PerformerManager.PREV_HOTELS.get(receivedPosition).getPhoneNumber());
     }
 
     @Override
@@ -104,8 +105,8 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
     private void setSpecialContents() {
         hotelNameTextView.setText(PerformerManager.SHORTLIST_HOTEL.getName());
         hotelCityTextView.setText(PerformerManager.SHORTLIST_HOTEL.getCity());
-        hotelDescriptionTextView.setText(PerformerManager.SHORTLIST_HOTEL.getDescription());
-
+        hotelDescriptionTextView.setText("        Description: "+PerformerManager.SHORTLIST_HOTEL.getDescription());
+        hotelPhone.setText(PerformerManager.SHORTLIST_HOTEL.getPhoneNumber());
         hotelShortlistText.setText(Html.fromHtml(hireDesc));
 
         hotelShortlistText.setVisibility(View.VISIBLE);
