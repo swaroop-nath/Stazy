@@ -10,11 +10,12 @@ import java.util.Date;
 import java.util.List;
 
 public class ComedianData implements DataManager {
-    private String name, phoneNumber, description, location, lastPerformed, rating, city, genre, lastRating, price, pic_name, token, facebook, instagram, uid;
+    private String name, phoneNumber, description, location, lastPerformed, rating, city, genre, lastRating, price, pic_name, token, facebook, instagram, uid, facebookUID, instagramUID;
     private Bitmap profilePictureLow;
     private Bitmap profilePictureHigh = null;
     private double doubleRating;
     private long numPerformances;
+    private String[] youtubeLinks;
 
     public static ArrayList<ComedianData> fetchComedians(List<DocumentSnapshot> documentSnapshots, String city, String genre) {
         ArrayList<ComedianData> comedians = new ArrayList<>(10);
@@ -36,10 +37,12 @@ public class ComedianData implements DataManager {
             comedianData.setPrice(docSnap.get("price").toString());
             comedianData.setPicName(docSnap.get("pic_name").toString());
             comedianData.setToken(docSnap.get("token").toString());
-            comedianData.setFacebook(docSnap.get("facebook").toString());
-            comedianData.setInstagram(docSnap.get("instagram").toString());
+            comedianData.setFacebookUsername(docSnap.get("facebook").toString());
+            comedianData.setInstagramUsername(docSnap.get("instagram").toString());
+            comedianData.setFacebookUID(docSnap.get("facebook_uid").toString());
             comedianData.setUID(docSnap.get("uid").toString());
             comedianData.setDoubleRating(Double.valueOf(docSnap.get("rating").toString()));
+            comedianData.setYoutubeLinks(docSnap.get("youtube").toString());
             comedians.add(comedianData);
         }
         return comedians;
@@ -190,22 +193,22 @@ public class ComedianData implements DataManager {
     }
 
     @Override
-    public String getFacebook() {
+    public String getFacebookUsername() {
         return facebook;
     }
 
     @Override
-    public void setFacebook(String facebook) {
+    public void setFacebookUsername(String facebook) {
         this.facebook = facebook;
     }
 
     @Override
-    public String getInstagram() {
+    public String getInstagramUsername() {
         return instagram;
     }
 
     @Override
-    public void setInstagram(String instagram) {
+    public void setInstagramUsername(String instagram) {
         this.instagram = instagram;
     }
 
@@ -237,5 +240,24 @@ public class ComedianData implements DataManager {
     @Override
     public void setNumPerformances(long numPerformances) {
         this.numPerformances = numPerformances;
+    }
+
+    @Override
+    public String getFacebookUID() {
+        return facebookUID;
+    }
+
+    @Override
+    public void setFacebookUID(String facebookUID) {
+        this.facebookUID = facebookUID;
+    }
+
+    @Override
+    public String[] getYoutubeLinks() {
+        return youtubeLinks;
+    }
+
+    public void setYoutubeLinks(String youtubeLinks) {
+        this.youtubeLinks = youtubeLinks.split(",");
     }
 }

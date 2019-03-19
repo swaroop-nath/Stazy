@@ -24,14 +24,15 @@ public class PerformerData implements DataManager {
     private String price;
     private String pic_name;
     private String token;
-    private String facebook;
-    private String instagram;
+    private String facebook, facebookUID;
+    private String instagram, instagramUID;
     private String[] prevPerformances;
     private String credits;
     private String uid;
     private Bitmap profilePictureHigh = null;
     private double doubleRating, doubleCredits;
     private long numPerformances;
+    private String[] youtubeLinks;
 
     public static PerformerData setData(DocumentSnapshot documentSnapshot) {
         PerformerData performerData = new PerformerData();
@@ -52,12 +53,14 @@ public class PerformerData implements DataManager {
         performerData.setPrice(documentSnapshot.get("price").toString());
         performerData.setPicName(documentSnapshot.get("pic_name").toString());
         performerData.setToken(documentSnapshot.get("token").toString());
-        performerData.setFacebook(documentSnapshot.get("facebook").toString());
-        performerData.setInstagram(documentSnapshot.get("instagram").toString());
+        performerData.setFacebookUsername(documentSnapshot.get("facebook").toString());
+        performerData.setInstagramUsername(documentSnapshot.get("instagram").toString());
+//        performerData.setFacebookUID(documentSnapshot.get("facebook_uid").toString());
         performerData.setCredits(documentSnapshot.get("credits").toString());
         performerData.setUID(documentSnapshot.get("uid").toString());
         performerData.setDoubleRating(Double.valueOf(documentSnapshot.get("rating").toString()));
         performerData.setDoubleCredits(Double.valueOf(documentSnapshot.get("credits").toString()));
+//        performerData.setYoutubeLinks(documentSnapshot.get("youtube").toString());
 
         return performerData;
     }
@@ -77,8 +80,8 @@ public class PerformerData implements DataManager {
         performerData.setPrice(String.valueOf(data.get("price")));
         performerData.setPicName(data.get("pic_name"));
         performerData.setToken(data.get("token"));
-        performerData.setFacebook(data.get("facebook"));
-        performerData.setInstagram(data.get("instagram"));
+        performerData.setFacebookUsername(data.get("facebook"));
+        performerData.setInstagramUsername(data.get("instagram"));
         performerData.setCredits(String.valueOf(data.get("credits")));
 
         return performerData;
@@ -227,22 +230,22 @@ public class PerformerData implements DataManager {
     }
 
     @Override
-    public String getFacebook() {
+    public String getFacebookUsername() {
         return facebook;
     }
 
     @Override
-    public void setFacebook(String facebook) {
+    public void setFacebookUsername(String facebook) {
         this.facebook = facebook;
     }
 
     @Override
-    public String getInstagram() {
+    public String getInstagramUsername() {
         return instagram;
     }
 
     @Override
-    public void setInstagram(String instagram) {
+    public void setInstagramUsername(String instagram) {
         this.instagram = instagram;
     }
 
@@ -292,5 +295,23 @@ public class PerformerData implements DataManager {
 
     public void setDoubleCredits(double doubleCredits) {
         this.doubleCredits = doubleCredits;
+    }
+
+    @Override
+    public String getFacebookUID() {
+        return facebookUID;
+    }
+
+    @Override
+    public void setFacebookUID(String facebookUID) {
+        this.facebookUID = facebookUID;
+    }
+
+    public void setYoutubeLinks(String youtubeLinks) {
+        this.youtubeLinks = youtubeLinks.split(",");
+    }
+
+    public String[] getYoutubeLinks() {
+        return youtubeLinks;
     }
 }

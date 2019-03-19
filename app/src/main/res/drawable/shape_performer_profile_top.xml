@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <rotate
+            android:fromDegrees="0"
+            android:pivotX="50%"
+            android:pivotY="50%"
+            android:toDegrees="0">
+            <shape android:shape="rectangle">
+
+                <size
+                    android:width="550dp"
+                    android:height="500dp" />
+
+                <corners android:bottomLeftRadius="72dp" />
+
+                <gradient
+                    android:angle="225"
+                    android:endColor="@color/performer_profile_shape_end_color"
+                    android:startColor="@color/colorPrimaryDark" />
+
+            </shape>
+        </rotate>
+    </item>
+</layer-list>

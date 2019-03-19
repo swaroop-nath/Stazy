@@ -166,25 +166,7 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
         SCREEN_HEIGHT = getScreenHeight();
         locationOnRemove = SCREEN_HEIGHT;
         MENU_CONTAINER_UNDER_CUT = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, getResources().getDisplayMetrics());
-        if (PerformerManager.PERFORMER == null) {
-            DocumentReference mapperReference = firebaseFirestore.collection("Mapper").document(FirebaseAuth.getInstance().getUid());
-            mapperReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
-                    DocumentReference documentReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE)
-                                .collection("type").document(PerformerManager.TYPE_VALUE)
-                                .collection(PerformerManager.GENRE_VALUE).document(FirebaseAuth.getInstance().getUid());
-                    documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            PerformerManager.PERFORMER = PerformerData.setData(task.getResult());
-
-                        }
-                    });
-                }
-            });
-        }
         PerformerManager.PREV_HOTELS.clear();
 
         adapter = new PerformerAdapter(context, 0, PerformerManager.PREV_HOTELS);

@@ -10,11 +10,12 @@ import java.util.Date;
 import java.util.List;
 
 public class OtherData implements DataManager{
-    private String name, phoneNumber, description, location, lastPerformed, rating, city, genre, lastRating, price, pic_name, token, facebook, instagram, uid;
+    private String name, phoneNumber, description, location, lastPerformed, rating, city, genre, lastRating, price, pic_name, token, facebook, instagram, uid, facebookUID, instagramUID;
     private Bitmap profilePictureLow = null;
     private Bitmap profilePictureHigh = null;
     private double doubleRating;
     private long numPerformances;
+    private String[] youtubeLinks;
 
     public static ArrayList<OtherData> fetchOthers(List<DocumentSnapshot> documentSnapshots, String city, String genre) {
         ArrayList<OtherData> others = new ArrayList<>(10);
@@ -36,10 +37,12 @@ public class OtherData implements DataManager{
             otherData.setPrice(docSnap.get("price").toString());
             otherData.setPicName(docSnap.get("pic_name").toString());
             otherData.setToken(docSnap.get("token").toString());
-            otherData.setFacebook(docSnap.get("facebook").toString());
-            otherData.setInstagram(docSnap.get("instagram").toString());
+            otherData.setFacebookUsername(docSnap.get("facebook").toString());
+            otherData.setInstagramUsername(docSnap.get("instagram").toString());
+            otherData.setFacebookUID(docSnap.get("facebook_uid").toString());
             otherData.setUID(docSnap.get("uid").toString());
             otherData.setDoubleRating(Double.valueOf(docSnap.get("rating").toString()));
+            otherData.setYoutubeLinks(docSnap.get("youtube").toString());
             others.add(otherData);
         }
         return others;
@@ -190,22 +193,22 @@ public class OtherData implements DataManager{
     }
 
     @Override
-    public String getFacebook() {
+    public String getFacebookUsername() {
         return facebook;
     }
 
     @Override
-    public void setFacebook(String facebook) {
+    public void setFacebookUsername(String facebook) {
         this.facebook = facebook;
     }
 
     @Override
-    public String getInstagram() {
+    public String getInstagramUsername() {
         return instagram;
     }
 
     @Override
-    public void setInstagram(String instagram) {
+    public void setInstagramUsername(String instagram) {
         this.instagram = instagram;
     }
 
@@ -237,5 +240,25 @@ public class OtherData implements DataManager{
     @Override
     public void setNumPerformances(long numPerformances) {
         this.numPerformances = numPerformances;
+    }
+
+    @Override
+    public String getFacebookUID() {
+        return facebookUID;
+    }
+
+    @Override
+    public void setFacebookUID(String facebookUID) {
+        this.facebookUID = facebookUID;
+    }
+
+    @Override
+    public String[] getYoutubeLinks() {
+        return youtubeLinks;
+    }
+
+    @Override
+    public void setYoutubeLinks(String youtubeLinks) {
+        this.youtubeLinks = youtubeLinks.split(",");
     }
 }

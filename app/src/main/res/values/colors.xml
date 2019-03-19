@@ -11,6 +11,7 @@
     <color name="circularImageViewBorder">#717171</color>
     <color name="colorSocialLinkItemBorder">#717171</color>
     <color name="cardViewDarkBackground">#bcbcbc</color>
+    <color name="performer_profile_shape_end_color">#fff020</color>
 
     <!--TODO: Make a black theme-->
 </resources>

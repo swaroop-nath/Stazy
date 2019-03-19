@@ -445,4 +445,51 @@
     <item name="prev_perform_name" type="id">prev_perform_name</item>
     <item name="prev_perform_date_performed" type="id">prev_perform_date_performed</item>
     <item name="prev_perform_rating" type="id">prev_perform_rating</item>
+    <item name="performer_profile_shape_top" type="id">performer_profile_shape_top</item>
+    <item name="contacts_card_view_performer_profile" type="id">
+        contacts_card_view_performer_profile
+    </item>
+    <item name="performer_profile_contacts_card_facebook_container" type="id">
+        performer_profile_contacts_card_facebook_container
+    </item>
+    <item name="performer_profile_contacts_card_instagram_container" type="id">
+        performer_profile_contacts_card_instagram_container
+    </item>
+    <item name="performer_profile_contacts_card_phone_container" type="id">
+        performer_profile_contacts_card_phone_container
+    </item>
+    <item name="performer_profile_contacts_card_city_container" type="id">
+        performer_profile_contacts_card_city_container
+    </item>
+    <item name="bio_card_view_performer_profile" type="id">bio_card_view_performer_profile</item>
+    <item name="account_card_view_performer_profile" type="id">account_card_view_performer_profile
+    </item>
+    <item name="performer_profile_account_card_credits_container" type="id">
+        performer_profile_account_card_credits_container
+    </item>
+    <item name="performer_profile_account_card_price_container" type="id">
+        performer_profile_account_card_price_container
+    </item>
+    <item name="activity_performer_profile_price_text_view" type="id">
+        activity_performer_profile_price_text_view
+    </item>
+    <item name="performer_profile_account_card_last_performed_container" type="id">
+        performer_profile_account_card_last_performed_container
+    </item>
+    <item name="activity_performer_profile_last_performed_text_view" type="id">
+        activity_performer_profile_last_performer_text_view
+    </item>
+    <item name="activity_performer_profile_back_button" type="id">
+        activity_performer_profile_back_button
+    </item>
+    <item name="activity_performer_profile_edit_button" type="id">
+        activity_performer_profile_edit_button
+    </item>
+    <item name="prev_works_youtube_card_view_performer_profile" type="id">
+        prev_works_youtube_card_view_performer_profile
+    </item>
+    <item name="youtube_card_intro_text" type="id">youtube_card_intro_text</item>
+    <item name="activity_performer_profile_youtube_recycler_view" type="id">
+        activity_performer_profile_youtube_recycler_view
+    </item>
 </resources>

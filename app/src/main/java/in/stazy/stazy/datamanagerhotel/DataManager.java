@@ -63,13 +63,13 @@ public interface DataManager extends Serializable {
 
     void setToken(String token); //Unnecessary for this version
 
-    String getFacebook();
+    String getFacebookUsername();
 
-    void setFacebook(String facebook);
+    void setFacebookUsername(String facebook);
 
-    String getInstagram();
+    String getInstagramUsername();
 
-    void setInstagram(String instagram);
+    void setInstagramUsername(String instagram);
 
     String getUID();
 
@@ -82,4 +82,13 @@ public interface DataManager extends Serializable {
     long getNumPerformances();
 
     void setNumPerformances(long numPerformances);
+
+    String getFacebookUID();
+
+    void setFacebookUID(String facebookUID);
+
+    String[] getYoutubeLinks();
+
+    void setYoutubeLinks(String youtubeLinks);
+
 }

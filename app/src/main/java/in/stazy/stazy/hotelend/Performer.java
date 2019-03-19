@@ -27,8 +27,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +44,6 @@ import in.stazy.stazy.datamanagerhotel.DataManager;
 import in.stazy.stazy.datamanagerhotel.MucisianData;
 import in.stazy.stazy.datamanagerhotel.OtherData;
 import in.stazy.stazy.datamanagerhotel.Shortlists;
-import in.stazy.stazy.datamanagerperformer.PerformerManager;
 
 import static in.stazy.stazy.hotelend.MainActivityHotel.EXPLORE_INTENT_EXTRA_KEY;
 import static in.stazy.stazy.hotelend.MainActivityHotel.INDIVIDUAL_PERFORMER_OBJECT_KEY;
@@ -125,8 +122,8 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
                 ratingTextView.setText(shortlist.getRating());
                 nameTextView.setText(shortlist.getName());
                 genreTextView.setText(shortlist.getGenre());
-                facebookLink.setText(getCleanedUpLink(shortlist.getFacebook()));
-                instagramLink.setText(getCleanedUpLink(shortlist.getInstagram()));
+                facebookLink.setText(shortlist.getFacebook());
+                instagramLink.setText(shortlist.getInstagram());
                 cityTextView.setText(shortlist.getCity());
                 phoneTextView.setText(shortlist.getPhoneNumber());
                 descriptionTextView.setText(shortlist.getDescription());
@@ -164,16 +161,11 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         ratingTextView.setText(receivedPerformer.getRating());
         nameTextView.setText(receivedPerformer.getName());
         genreTextView.setText(receivedPerformer.getGenre());
-        facebookLink.setText(getCleanedUpLink(receivedPerformer.getFacebook()));
-        instagramLink.setText(getCleanedUpLink(receivedPerformer.getInstagram()));
+        facebookLink.setText(receivedPerformer.getFacebookUsername());
+        instagramLink.setText(receivedPerformer.getInstagramUsername());
         cityTextView.setText(receivedPerformer.getCity());
         phoneTextView.setText(receivedPerformer.getPhoneNumber());
         descriptionTextView.setText("        Description: " + receivedPerformer.getDescription());
-    }
-
-    private String getCleanedUpLink(String socialMediaLink) {
-        String[] parts = socialMediaLink.split("/");
-        return parts[parts.length - 1];
     }
 
     private void downloadHighResProfilePicture() {
@@ -374,8 +366,8 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         ratingTextView.setText(result.get("rating").toString());
         nameTextView.setText(result.get("name").toString());
         genreTextView.setText(notifGenre);
-        facebookLink.setText(getCleanedUpLink(result.get("facebook").toString()));
-        instagramLink.setText(getCleanedUpLink(result.get("instagram").toString()));
+        facebookLink.setText(result.get("facebook").toString());
+        instagramLink.setText(result.get("instagram").toString());
         cityTextView.setText(Manager.CITY_VALUE);
         phoneTextView.setText(result.get("phone_number").toString());
         descriptionTextView.setText(result.get("description").toString());
@@ -429,13 +421,24 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 shortlistReference.delete();
-                                performerReference.update(ratingPriceMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                performerReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        uploadRating.dismiss();
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                         if (task.isSuccessful()) {
-                                            Toast.makeText(Performer.this, "Successfully Uploaded Rating.\nThank You", Toast.LENGTH_SHORT).show();
-                                            rateAndPay.setVisibility(View.GONE);
+                                            ratingPriceMap.put("num_performances", Long.valueOf(task.getResult().get("num_performances").toString()) + 1);
+                                            performerReference.update(ratingPriceMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    uploadRating.dismiss();
+                                                    if (task.isSuccessful()) {
+                                                        Toast.makeText(Performer.this, "Successfully Uploaded Rating.\nThank You", Toast.LENGTH_SHORT).show();
+                                                        rateAndPay.setVisibility(View.GONE);
+                                                    } else {
+                                                        uploadRating.dismiss();
+                                                        Toast.makeText(Performer.this, "Server Error, Please Try Again", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
                                         } else {
                                             uploadRating.dismiss();
                                             Toast.makeText(Performer.this, "Server Error, Please Try Again", Toast.LENGTH_SHORT).show();

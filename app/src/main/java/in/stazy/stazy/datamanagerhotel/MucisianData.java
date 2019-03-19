@@ -11,11 +11,12 @@ import java.util.Date;
 import java.util.List;
 
 public class MucisianData implements DataManager {
-    private String name, phoneNumber, description, location, lastPerformed, rating, city, genre, lastRating, price, pic_name, token, facebook, instagram, uid;
+    private String name, phoneNumber, description, location, lastPerformed, rating, city, genre, lastRating, price, pic_name, token, facebook, instagram, uid, facebookUID, instagramUID;
     private Bitmap profilePictureLow = null;
     private Bitmap profilePictureHigh = null;
     private double doubleRating;
     private long numPerformances;
+    private String[] youtubeLinks;
 
     public static ArrayList<MucisianData> fetchMucisians(@NonNull List<DocumentSnapshot> documentSnapshots, String city, String genre) {
         ArrayList<MucisianData> mucisians = new ArrayList<>(10);
@@ -37,10 +38,12 @@ public class MucisianData implements DataManager {
             mucisianData.setPrice(docSnap.get("price").toString());
             mucisianData.setPicName(docSnap.get("pic_name").toString());
             mucisianData.setToken(docSnap.get("token").toString());
-            mucisianData.setFacebook(docSnap.get("facebook").toString());
-            mucisianData.setInstagram(docSnap.get("instagram").toString());
+            mucisianData.setFacebookUsername(docSnap.get("facebook").toString());
+            mucisianData.setInstagramUsername(docSnap.get("instagram").toString());
+            mucisianData.setFacebookUID(docSnap.get("facebook_uid").toString());
             mucisianData.setUID(docSnap.get("uid").toString());
             mucisianData.setDoubleRating(Double.valueOf(docSnap.get("rating").toString()));
+            mucisianData.setYoutubeLinks(docSnap.get("youtube").toString());
             mucisians.add(mucisianData);
         }
         return mucisians;
@@ -191,22 +194,22 @@ public class MucisianData implements DataManager {
     }
 
     @Override
-    public String getFacebook() {
+    public String getFacebookUsername() {
         return facebook;
     }
 
     @Override
-    public void setFacebook(String facebook) {
+    public void setFacebookUsername(String facebook) {
         this.facebook = facebook;
     }
 
     @Override
-    public String getInstagram() {
+    public String getInstagramUsername() {
         return instagram;
     }
 
     @Override
-    public void setInstagram(String instagram) {
+    public void setInstagramUsername(String instagram) {
         this.instagram = instagram;
     }
 
@@ -238,5 +241,25 @@ public class MucisianData implements DataManager {
     @Override
     public void setNumPerformances(long numPerformances) {
         this.numPerformances = numPerformances;
+    }
+
+    @Override
+    public String getFacebookUID() {
+        return facebookUID;
+    }
+
+    @Override
+    public void setFacebookUID(String facebookUID) {
+        this.facebookUID = facebookUID;
+    }
+
+    @Override
+    public String[] getYoutubeLinks() {
+        return youtubeLinks;
+    }
+
+    @Override
+    public void setYoutubeLinks(String youtubeLinks) {
+        this.youtubeLinks = youtubeLinks.split(",");
     }
 }

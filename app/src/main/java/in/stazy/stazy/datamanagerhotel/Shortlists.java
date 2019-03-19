@@ -19,8 +19,8 @@ public class Shortlists {
     private String price;
     private String pic_name;
     private String token;
-    private String facebook;
-    private String instagram;
+    private String facebook, facebookUID;
+    private String instagram, instagramUID;
     private String uid;
     private String type;
     private Date tentativeDate;
@@ -205,5 +205,21 @@ public class Shortlists {
 
     public void setTentativeDate(Date tentativeDate) {
         this.tentativeDate = tentativeDate;
+    }
+
+    public String getFacebookUID() {
+        return facebookUID;
+    }
+
+    public void setFacebookUID(String facebookUID) {
+        this.facebookUID = facebookUID;
+    }
+
+    public String getInstagramUID() {
+        return instagramUID;
+    }
+
+    public void setInstagramUID(String instagramUID) {
+        this.instagramUID = instagramUID;
     }
 }
