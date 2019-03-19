@@ -55,12 +55,12 @@ public class PerformerData implements DataManager {
         performerData.setToken(documentSnapshot.get("token").toString());
         performerData.setFacebookUsername(documentSnapshot.get("facebook").toString());
         performerData.setInstagramUsername(documentSnapshot.get("instagram").toString());
-//        performerData.setFacebookUID(documentSnapshot.get("facebook_uid").toString());
+        performerData.setFacebookUID(documentSnapshot.get("facebook_uid").toString());
         performerData.setCredits(documentSnapshot.get("credits").toString());
         performerData.setUID(documentSnapshot.get("uid").toString());
         performerData.setDoubleRating(Double.valueOf(documentSnapshot.get("rating").toString()));
         performerData.setDoubleCredits(Double.valueOf(documentSnapshot.get("credits").toString()));
-//        performerData.setYoutubeLinks(documentSnapshot.get("youtube").toString());
+        performerData.setYoutubeLinks(documentSnapshot.get("youtube").toString());
 
         return performerData;
     }
