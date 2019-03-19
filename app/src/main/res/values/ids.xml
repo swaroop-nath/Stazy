@@ -492,4 +492,28 @@
     <item name="activity_performer_profile_youtube_recycler_view" type="id">
         activity_performer_profile_youtube_recycler_view
     </item>
+    <item name="performer_shape_top" type="id">performer_shape_top</item>
+    <item name="activity_performer_back_button" type="id">activity_performer_back_button</item>
+    <item name="activity_performer_edit_button" type="id">activity_performer_edit_button</item>
+    <item name="recruit_action_buttons_container" type="id">recruit_action_buttons_container</item>
+    <item name="prev_works_youtube_card_view_performer" type="id">
+        prev_works_youtube_card_view_performer
+    </item>
+    <item name="activity_performer_youtube_recycler_view" type="id">
+        activity_performer_youtube_recycler_view
+    </item>
+    <item name="contacts_card_view_performer" type="id">contacts_card_view_performer</item>
+    <item name="performer_contacts_card_facebook_container" type="id">
+        performer_contacts_card_facebook_container
+    </item>
+    <item name="performer_contacts_card_instagram_container" type="id">
+        performer_contacts_card_instagram_container
+    </item>
+    <item name="performer_contacts_card_phone_container" type="id">
+        performer_contacts_card_phone_container
+    </item>
+    <item name="performer_contacts_card_city_container" type="id">
+        performer_contacts_card_city_container
+    </item>
+    <item name="bio_card_view_performer" type="id">bio_card_view_performer</item>
 </resources>

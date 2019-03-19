@@ -1,281 +1,640 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:fillViewport="true"-->
+    <!--tools:context=".hotelend.Performer">-->
+
+    <!--<android.support.constraint.ConstraintLayout-->
+        <!--android:id="@id/activity_performer_parent"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="@dimen/activity_performer_bottom_margin">-->
+
+        <!--<de.hdodenhof.circleimageview.CircleImageView-->
+            <!--android:id="@id/activity_performer_display_picture"-->
+            <!--android:layout_width="@dimen/activity_performer_display_picture_side"-->
+            <!--android:layout_height="@dimen/activity_performer_display_picture_side"-->
+            <!--android:layout_marginStart="@dimen/activity_performer_display_picture_margins"-->
+            <!--android:layout_marginTop="@dimen/activity_performer_display_picture_margins"-->
+            <!--app:civ_border_color="@color/circularImageViewBorder"-->
+            <!--app:civ_border_overlay="true"-->
+            <!--app:civ_border_width="@dimen/activity_performer_display_picture_border_width"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent"-->
+            <!--tools:src="@mipmap/performer_display_picture_placeholder" />-->
+
+        <!--<android.support.v7.widget.CardView-->
+            <!--android:layout_width="@dimen/activity_performer_rating_card_view_width"-->
+            <!--android:layout_height="@dimen/activity_performer_rating_card_view_height"-->
+            <!--android:layout_marginBottom="@dimen/activity_performer_rating_card_view_bottom_margin"-->
+            <!--android:layout_marginEnd="@dimen/activity_performer_rating_card_view_end_margin"-->
+            <!--android:elevation="@dimen/activity_performer_rating_card_view_elevation"-->
+            <!--app:cardCornerRadius="@dimen/activity_performer_rating_card_view_corner_radius"-->
+            <!--app:layout_constraintBottom_toBottomOf="@id/activity_performer_display_picture"-->
+            <!--app:layout_constraintEnd_toEndOf="@id/activity_performer_display_picture">-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:orientation="horizontal">-->
+
+                <!--<TextView-->
+                    <!--android:id="@id/activity_performer_rating_text_view"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:paddingStart="@dimen/activity_performer_rating_text_view_start_padding"-->
+                    <!--android:textAlignment="center"-->
+                    <!--android:textStyle="bold"-->
+                    <!--tools:text="3.5" />-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="1.2"-->
+                    <!--android:src="@drawable/ic_rating_star" />-->
+            <!--</LinearLayout>-->
+        <!--</android.support.v7.widget.CardView>-->
+
+        <!--<TextView-->
+            <!--android:id="@id/activity_performer_name_text_view"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/activity_performer_name_text_view_top_margin"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:textColor="@color/colorPrimaryText"-->
+            <!--android:textSize="@dimen/text_size_large"-->
+            <!--android:textStyle="bold"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/activity_performer_display_picture"-->
+            <!--tools:text="Swaroop Nath" />-->
+
+        <!--<TextView-->
+            <!--android:id="@id/activity_performer_genre_text_view"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:textSize="@dimen/text_size_normal"-->
+            <!--android:textStyle="italic"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/activity_performer_name_text_view"-->
+            <!--tools:text="Singer" />&lt;!&ndash;Set a stylish type face for the genre text view&ndash;&gt;-->
+
+        <!--<LinearLayout-->
+            <!--android:id="@id/activity_performer_social_links_container"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginEnd="@dimen/activity_performer_social_links_container_end_margin"-->
+            <!--android:layout_marginStart="@dimen/activity_performer_social_links_container_start_margin"-->
+            <!--android:layout_marginTop="@dimen/activity_performer_social_links_container_top_margin"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:orientation="horizontal"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/activity_performer_genre_text_view">-->
+
+            <!--<Button-->
+                <!--android:id="@id/activity_performer_social_links_item_facebook"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="@dimen/activity_performer_social_links_item_facebook_height"-->
+                <!--android:layout_marginEnd="@dimen/activity_performer_social_links_item_facebook_end_margin"-->
+                <!--android:background="@drawable/social_links_border"-->
+                <!--android:drawablePadding="@dimen/activity_performer_social_links_item_facebook_logo_padding"-->
+                <!--android:drawableStart="@drawable/ic_facebook_logo"-->
+                <!--android:paddingEnd="@dimen/activity_performer_social_links_items_end_padding"-->
+                <!--android:paddingStart="@dimen/activity_performer_social_links_items_start_padding"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:textColor="@color/colorSecondaryText"-->
+                <!--android:textSize="@dimen/text_size_extra_small"-->
+                <!--tools:text="swaroop.nath" />-->
+
+            <!--<Buttonandroid:id-->
+            <!--="@id/activity_performer_social_links_item_instagram"android:layout_width="wrap_content"android:layout_height="@dimen/activity_performer_social_links_item_instagram_height"android:layout_marginStart="@dimen/activity_performer_social_links_item_instagram_start_margin"android:background="@drawable/social_links_border"android:drawableStart="@drawable/ic_instagram_logo"android:drawablePadding="@dimen/activity_performer_social_links_item_instagram_logo_padding"android:paddingEnd="@dimen/activity_performer_social_links_items_end_padding"android:paddingStart="@dimen/activity_performer_social_links_items_start_padding"android:textAllCaps="false"android:textColor="@color/colorSecondaryText"android:textSize="@dimen/text_size_extra_small"tools:text="swaroop_nath"-->
+            <!--/>-->
+        <!--</LinearLayout>-->
+
+        <!--<ImageViewandroid:id-->
+        <!--="@id/activity_performer_city_image"android:layout_width="wrap_content"android:layout_height="wrap_content"android:layout_marginStart="@dimen/activity_performer_city_image_start_margin"android:layout_marginTop="@dimen/activity_performer_city_image_top_margin"android:src="@drawable/ic_city_performer"app:layout_constraintStart_toStartOf="parent"app:layout_constraintTop_toBottomOf="@id/activity_performer_social_links_container"-->
+        <!--/>-->
+
+        <!--<TextViewandroid:id-->
+        <!--="@id/activity_performer_city_text_view"android:layout_width="wrap_content"android:layout_height="wrap_content"android:layout_marginStart="@dimen/activity_performer_city_text_view_start_margin"android:layout_marginTop="@dimen/activity_performer_city_text_view_top_margin"android:textColor="@color/colorPrimaryText"android:textSize="@dimen/text_size_small"app:layout_constraintBottom_toBottomOf="@id/activity_performer_city_image"app:layout_constraintStart_toEndOf="@id/activity_performer_city_image"app:layout_constraintTop_toBottomOf="@id/activity_performer_social_links_container"tools:text="Prayagraj"-->
+        <!--/>-->
+
+        <!--<ImageViewandroid:id-->
+        <!--="@id/activity_performer_phone_image"android:layout_width="wrap_content"android:layout_height="wrap_content"app:layout_constraintTop_toBottomOf="@id/activity_performer_city_image"app:layout_constraintStart_toStartOf="parent"android:layout_marginTop="@dimen/activity_performer_phone_image_top_margin"android:layout_marginStart="@dimen/activity_performer_phone_image_start_margin"android:src="@drawable/ic_phone_performer"android:visibility="gone"/>-->
+
+        <!--<TextViewandroid:id-->
+        <!--="@id/activity_performer_phone_text_view"android:layout_width="wrap_content"android:layout_height="wrap_content"android:layout_marginStart="@dimen/activity_performer_phone_text_view_start_margin"android:layout_marginTop="@dimen/activity_performer_phone_text_view_top_margin"android:textColor="@color/colorPrimaryText"android:textSize="@dimen/text_size_small"app:layout_constraintStart_toEndOf="@id/activity_performer_phone_image"app:layout_constraintTop_toBottomOf="@id/activity_performer_city_text_view"tools:text="+91999944422"android:autoLink="phone"android:linksClickable="true"android:visibility="gone"/>-->
+
+        <!--<TextViewandroid:id-->
+        <!--="@id/activity_performer_description_text_view"android:layout_width="match_parent"android:layout_height="wrap_content"android:layout_marginEnd="@dimen/activity_performer_description_end_margin"android:layout_marginStart="@dimen/activity_performer_description_start_margin"android:layout_marginTop="@dimen/activity_performer_description_top_margin"android:textColor="@color/colorSecondaryText"android:textSize="@dimen/text_size_normal"app:layout_constraintEnd_toEndOf="parent"app:layout_constraintStart_toStartOf="parent"app:layout_constraintTop_toBottomOf="@id/activity_performer_phone_text_view"tools:text="-->
+        <!--Description " />&lt;!&ndash;Keep at least 8 spaces indent in the description text in the code&ndash;&gt;-->
+        <!--<android.support.v7.widget.CardView-->
+            <!--android:id="@id/activity_performer_shortlist_button"-->
+            <!--android:layout_width="@dimen/activity_performer_shortlist_button_width"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/activity_performer_shortlist_button_top_margin"-->
+            <!--android:clickable="true"-->
+            <!--android:foreground="?attr/selectableItemBackground"-->
+            <!--app:cardBackgroundColor="@color/colorAccent"-->
+            <!--app:cardCornerRadius="@dimen/activity_performer_shortlist_button_corner_radius"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/activity_performer_description_text_view">-->
+
+            <!--<TextViewandroid:id-->
+            <!--="@id/activity_performer_shortlist_button_text_view"android:layout_width="match_parent"android:layout_height="wrap_content"android:gravity="center_vertical"android:paddingBottom="@dimen/activity_performer_shortlist_button_text_view_vertical_padding"android:paddingTop="@dimen/activity_performer_shortlist_button_text_view_vertical_padding"android:text="@string/activity_performer_shortlist_button_text"android:textAlignment="center"android:textColor="@android:color/white"android:textSize="@dimen/text_size_normal"android:textStyle="bold"-->
+            <!--/>-->
+        <!--</android.support.v7.widget.CardView>-->
+
+        <!--<android.support.v7.widget.CardView-->
+            <!--android:id="@id/activity_performer_hire_button"-->
+            <!--android:layout_width="@dimen/activity_performer_shortlist_button_width"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/activity_performer_shortlist_button_top_margin"-->
+            <!--android:clickable="true"-->
+            <!--android:foreground="?attr/selectableItemBackground"-->
+            <!--android:visibility="gone"-->
+            <!--app:cardBackgroundColor="@color/colorAccent"-->
+            <!--app:cardCornerRadius="@dimen/activity_performer_shortlist_button_corner_radius"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/activity_performer_description_text_view">-->
+
+            <!--<TextViewandroid:id-->
+            <!--="@id/activity_performer_hire_button_text_view"android:layout_width="match_parent"android:layout_height="wrap_content"android:gravity="center_vertical"android:paddingBottom="@dimen/activity_performer_shortlist_button_text_view_vertical_padding"android:paddingTop="@dimen/activity_performer_shortlist_button_text_view_vertical_padding"android:text="@string/activity_performer_hire_button_text"android:textAlignment="center"android:textColor="@android:color/white"android:textSize="@dimen/text_size_normal"android:textStyle="bold"-->
+            <!--/>-->
+        <!--</android.support.v7.widget.CardView>-->
+
+        <!--<android.support.v7.widget.CardView-->
+            <!--android:id="@id/activity_performer_rate_and_pay_button"-->
+            <!--android:layout_width="@dimen/activity_performer_shortlist_button_width"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/activity_performer_shortlist_button_top_margin"-->
+            <!--android:clickable="true"-->
+            <!--android:foreground="?attr/selectableItemBackground"-->
+            <!--android:visibility="gone"-->
+            <!--app:cardBackgroundColor="@color/colorAccent"-->
+            <!--app:cardCornerRadius="@dimen/activity_performer_shortlist_button_corner_radius"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/activity_performer_description_text_view">-->
+
+            <!--<TextView-->
+                <!--android:id="@id/activity_performer_rate_and_pay_button_text_view"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:paddingBottom="@dimen/activity_performer_shortlist_button_text_view_vertical_padding"-->
+                <!--android:paddingTop="@dimen/activity_performer_shortlist_button_text_view_vertical_padding"-->
+                <!--android:text="@string/activity_performer_rate_and_pay_button_text"-->
+                <!--android:textAlignment="center"-->
+                <!--android:textColor="@android:color/white"-->
+                <!--android:textSize="@dimen/text_size_normal"-->
+                <!--android:textStyle="bold" />-->
+        <!--</android.support.v7.widget.CardView>-->
+    <!--</android.support.constraint.ConstraintLayout>-->
+<!--</ScrollView>-->
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:context=".hotelend.Performer">
+    android:layout_height="match_parent">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_performer_bottom_margin"
-        android:id="@id/activity_performer_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/activity_performer_profile_bottom_margin"
+        tools:context=".hotelend.Performer">
+
+        <View
+            android:id="@id/performer_shape_top"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@drawable/shape_performer_profile_top"
+            android:rotation="-25"
+            android:translationX="-20dp"
+            android:translationY="-150dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@id/activity_performer_display_picture"
-            android:layout_width="@dimen/activity_performer_display_picture_side"
-            android:layout_height="@dimen/activity_performer_display_picture_side"
-            android:layout_marginStart="@dimen/activity_performer_display_picture_margins"
-            android:layout_marginTop="@dimen/activity_performer_display_picture_margins"
-            app:civ_border_color="@color/circularImageViewBorder"
-            app:civ_border_overlay="true"
-            app:civ_border_width="@dimen/activity_performer_display_picture_border_width"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="48dp"
+            android:elevation="2dp"
+            android:src="@drawable/ic_glide_placeholder"
+            app:civ_border_color="@android:color/white"
+            app:civ_border_width="4dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.85"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@mipmap/performer_display_picture_placeholder" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <android.support.v7.widget.CardView
-            android:layout_width="@dimen/activity_performer_rating_card_view_width"
-            android:layout_height="@dimen/activity_performer_rating_card_view_height"
-            android:layout_marginBottom="@dimen/activity_performer_rating_card_view_bottom_margin"
-            android:layout_marginEnd="@dimen/activity_performer_rating_card_view_end_margin"
-            android:elevation="@dimen/activity_performer_rating_card_view_elevation"
-            app:cardCornerRadius="@dimen/activity_performer_rating_card_view_corner_radius"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="85dp"
             app:layout_constraintBottom_toBottomOf="@id/activity_performer_display_picture"
-            app:layout_constraintEnd_toEndOf="@id/activity_performer_display_picture">
+            app:layout_constraintStart_toStartOf="@id/activity_performer_display_picture">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@id/activity_performer_rating_text_view"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:paddingStart="@dimen/activity_performer_rating_text_view_start_padding"
+                    android:paddingEnd="4dp"
+                    android:paddingStart="4dp"
                     android:textAlignment="center"
-                    android:textStyle="bold"
-                    tools:text="3.5" />
+                    android:textColor="@color/colorSecondaryText"
+                    android:textSize="@dimen/text_size_small"
+                    android:textStyle="italic"
+                    tools:text="3.54" />
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1.2"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/ic_rating_star" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
         <TextView
             android:id="@id/activity_performer_name_text_view"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_performer_name_text_view_top_margin"
-            android:gravity="center_horizontal"
-            android:textColor="@color/colorPrimaryText"
-            android:textSize="@dimen/text_size_large"
+            android:layout_marginTop="48dp"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_extra_large"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/activity_performer_display_picture"
+            app:layout_constraintHorizontal_bias="0.40"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_performer_display_picture"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="Swaroop Nath" />
 
         <TextView
             android:id="@id/activity_performer_genre_text_view"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textSize="@dimen/text_size_normal"
+            android:layout_marginTop="4dp"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_large"
             android:textStyle="italic"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/activity_performer_display_picture"
+            app:layout_constraintHorizontal_bias="0.40"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/activity_performer_name_text_view"
             tools:text="Singer" />
-        <!--Set a stylish type face for the genre text view-->
-
-        <LinearLayout
-            android:id="@id/activity_performer_social_links_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/activity_performer_social_links_container_end_margin"
-            android:layout_marginStart="@dimen/activity_performer_social_links_container_start_margin"
-            android:layout_marginTop="@dimen/activity_performer_social_links_container_top_margin"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_performer_genre_text_view">
-
-            <Button
-                android:id="@id/activity_performer_social_links_item_facebook"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/activity_performer_social_links_item_facebook_height"
-                android:layout_marginEnd="@dimen/activity_performer_social_links_item_facebook_end_margin"
-                android:background="@drawable/social_links_border"
-                android:drawableStart="@drawable/ic_facebook_logo"
-                android:drawablePadding="@dimen/activity_performer_social_links_item_facebook_logo_padding"
-                android:paddingEnd="@dimen/activity_performer_social_links_items_end_padding"
-                android:paddingStart="@dimen/activity_performer_social_links_items_start_padding"
-                android:textAllCaps="false"
-                android:textColor="@color/colorSecondaryText"
-                android:textSize="@dimen/text_size_extra_small"
-                tools:text="swaroop.nath" />
-
-            <Button
-                android:id="@id/activity_performer_social_links_item_instagram"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/activity_performer_social_links_item_instagram_height"
-                android:layout_marginStart="@dimen/activity_performer_social_links_item_instagram_start_margin"
-                android:background="@drawable/social_links_border"
-                android:drawableStart="@drawable/ic_instagram_logo"
-                android:drawablePadding="@dimen/activity_performer_social_links_item_instagram_logo_padding"
-                android:paddingEnd="@dimen/activity_performer_social_links_items_end_padding"
-                android:paddingStart="@dimen/activity_performer_social_links_items_start_padding"
-                android:textAllCaps="false"
-                android:textColor="@color/colorSecondaryText"
-                android:textSize="@dimen/text_size_extra_small"
-                tools:text="swaroop_nath" />
-        </LinearLayout>
 
         <ImageView
-            android:id="@id/activity_performer_city_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_performer_city_image_start_margin"
-            android:layout_marginTop="@dimen/activity_performer_city_image_top_margin"
-            android:src="@drawable/ic_city_performer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_performer_social_links_container" />
-
-        <TextView
-            android:id="@id/activity_performer_city_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_performer_city_text_view_start_margin"
-            android:layout_marginTop="@dimen/activity_performer_city_text_view_top_margin"
-            android:textColor="@color/colorPrimaryText"
-            android:textSize="@dimen/text_size_small"
-            app:layout_constraintBottom_toBottomOf="@id/activity_performer_city_image"
-            app:layout_constraintStart_toEndOf="@id/activity_performer_city_image"
-            app:layout_constraintTop_toBottomOf="@id/activity_performer_social_links_container"
-            tools:text="Prayagraj" />
-
-        <ImageView
-            android:id="@id/activity_performer_phone_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/activity_performer_city_image"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="@dimen/activity_performer_phone_image_top_margin"
-            android:layout_marginStart="@dimen/activity_performer_phone_image_start_margin"
-            android:src="@drawable/ic_phone_performer"
-            android:visibility="gone"/>
-
-        <TextView
-            android:id="@id/activity_performer_phone_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_performer_phone_text_view_start_margin"
-            android:layout_marginTop="@dimen/activity_performer_phone_text_view_top_margin"
-            android:textColor="@color/colorPrimaryText"
-            android:textSize="@dimen/text_size_small"
-            app:layout_constraintStart_toEndOf="@id/activity_performer_phone_image"
-            app:layout_constraintTop_toBottomOf="@id/activity_performer_city_text_view"
-            tools:text="+91999944422"
-            android:autoLink="phone"
-            android:linksClickable="true"
-            android:visibility="gone"/>
-
-        <TextView
-            android:id="@id/activity_performer_description_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/activity_performer_description_end_margin"
-            android:layout_marginStart="@dimen/activity_performer_description_start_margin"
-            android:layout_marginTop="@dimen/activity_performer_description_top_margin"
-            android:textColor="@color/colorSecondaryText"
-            android:textSize="@dimen/text_size_normal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_performer_phone_text_view"
-            tools:text="        Description " />
-        <!--Keep at least 8 spaces indent in the description text in the code-->
-        <android.support.v7.widget.CardView
-            android:id="@id/activity_performer_shortlist_button"
-            android:layout_width="@dimen/activity_performer_shortlist_button_width"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_performer_shortlist_button_top_margin"
-            app:cardBackgroundColor="@color/colorAccent"
-            app:cardCornerRadius="@dimen/activity_performer_shortlist_button_corner_radius"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_performer_description_text_view"
+            android:id="@id/activity_performer_back_button"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:clickable="true"
+            android:focusable="true"
             android:foreground="?attr/selectableItemBackground"
-            android:clickable="true">
+            android:src="@drawable/ic_back_button"
+            app:layout_constraintBottom_toBottomOf="@id/activity_performer_name_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.2" />
 
-            <TextView
-                android:id="@id/activity_performer_shortlist_button_text_view"
+        <android.support.v7.widget.CardView
+            android:id="@id/contacts_card_view_performer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="220dp"
+            android:clickable="true"
+            android:elevation="4dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingBottom="@dimen/activity_performer_shortlist_button_text_view_vertical_padding"
-                android:paddingTop="@dimen/activity_performer_shortlist_button_text_view_vertical_padding"
-                android:text="@string/activity_performer_shortlist_button_text"
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_normal"
-                android:textStyle="bold" />
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@id/performer_contacts_card_facebook_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="4dp"
+                        android:clickable="true"
+                        android:elevation="4dp"
+                        android:foreground="?attr/selectableItemBackground"
+                        app:cardCornerRadius="20dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_facebook_logo" />
+                    </android.support.v7.widget.CardView>
+
+                    <TextView
+                        android:id="@id/activity_performer_social_links_item_facebook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="36dp"
+                        android:gravity="center_vertical"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/text_size_normal"
+                        tools:text="swaroop.nath1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@id/performer_contacts_card_instagram_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/performer_contacts_card_facebook_container">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="4dp"
+                        android:clickable="true"
+                        android:elevation="4dp"
+                        android:foreground="?attr/selectableItemBackground"
+                        app:cardCornerRadius="20dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_instagram_logo" />
+                    </android.support.v7.widget.CardView>
+
+                    <TextView
+                        android:id="@id/activity_performer_social_links_item_instagram"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="36dp"
+                        android:gravity="center_vertical"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/text_size_normal"
+                        tools:text="swaroop_nath" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@id/performer_contacts_card_phone_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/performer_contacts_card_instagram_container">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="4dp"
+                        android:clickable="true"
+                        android:elevation="4dp"
+                        android:foreground="?attr/selectableItemBackground"
+                        app:cardCornerRadius="20dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_phone_performer" />
+                    </android.support.v7.widget.CardView>
+
+                    <TextView
+                        android:id="@id/activity_performer_phone_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="36dp"
+                        android:autoLink="phone"
+                        android:gravity="center_vertical"
+                        android:linksClickable="true"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/text_size_normal"
+                        tools:text="+919435541907" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@id/performer_contacts_card_city_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/performer_contacts_card_phone_container">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="4dp"
+                        android:clickable="true"
+                        android:elevation="4dp"
+                        android:foreground="?attr/selectableItemBackground"
+                        app:cardCornerRadius="20dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_city_performer" />
+                    </android.support.v7.widget.CardView>
+
+                    <TextView
+                        android:id="@id/activity_performer_city_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="36dp"
+                        android:autoLink="phone"
+                        android:gravity="center_vertical"
+                        android:linksClickable="true"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/text_size_normal"
+                        tools:text="Prayagraj" />
+                </LinearLayout>
+
+            </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
-            android:id="@id/activity_performer_hire_button"
-            android:layout_width="@dimen/activity_performer_shortlist_button_width"
+            android:id="@id/bio_card_view_performer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_performer_shortlist_button_top_margin"
-            android:visibility="gone"
-            app:cardBackgroundColor="@color/colorAccent"
-            app:cardCornerRadius="@dimen/activity_performer_shortlist_button_corner_radius"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:elevation="4dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_performer_description_text_view"
-            android:foreground="?attr/selectableItemBackground"
-            android:clickable="true">
+            app:layout_constraintTop_toBottomOf="@id/contacts_card_view_performer">
 
             <TextView
-                android:id="@id/activity_performer_hire_button_text_view"
+                android:id="@id/activity_performer_description_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingBottom="@dimen/activity_performer_shortlist_button_text_view_vertical_padding"
-                android:paddingTop="@dimen/activity_performer_shortlist_button_text_view_vertical_padding"
-                android:text="@string/activity_performer_hire_button_text"
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
+                android:layout_margin="12dp"
+                android:textColor="@color/colorSecondaryText"
                 android:textSize="@dimen/text_size_normal"
-                android:textStyle="bold" />
+                android:textStyle="italic"
+                tools:text="        Description : " />
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
-            android:id="@id/activity_performer_rate_and_pay_button"
-            android:layout_width="@dimen/activity_performer_shortlist_button_width"
+            android:id="@id/prev_works_youtube_card_view_performer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_performer_shortlist_button_top_margin"
-            android:visibility="gone"
-            app:cardBackgroundColor="@color/colorAccent"
-            app:cardCornerRadius="@dimen/activity_performer_shortlist_button_corner_radius"
+            android:layout_marginBottom="12dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:clickable="true"
+            android:elevation="4dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintBottom_toTopOf="@id/recruit_action_buttons_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/activity_performer_description_text_view"
-            android:foreground="?attr/selectableItemBackground"
-            android:clickable="true">
+            app:layout_constraintTop_toBottomOf="@id/bio_card_view_performer">
 
-            <TextView
-                android:id="@id/activity_performer_rate_and_pay_button_text_view"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingBottom="@dimen/activity_performer_shortlist_button_text_view_vertical_padding"
-                android:paddingTop="@dimen/activity_performer_shortlist_button_text_view_vertical_padding"
-                android:text="@string/activity_performer_rate_and_pay_button_text"
-                android:textAlignment="center"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@id/youtube_card_intro_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="My Works"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="@dimen/text_size_normal"
+                    android:textStyle="italic"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.20"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@id/activity_performer_youtube_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/youtube_card_intro_text" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@id/recruit_action_buttons_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/prev_works_youtube_card_view_performer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground">
+
+            <Button
+                android:id="@id/activity_performer_shortlist_button"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_button_large"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:text="Shortlist"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_size_normal"
                 android:textStyle="bold" />
+            <Button
+                android:id="@id/activity_performer_hire_button"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_button_large"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:text="Hire"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_normal"
+                android:textStyle="bold"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@id/activity_performer_rate_and_pay_button"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_button_large"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:text="Rate and Pay"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_normal"
+                android:textStyle="bold"
+                android:visibility="gone"/>
         </android.support.v7.widget.CardView>
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

@@ -20,7 +20,7 @@ public class Shortlists {
     private String pic_name;
     private String token;
     private String facebook, facebookUID;
-    private String instagram, instagramUID;
+    private String instagram;
     private String uid;
     private String type;
     private Date tentativeDate;
@@ -28,6 +28,7 @@ public class Shortlists {
     private double doubleRating;
     private long isHired;
     private long isAccepted;
+    private String[] youtubeLinks;
 
     public static Shortlists setData(DocumentSnapshot documentSnapshot, long isHired, long isAccepted, String genre, String type, Date tentativeDate) {
 
@@ -44,13 +45,15 @@ public class Shortlists {
         performerData.setPrice(documentSnapshot.get("price").toString());
         performerData.setPicName(documentSnapshot.get("pic_name").toString());
         performerData.setToken(documentSnapshot.get("token").toString());
-        performerData.setFacebook(documentSnapshot.get("facebook").toString());
-        performerData.setInstagram(documentSnapshot.get("instagram").toString());
+        performerData.setFacebookUsername(documentSnapshot.get("facebook").toString());
+        performerData.setInstagramUsername(documentSnapshot.get("instagram").toString());
+        performerData.setFacebookUID(documentSnapshot.get("facebook_uid").toString());
         performerData.setUID(documentSnapshot.get("uid").toString());
         performerData.setDoubleRating(Double.valueOf(documentSnapshot.get("rating").toString()));
         performerData.setIsAccepted(isAccepted);
         performerData.setIsHired(isHired);
         performerData.setTentativeDate(tentativeDate);
+        performerData.setYoutubeLinks(documentSnapshot.get("youtube").toString());
 
         return performerData;
     }
@@ -135,19 +138,19 @@ public class Shortlists {
         this.token = token;
     }
 
-    public String getFacebook() {
+    public String getFacebookUsername() {
         return facebook;
     }
 
-    public void setFacebook(String facebook) {
+    public void setFacebookUsername(String facebook) {
         this.facebook = facebook;
     }
 
-    public String getInstagram() {
+    public String getInstagramUsername() {
         return instagram;
     }
 
-    public void setInstagram(String instagram) {
+    public void setInstagramUsername(String instagram) {
         this.instagram = instagram;
     }
 
@@ -215,11 +218,11 @@ public class Shortlists {
         this.facebookUID = facebookUID;
     }
 
-    public String getInstagramUID() {
-        return instagramUID;
+    public String[] getYoutubeLinks() {
+        return youtubeLinks;
     }
 
-    public void setInstagramUID(String instagramUID) {
-        this.instagramUID = instagramUID;
+    public void setYoutubeLinks(String youtubeLinks) {
+        this.youtubeLinks = youtubeLinks.split(",");
     }
 }

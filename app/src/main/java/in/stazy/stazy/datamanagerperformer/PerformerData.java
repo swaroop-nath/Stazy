@@ -25,7 +25,7 @@ public class PerformerData implements DataManager {
     private String pic_name;
     private String token;
     private String facebook, facebookUID;
-    private String instagram, instagramUID;
+    private String instagram;
     private String[] prevPerformances;
     private String credits;
     private String uid;

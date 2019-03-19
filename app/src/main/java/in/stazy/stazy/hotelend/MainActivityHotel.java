@@ -218,6 +218,12 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
             shortlistListener.remove();
             Manager.SHORTLISTED_CANDIDATES.clear();
             Manager.HIRED_CANDIDATES.clear();
+            shortlistAdapter.notifyDataSetChanged();
+            hiresAdapter.notifyDataSetChanged();
+            shortlistText.setVisibility(View.GONE);
+            shortlistsList.setVisibility(View.GONE);
+            hiresText.setVisibility(View.GONE);
+            hiresList.setVisibility(View.GONE);
         }
     }
 

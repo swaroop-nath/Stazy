@@ -2,16 +2,18 @@ package in.stazy.stazy.hotelend;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +46,9 @@ import in.stazy.stazy.datamanagerhotel.DataManager;
 import in.stazy.stazy.datamanagerhotel.MucisianData;
 import in.stazy.stazy.datamanagerhotel.OtherData;
 import in.stazy.stazy.datamanagerhotel.Shortlists;
+import in.stazy.stazy.datamanagerperformer.PerformerManager;
+import in.stazy.stazy.performerend.PerformerProfile;
+import in.stazy.stazy.performerend.YoutubeAdapter;
 
 import static in.stazy.stazy.hotelend.MainActivityHotel.EXPLORE_INTENT_EXTRA_KEY;
 import static in.stazy.stazy.hotelend.MainActivityHotel.INDIVIDUAL_PERFORMER_OBJECT_KEY;
@@ -54,20 +59,40 @@ import static in.stazy.stazy.hotelend.MainActivityHotel.TYPE_VALUE_OTHERS;
 public class Performer extends AppCompatActivity implements View.OnClickListener, PerformanceConditionsDialog.ConditionsSetListener, OnCompleteListener<DocumentSnapshot>, RateAndPayDialog.RateCommunication {
 
     //View References
-    @BindView(R.id.activity_performer_parent) ConstraintLayout parent;
-    @BindView(R.id.activity_performer_display_picture) CircleImageView profilePicture;
-    @BindView(R.id.activity_performer_rating_text_view) TextView ratingTextView;
-    @BindView(R.id.activity_performer_name_text_view) TextView nameTextView;
-    @BindView(R.id.activity_performer_genre_text_view) TextView genreTextView;
-    @BindView(R.id.activity_performer_social_links_item_facebook) Button facebookLink;
-    @BindView(R.id.activity_performer_social_links_item_instagram) Button instagramLink;
-    @BindView(R.id.activity_performer_city_text_view) TextView cityTextView;
-    @BindView(R.id.activity_performer_phone_image) ImageView phoneImageView;
-    @BindView(R.id.activity_performer_phone_text_view) TextView phoneTextView;
-    @BindView(R.id.activity_performer_description_text_view) TextView descriptionTextView;
-    @BindView(R.id.activity_performer_shortlist_button) CardView shortlistButton;
-    @BindView(R.id.activity_performer_hire_button) CardView hireButton;
-    @BindView(R.id.activity_performer_rate_and_pay_button) CardView rateAndPay;
+    @BindView(R.id.activity_performer_display_picture)
+    CircleImageView profilePicture;
+    @BindView(R.id.activity_performer_rating_text_view)
+    TextView ratingTextView;
+    @BindView(R.id.activity_performer_name_text_view)
+    TextView nameTextView;
+    @BindView(R.id.activity_performer_genre_text_view)
+    TextView genreTextView;
+    @BindView(R.id.activity_performer_social_links_item_facebook)
+    TextView facebookLink;
+    @BindView(R.id.activity_performer_social_links_item_instagram)
+    TextView instagramLink;
+    @BindView(R.id.performer_contacts_card_facebook_container)
+    LinearLayout facebookLinkContainer;
+    @BindView(R.id.performer_contacts_card_instagram_container)
+    LinearLayout instagramLinkContainer;
+    @BindView(R.id.activity_performer_city_text_view)
+    TextView cityTextView;
+    @BindView(R.id.performer_contacts_card_phone_container)
+    LinearLayout phoneContainer;
+    @BindView(R.id.activity_performer_phone_text_view)
+    TextView phoneText;
+    @BindView(R.id.activity_performer_description_text_view)
+    TextView descriptionTextView;
+    @BindView(R.id.activity_performer_shortlist_button)
+    Button shortlistButton;
+    @BindView(R.id.activity_performer_hire_button)
+    Button hireButton;
+    @BindView(R.id.activity_performer_rate_and_pay_button)
+    Button rateAndPay;
+    @BindView(R.id.activity_performer_youtube_recycler_view)
+    RecyclerView youtubeLinks;
+    @BindView(R.id.prev_works_youtube_card_view_performer)
+    CardView youtubeContainer;
 
     //Activity Specific References
     private DataManager receivedPerformer;
@@ -76,6 +101,8 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
     private String notifGenre;
     private WaitFragment waitFragment;
     private Shortlists shortlist = null;
+    private Intent facebookIntent, instagramIntent;
+    private YoutubeAdapter adapter;
 
     //Use this UID of hotel to access hotel details from database in Performer end to get the updated token of the hotel.
 
@@ -84,9 +111,9 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_performer);
         ButterKnife.bind(this);
-        /*
-        TODO: Define behaviours for Shortlist and Hire buttons
-         */
+
+        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        youtubeLinks.setLayoutManager(horizontalLayoutManager);
 
         Intent receivedIntent = getIntent();
         if (receivedIntent.getBooleanExtra(MessageService.SHOW_EXTRA_CONTENT_HOTEL_END, false)) {
@@ -106,14 +133,12 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
                     shortlist = Manager.SHORTLISTED_CANDIDATES.get(position);
                     if (shortlist.getIsAccepted() == 1) {
                         Log.e("TAGGAT", "entered");
-                        phoneTextView.setVisibility(View.VISIBLE);
-                        phoneImageView.setVisibility(View.VISIBLE);
+                        phoneContainer.setVisibility(View.VISIBLE);
                         hireButton.setVisibility(View.VISIBLE);
                     }
                 } else {
                     shortlist = Manager.HIRED_CANDIDATES.get(position);
-                    phoneTextView.setVisibility(View.VISIBLE);
-                    phoneImageView.setVisibility(View.VISIBLE);
+                    phoneContainer.setVisibility(View.VISIBLE);
                     hireButton.setVisibility(View.GONE);
                     rateAndPay.setVisibility(View.VISIBLE);
                 }
@@ -122,12 +147,35 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
                 ratingTextView.setText(shortlist.getRating());
                 nameTextView.setText(shortlist.getName());
                 genreTextView.setText(shortlist.getGenre());
-                facebookLink.setText(shortlist.getFacebook());
-                instagramLink.setText(shortlist.getInstagram());
+                if (!TextUtils.isEmpty(shortlist.getFacebookUsername()))
+                    facebookLink.setText(shortlist.getFacebookUsername());
+                else
+                    facebookLinkContainer.setVisibility(View.GONE);
+                if (!TextUtils.isEmpty(shortlist.getInstagramUsername()))
+                    instagramLink.setText(shortlist.getInstagramUsername());
+                else
+                    instagramLinkContainer.setVisibility(View.GONE);
                 cityTextView.setText(shortlist.getCity());
-                phoneTextView.setText(shortlist.getPhoneNumber());
+                phoneText.setText(shortlist.getPhoneNumber());
                 descriptionTextView.setText(shortlist.getDescription());
 
+                if (shortlist.getYoutubeLinks().length == 0)
+                    youtubeContainer.setVisibility(View.INVISIBLE);
+                else {
+                    adapter = new YoutubeAdapter(shortlist.getYoutubeLinks(), Performer.this);
+                    youtubeLinks.setAdapter(adapter);
+                }
+
+                try {
+                    facebookIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/" + shortlist.getFacebookUID()));
+                } catch (Exception e) {
+                    facebookIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("www.facebook.com/" + shortlist.getFacebookUID()));
+                }
+                try {
+                    instagramIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram.com/_u/" + shortlist.getInstagramUsername()));
+                } catch (Exception e) {
+                    instagramIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram.com/" + shortlist.getInstagramUsername()));
+                }
             }
         } else {
             receivedType = receivedIntent.getStringExtra(EXPLORE_INTENT_EXTRA_KEY);
@@ -147,12 +195,14 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         shortlistButton.setOnClickListener(this);
         hireButton.setOnClickListener(this);
         rateAndPay.setOnClickListener(this);
+        facebookLinkContainer.setOnClickListener(this);
+        instagramLinkContainer.setOnClickListener(this);
     }
 
     private void downloadData(String performerType, String performerGenre) {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         DocumentReference documentReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE)
-                                                .collection("type").document(performerType).collection(performerGenre).document(performerUID);
+                .collection("type").document(performerType).collection(performerGenre).document(performerUID);
         documentReference.get().addOnCompleteListener(this);
     }
 
@@ -161,16 +211,41 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         ratingTextView.setText(receivedPerformer.getRating());
         nameTextView.setText(receivedPerformer.getName());
         genreTextView.setText(receivedPerformer.getGenre());
-        facebookLink.setText(receivedPerformer.getFacebookUsername());
-        instagramLink.setText(receivedPerformer.getInstagramUsername());
+        if (!TextUtils.isEmpty(receivedPerformer.getFacebookUsername()))
+            facebookLink.setText(receivedPerformer.getFacebookUsername());
+        else
+            facebookLinkContainer.setVisibility(View.GONE);
+        if (!TextUtils.isEmpty(receivedPerformer.getInstagramUsername()))
+            instagramLink.setText(receivedPerformer.getInstagramUsername());
+        else
+            instagramLinkContainer.setVisibility(View.GONE);
         cityTextView.setText(receivedPerformer.getCity());
-        phoneTextView.setText(receivedPerformer.getPhoneNumber());
+        phoneText.setText(receivedPerformer.getPhoneNumber());
         descriptionTextView.setText("        Description: " + receivedPerformer.getDescription());
+
+        if (receivedPerformer.getYoutubeLinks().length == 0)
+            youtubeContainer.setVisibility(View.INVISIBLE);
+        else {
+            adapter = new YoutubeAdapter(receivedPerformer.getYoutubeLinks(), Performer.this);
+            youtubeLinks.setAdapter(adapter);
+        }
+
+        try {
+            facebookIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/" + receivedPerformer.getFacebookUID()));
+        } catch (Exception e) {
+            facebookIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("www.facebook.com/" + receivedPerformer.getFacebookUID()));
+        }
+
+        try {
+            instagramIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram.com/_u/" + receivedPerformer.getInstagramUsername()));
+        } catch (Exception e) {
+            instagramIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram.com/" + receivedPerformer.getInstagramUsername()));
+        }
     }
 
     private void downloadHighResProfilePicture() {
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference imageReference = storage.getReference().child(receivedPerformer.getUID()+"/"+receivedPerformer.getPicName());
+        StorageReference imageReference = storage.getReference().child(receivedPerformer.getUID() + "/" + receivedPerformer.getPicName());
         Log.e("TAG", "Downloading....");
         Glide.with(getApplicationContext()).asBitmap().load(imageReference).into(new SimpleTarget<Bitmap>() {
             @Override
@@ -193,6 +268,12 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
                 break;
             case R.id.activity_performer_rate_and_pay_button:
                 rateAndPayPerformer();
+                break;
+            case R.id.performer_contacts_card_facebook_container:
+                startActivity(facebookIntent);
+                break;
+            case R.id.performer_contacts_card_instagram_container:
+                startActivity(instagramIntent);
                 break;
         }
     }
@@ -227,9 +308,9 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         hireWait.setData("Notifying Performer . . .");
         hireWait.show(getSupportFragmentManager(), "hire_intent");
         final DocumentReference prevHotelsList = FirebaseFirestore.getInstance().collection("Cities").document(Manager.CITY_VALUE).collection("PreviousHotels")
-                                        .document(shortlist.getUID()).collection("List").document(FirebaseAuth.getInstance().getUid());
+                .document(shortlist.getUID()).collection("List").document(FirebaseAuth.getInstance().getUid());
         DocumentReference hiringHotel = FirebaseFirestore.getInstance().collection("Cities").document(Manager.CITY_VALUE).collection("hotels")
-                                        .document(FirebaseAuth.getInstance().getUid());
+                .document(FirebaseAuth.getInstance().getUid());
         final Map<String, Object> prevHotelsMap = new HashMap<>();
 
         final DocumentReference shortlistReference = FirebaseFirestore.getInstance().collection("Cities").document(Manager.CITY_VALUE).collection("Shortlists")
@@ -242,7 +323,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         prevHotelsMap.put("date", shortlist.getTentativeDate());
 
         DocumentReference notificationReference = FirebaseFirestore.getInstance().collection("NotificationsPerformer").document(FirebaseAuth.getInstance().getUid())
-                                                .collection("To").document(shortlist.getUID());
+                .collection("To").document(shortlist.getUID());
         notificationReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -282,7 +363,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
                 }
             }
         });
-        
+
 
     }
 
@@ -299,7 +380,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         notify.show(getSupportFragmentManager(), "notify");
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         DocumentReference notificationsReferences = firebaseFirestore.collection("NotificationsPerformer").document(FirebaseAuth.getInstance().getUid())
-                                                    .collection("To").document(receivedPerformer.getUID());
+                .collection("To").document(receivedPerformer.getUID());
 
         final DocumentReference shortlistReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE).collection("Shortlists")
                 .document(FirebaseAuth.getInstance().getUid()).collection("List").document(receivedPerformer.getUID());
@@ -333,17 +414,17 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
                         public void onComplete(@NonNull Task<Void> task) {
                             notify.dismiss();
                             if (task.isSuccessful()) {
-                                Snackbar.make(parent, "Performer has been notified.\nYou should contact him/her once (s)he has confirmed.", Snackbar.LENGTH_LONG).show();
+                                Toast.makeText(Performer.this, "Performer has been notified.\nYou should contact him/her once (s)he has confirmed.", Toast.LENGTH_SHORT).show();
                                 shortlistButton.setVisibility(View.GONE);
                             } else {
                                 Log.e("TAG NOTIF", task.getException().getMessage());
-                                Snackbar.make(parent, "Server Error, Please try again.", Snackbar.LENGTH_LONG).show();
+                                Toast.makeText(Performer.this, "Server Error, Please try again.", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
                 } else {
                     Log.e("TAG NOTIF", task.getException().getMessage());
-                    Snackbar.make(parent, "Server Error, Please try again.", Snackbar.LENGTH_LONG).show();
+                    Toast.makeText(Performer.this, "Server Error, Please try again.", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -366,14 +447,39 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         ratingTextView.setText(result.get("rating").toString());
         nameTextView.setText(result.get("name").toString());
         genreTextView.setText(notifGenre);
-        facebookLink.setText(result.get("facebook").toString());
-        instagramLink.setText(result.get("instagram").toString());
+        if (!TextUtils.isEmpty(result.get("facebook").toString()))
+            facebookLink.setText(result.get("facebook").toString());
+        else
+            facebookLinkContainer.setVisibility(View.GONE);
+        if (!TextUtils.isEmpty(result.get("instagram").toString()))
+            instagramLink.setText(result.get("instagram").toString());
+        else
+            instagramLinkContainer.setVisibility(View.GONE);
         cityTextView.setText(Manager.CITY_VALUE);
-        phoneTextView.setText(result.get("phone_number").toString());
-        descriptionTextView.setText(result.get("description").toString());
+        phoneText.setText(result.get("phone_number").toString());
+        descriptionTextView.setText("        Description: " + result.get("description").toString());
         shortlistButton.setVisibility(View.GONE);
-        phoneTextView.setVisibility(View.VISIBLE);
+        phoneContainer.setVisibility(View.VISIBLE);
         hireButton.setVisibility(View.VISIBLE);
+
+        if (TextUtils.isEmpty(result.get("youtube").toString()))
+            youtubeContainer.setVisibility(View.INVISIBLE);
+        else {
+            adapter = new YoutubeAdapter(result.get("youtube").toString().split(","), Performer.this);
+            youtubeLinks.setAdapter(adapter);
+        }
+
+        try {
+            facebookIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/" + result.get("facebook_uid").toString()));
+        } catch (Exception e) {
+            facebookIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("www.facebook.com/" + result.get("facebook_uid").toString()));
+        }
+
+        try {
+            instagramIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram.com/_u/" + result.get("instagram").toString()));
+        } catch (Exception e) {
+            instagramIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram.com/" + result.get("instagram").toString()));
+        }
 
         //TODO: Write code to display profile picture.
 
@@ -392,15 +498,15 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         ratingMap.put("rating_received", ratingReceived);
 
         final DocumentReference performerReference = FirebaseFirestore.getInstance().collection("Cities").document(Manager.CITY_VALUE).collection("type")
-                                            .document(shortlist.getType()).collection(shortlist.getGenre()).document(shortlist.getUID());
+                .document(shortlist.getType()).collection(shortlist.getGenre()).document(shortlist.getUID());
 
         final Map<String, Object> ratingPriceMap = new HashMap<>();
 
         final DocumentReference shortlistReference = FirebaseFirestore.getInstance().collection("Cities").document(Manager.CITY_VALUE).collection("Shortlists")
-                                            .document(FirebaseAuth.getInstance().getUid()).collection("List").document(shortlist.getUID());
+                .document(FirebaseAuth.getInstance().getUid()).collection("List").document(shortlist.getUID());
 
         final DocumentReference prevPerformances = FirebaseFirestore.getInstance().collection("Cities").document(Manager.CITY_VALUE).collection("PreviousPerformances")
-                                            .document(FirebaseAuth.getInstance().getUid()).collection(shortlist.getGenre()).document(shortlist.getUID());
+                .document(FirebaseAuth.getInstance().getUid()).collection(shortlist.getGenre()).document(shortlist.getUID());
 
         final Map<String, Object> prevPerformancesMap = new HashMap<>();
         prevPerformancesMap.put("rating_received", ratingReceived);
