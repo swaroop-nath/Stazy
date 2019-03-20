@@ -406,7 +406,6 @@ public class PerformerProfile extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         if (FLAG_EDIT == 1) {
             facebookUIDContainer.setVisibility(View.GONE);
             facebookUserName.setVisibility(View.GONE);
@@ -419,7 +418,7 @@ public class PerformerProfile extends AppCompatActivity implements View.OnClickL
             editButton.setVisibility(View.VISIBLE);
             profilePicture.setImageBitmap(PerformerManager.PERFORMER.getProfilePictureHigh());
         } else {
-            finish();
+            super.onBackPressed();
         }
     }
 }

@@ -48,7 +48,7 @@ public class HotelProfile extends AppCompatActivity implements OnCompleteListene
     @BindView(R.id.activity_hotel_profile_hotel_name_text_view) TextView hotelName;
     @BindView(R.id.activity_hotel_profile_hotel_location_text_view) TextView hotelCity;
     @BindView(R.id.activity_hotel_profile_hotel_description) TextView hotelDescription;
-    @BindView(R.id.activity_hotel_hotel_phone_text_view) TextView hotelPhone;
+    @BindView(R.id.activity_hotel_profile_hotel_phone_text_view) TextView hotelPhone;
     @BindView(R.id.activity_hotel_profile_back_button) FloatingActionButton backButton;
     @BindView(R.id.activity_hotel_profile_edit_button) FloatingActionButton editButton;
     @BindView(R.id.activity_hotel_profile_upload_button) FloatingActionButton uploadButton;
@@ -219,7 +219,6 @@ public class HotelProfile extends AppCompatActivity implements OnCompleteListene
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         if (FLAG_EDIT == 1) {
             descriptionInput.setVisibility(View.GONE);
             hotelDescription.setVisibility(View.VISIBLE);
@@ -228,7 +227,7 @@ public class HotelProfile extends AppCompatActivity implements OnCompleteListene
             editButton.setVisibility(View.VISIBLE);
             profilePicture.setImageBitmap(Manager.HOTEL_DATA.getProfilePictureHigh());
         } else
-            finish();
+            super.onBackPressed();
     }
 }
 

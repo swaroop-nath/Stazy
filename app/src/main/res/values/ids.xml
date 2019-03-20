@@ -557,4 +557,7 @@
     <item name="activity_hotel_profile_hotel_description_edit_text" type="id">
         activity_hotel_profile_hotel_description_edit_text
     </item>
+    <item name="activity_main_hotel_toolbar" type="id">activity_main_hotel_toolbar</item>
+    <item name="profile_button" type="id">profile_button</item>
+    <item name="sign_out_button" type="id">sign_out_button</item>
 </resources>

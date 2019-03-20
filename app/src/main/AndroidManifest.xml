@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/launcher_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".hotelend.MainActivityHotel" />
+        <activity android:name=".hotelend.MainActivityHotel"
+            android:label="Organizer"/>
         <activity android:name=".hotelend.HirePerformer" />
         <activity android:name=".hotelend.Performer" />
         <activity android:name=".hotelend.ViewAllPerformers" />

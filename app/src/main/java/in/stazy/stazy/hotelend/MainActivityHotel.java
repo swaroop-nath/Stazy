@@ -12,10 +12,13 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -63,6 +66,7 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
     @BindView(R.id.activity_hotel_main_hire_recycler_view) RecyclerView hiresList;
     @BindView(R.id.activity_hotel_main_shortlist_text_view) TextView shortlistText;
     @BindView(R.id.activity_hotel_main_hire_text_view) TextView hiresText;
+    @BindView(R.id.activity_main_hotel_toolbar) Toolbar toolbar;
 
     //Activity specific declarations
     private Context context;
@@ -227,12 +231,35 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_hotel_main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.profile_button:
+                Intent accountIntent = new Intent(MainActivityHotel.this, HotelProfile.class);
+                startActivity(accountIntent);
+                break;
+            case R.id.sign_out_button:
+                FirebaseAuth.getInstance().signOut();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_hotel);
         ButterKnife.bind(this);
+
+        setSupportActionBar(toolbar);
 
         ArrayList<ExploreCardModel> models = new ArrayList<>();
         models.add(new ExploreCardModel(R.drawable.musicians));
@@ -255,9 +282,6 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
         //Setting Intent for view all buttons in prev performances
         viewAllIntent = new Intent(context, ViewAllPerformers.class);
 
-        /*
-        TODO: Change the data structure of HotelData to incorporate previous performers
-         */
 
         if (Manager.HOTEL_DATA == null) {
             FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
