@@ -344,7 +344,7 @@
     <dimen name="activity_main_performer_menu_container_elevation">8dp</dimen>
 
     <!--menu_items dimens-->
-    <dimen name="activity_main_performer_menu_item_start_padding">16dp</dimen>
+    <dimen name="activity_main_performer_menu_item_start_padding">12dp</dimen>
     <dimen name="activity_main_performer_menu_item_help_top_margin">6dp</dimen>
     <dimen name="activity_performer_menu_divider_top_margin">6dp</dimen>
     <dimen name="activity_main_performer_menu_item_profile_top_margin">6dp</dimen>

@@ -50,33 +50,26 @@ import in.stazy.stazy.datamanagerperformer.PerformerData;
 import in.stazy.stazy.datamanagerperformer.PerformerManager;
 import in.stazy.stazy.hotelend.Performer;
 
-public class MainActivityPerformer extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class MainActivityPerformer extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, DialogMenu.PerformerDialogListener {
 
     //View References
     @BindView(R.id.activity_main_performer_list_view) ListView hiresList;
     @BindView(R.id.activity_main_performer_hires_fab) FloatingActionButton menuFab;
-    @BindView(R.id.activity_main_performer_menu_container) CardView menuContainer;
-    @BindView(R.id.activity_main_performer_menu_item_terms_and_conditions) TextView termsConditions;
-    @BindView(R.id.activity_main_performer_menu_item_help) TextView help;
-    @BindView(R.id.activity_main_performer_menu_item_profile) TextView myAccount;
-    @BindView(R.id.activity_main_performer_menu_item_sign_out) TextView signOut;
     
     //Activity Specific References
     private int menuState = 0; //0 - not displayed, 1  - displayed
     private Context context;
-    private float locationOnShow, locationOnRemove;
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private PerformerAdapter adapter;
     private ListenerRegistration listenerRegistration;
     private CollectionReference hotelsReference;
+    private DialogMenu dialogMenu;
 
     //Constant field declarations
-    private static final long ANIMATION_DURATION = 500;
-    private static int SCREEN_HEIGHT = 0;
-    private static int MENU_CONTAINER_HEIGHT = 0;
-    private static float MENU_CONTAINER_UNDER_CUT = 0f;
     public static final String INTENT_HOTEL_OBJECT_KEY = "hotel";
     public static final int HIGH_PRIORITY = 5;
+    private static final long ANIMATION_DURATION = 500;
+    private long SCREEN_HEIGHT;
 
     @Override
     protected void onStart() {
@@ -164,21 +157,11 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
         menuFab.setOnClickListener(this);
 
         SCREEN_HEIGHT = getScreenHeight();
-        locationOnRemove = SCREEN_HEIGHT;
-        MENU_CONTAINER_UNDER_CUT = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, getResources().getDisplayMetrics());
-
         PerformerManager.PREV_HOTELS.clear();
 
         adapter = new PerformerAdapter(context, 0, PerformerManager.PREV_HOTELS);
         hiresList.setAdapter(adapter);
         hiresList.setOnItemClickListener(this);
-    }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        MENU_CONTAINER_HEIGHT = menuContainer.getMeasuredHeight();
-        locationOnShow = SCREEN_HEIGHT - MENU_CONTAINER_HEIGHT - MENU_CONTAINER_UNDER_CUT;
     }
 
     private int getScreenHeight() {
@@ -193,31 +176,25 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.activity_main_performer_hires_fab:
-                if (menuState == 0) {
-                    menuState = 1;
-                    showAnimatedMenu();
-                } else {
-                    menuState = 0;
-                    removeAnimatedMenu();
-                }
+//                if (menuState == 0) {
+//                    menuState = 1;
+                    dialogMenu = new DialogMenu(MainActivityPerformer.this);
+//                } else {
+//                    menuState = 0;
+//                    dialogMenu.getDialog().dismiss();
+//                }
         }
     }
-
-    private void showAnimatedMenu() {
-        ObjectAnimator animation = ObjectAnimator.ofFloat(menuContainer, View.Y, locationOnShow);
+    private void showAnimatedFab() {
+        ObjectAnimator animation = ObjectAnimator.ofFloat(menuFab, View.Y, SCREEN_HEIGHT - 200);
         animation.setDuration(ANIMATION_DURATION);
         animation.start();
     }
 
-    private void removeAnimatedMenu() {
-        ObjectAnimator animation = ObjectAnimator.ofFloat(menuContainer, View.Y, locationOnRemove);
+    private void removeAnimatedFab() {
+        ObjectAnimator animation = ObjectAnimator.ofFloat(menuFab, View.Y, SCREEN_HEIGHT - 66);
         animation.setDuration(ANIMATION_DURATION);
         animation.start();
-    }
-
-    public void openMyAccount(View view) {
-        Intent intent = new Intent(this, PerformerProfile.class);
-        startActivity(intent);
     }
 
     @Override
@@ -244,5 +221,16 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
                     Log.e("TOKEN ADDITION", task.getException().getMessage());
             }
         });
+    }
+
+    @Override
+    public void openProfile() {
+        Intent intent = new Intent(this, PerformerProfile.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void signOut() {
+        FirebaseAuth.getInstance().signOut();
     }
 }
