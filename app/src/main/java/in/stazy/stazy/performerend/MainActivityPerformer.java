@@ -179,6 +179,7 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
 //                if (menuState == 0) {
 //                    menuState = 1;
                     dialogMenu = new DialogMenu(MainActivityPerformer.this);
+                    dialogMenu.attachPerformerDialogListener(MainActivityPerformer.this);
 //                } else {
 //                    menuState = 0;
 //                    dialogMenu.getDialog().dismiss();

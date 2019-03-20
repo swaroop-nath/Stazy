@@ -242,7 +242,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     } finally {
                         cursor.close();
                     }
-                }
+            }
         }
     }
 

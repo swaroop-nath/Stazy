@@ -526,4 +526,35 @@
     <item name="activity_hotel_hotel_phone_text_view" type="id">
         activity_hotel_hotel_phone_text_view
     </item>
+    <item name="activity_performer_profile_edit_photo_button" type="id">
+        activity_performer_profile_edit_photo_button
+    </item>
+    <item name="activity_performer_profile_facebook_user_name_edit_text" type="id">
+        activity_performer_profile_facebook_user_name_edit_text
+    </item>
+    <item name="activity_performer_profile_instagram_user_name_edit_text" type="id">
+        activity_performer_profile_instagram_user_name_edit_text
+    </item>
+    <item name="performer_profile_contacts_card_facebook_uid_container" type="id">
+        performer_profile_contacts_card_facebook_uid_container
+    </item>
+    <item name="activity_performer_profile_facebook_uid_edit_text" type="id">
+        activity_performer_profile_facebook_uid_edit_text
+    </item>
+    <item name="rating_card_view" type="id">rating_card_view</item>
+    <item name="activity_performer_profile_upload_button" type="id">
+        activity_performer_profile_upload_button
+    </item>
+    <item name="activity_hotel_profile_back_button" type="id">activity_hotel_profile_back_button
+    </item>
+    <item name="activity_hotel_profile_edit_button" type="id">activity_hotel_profile_edit_button
+    </item>
+    <item name="activity_hotel_profile_upload_button" type="id">
+        activity_hotel_profile_upload_button
+    </item>
+    <item name="activity_hotel_profile_photo_upload" type="id">activity_hotel_profile_photo_upload
+    </item>
+    <item name="activity_hotel_profile_hotel_description_edit_text" type="id">
+        activity_hotel_profile_hotel_description_edit_text
+    </item>
 </resources>

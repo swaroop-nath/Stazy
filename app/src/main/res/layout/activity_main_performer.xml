@@ -45,10 +45,10 @@
         android:id="@id/activity_main_performer_hires_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_main_performer_hires_fab_bottom_margin"
+        android:layout_marginBottom="@dimen/activity_main_performer_hires_fab_bottom_margin"
         android:layout_marginEnd="@dimen/activity_main_performer_hires_fab_end_margin"
         android:elevation="@dimen/activity_main_performer_fab_elevation"
         android:src="@drawable/ic_fab_icon"
-        app:layout_constraintTop_toBottomOf="@id/activity_main_performer_hires_card_view"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </android.support.constraint.ConstraintLayout>
