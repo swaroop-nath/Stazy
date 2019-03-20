@@ -56,6 +56,7 @@ public class HotelViewHolder {
         ratingText.setText(prevPerformance.getRating());
 
         if (prevPerformance.getProfilePictureHigh() == null) {
+            Glide.with(context).clear(displayPicture);
             Glide.with(context).asBitmap().load(imageReference).into(new SimpleTarget<Bitmap>() {
                 @Override
                 public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {

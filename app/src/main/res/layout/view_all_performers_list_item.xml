@@ -20,7 +20,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="@dimen/vap_display_picture_start_margin"
             android:layout_marginTop="@dimen/vap_display_picture_top_margin"
-            android:src="@mipmap/performer_display_picture_placeholder"/>
+            android:src="@drawable/ic_glide_placeholder"/>
 
         <TextView
             android:id="@id/vap_performer_name_text_view"

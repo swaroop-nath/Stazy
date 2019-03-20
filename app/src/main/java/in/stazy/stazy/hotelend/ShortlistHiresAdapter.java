@@ -60,6 +60,7 @@ public class ShortlistHiresAdapter extends RecyclerView.Adapter<ShortlistHiresVi
                 .priority(Priority.HIGH)
                 .dontAnimate()
                 .dontTransform();
+        Glide.with(context).clear(holder.getProfilePicture());
         Glide.with(context).asBitmap().apply(requestOptions).load(imageReference).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {

@@ -158,7 +158,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
                     instagramLinkContainer.setVisibility(View.GONE);
                 cityTextView.setText(shortlist.getCity());
                 phoneText.setText(shortlist.getPhoneNumber());
-                descriptionTextView.setText(shortlist.getDescription());
+                descriptionTextView.setText("        Description: "+shortlist.getDescription());
 
                 if (shortlist.getYoutubeLinks().length == 0)
                     youtubeContainer.setVisibility(View.INVISIBLE);

@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@mipmap/hotel_display_picture_placeholder" />
+        android:src="@drawable/ic_glide_placeholder" />
 
     <TextView
         android:id="@id/amp_list_item_hotel_name_text_view"

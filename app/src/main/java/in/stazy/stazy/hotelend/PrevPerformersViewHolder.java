@@ -33,6 +33,7 @@ public class PrevPerformersViewHolder {
 
         StorageReference imageReference = FirebaseStorage.getInstance().getReference().child(performer.getUID()+"/"+performer.getPicName());
 
+        Glide.with(context).clear(profilePhoto);
         Glide.with(context).asBitmap().load(imageReference).into(profilePhoto);
     }
 }

@@ -79,7 +79,7 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
     public static final String EXPLORE_INTENT_EXTRA_KEY = "type";
     public static final String TYPE_VALUE_MUCISIANS = "Musicians";
     public static final String TYPE_VALUE_COMEDIANS = "Comedians";
-    public static final String TYPE_VALUE_OTHERS = "others";
+    public static final String TYPE_VALUE_OTHERS = "Others";
     public static final String INDIVIDUAL_PERFORMER_OBJECT_KEY = "performer_object";
     public static final int FLAG_SHORTLIST = 1;
     public static final int FLAG_HIRE = 2;
