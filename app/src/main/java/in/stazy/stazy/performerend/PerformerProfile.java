@@ -417,6 +417,7 @@ public class PerformerProfile extends AppCompatActivity implements View.OnClickL
             uploadButton.setVisibility(View.GONE);
             editButton.setVisibility(View.VISIBLE);
             profilePicture.setImageBitmap(PerformerManager.PERFORMER.getProfilePictureHigh());
+            FLAG_EDIT = 0;
         } else {
             super.onBackPressed();
         }

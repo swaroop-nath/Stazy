@@ -6,14 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".hotelend.ViewAllPerformers">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@id/activity_view_all_performers_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/colorPrimary"
+        android:elevation="8dp"/>
+
     <ListView
         android:id="@id/activity_view_all_performers_list_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/activity_view_all_performers_list_view_top_margin"
+        android:layout_height="wrap_content"
         android:divider="@drawable/list_view_divider"
+        android:layout_marginTop="12dp"
         android:dividerHeight="@dimen/activity_view_all_performers_list_view_divider_height"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_view_all_performers_toolbar" />
 </android.support.constraint.ConstraintLayout>

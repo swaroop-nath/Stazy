@@ -11,6 +11,8 @@ import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +24,8 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.poovam.pinedittextfield.CirclePinField;
+import com.poovam.pinedittextfield.PinField;
 
 import java.util.concurrent.TimeUnit;
 
@@ -29,17 +33,22 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.stazy.stazy.R;
 
-public class SignInActivity extends AppCompatActivity implements View.OnClickListener, SignInManager.SignInCommunication {
+public class SignInActivity extends AppCompatActivity implements View.OnClickListener, SignInManager.SignInCommunication, PinField.OnTextCompleteListener {
 
     //View References
     @BindView(R.id.activity_sign_in_parent) ConstraintLayout parent;
     @BindView(R.id.sign_in_activity_welcome_text_view) TextView introductionTextView;
     @BindView(R.id.activity_sign_in_phone_prefix) TextInputEditText phoneNumberPrefix;
     @BindView(R.id.sign_in_activity_phone_number) TextInputEditText phoneNumberInput;
-    @BindView(R.id.sign_in_activity_password) TextInputEditText otpInput;
-    @BindView(R.id.sign_in_activity_get_otp_button) CardView getOTPButton;
-    @BindView(R.id.sign_in_activity_log_in_button) CardView logInButton;
-    @BindView(R.id.sign_in_activity_sign_up_button) TextView signUpButton;
+    @BindView(R.id.sign_in_activity_password) CirclePinField otpInput;
+    @BindView(R.id.sign_in_activity_get_otp_button) Button getOTPButton;
+    @BindView(R.id.sign_in_activity_log_in_button) Button logInButton;
+    @BindView(R.id.sign_in_activity_sign_up_button) Button signUpButton;
+    @BindView(R.id.sign_in_activity_cancel_password) Button cancelSingIn;
+    @BindView(R.id.activity_sign_in_phone_input_container) ConstraintLayout phoneInputLayout;
+    @BindView(R.id.activity_sign_in_otp_input_container) ConstraintLayout otpInputLayout;
+    @BindView(R.id.phone_selected) ImageView phoneSelected;
+    @BindView(R.id.otp_selected) ImageView otpSelected;
 
     //Activity Specific References
     private Context context;
@@ -48,6 +57,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private WaitFragment otpFragment = null;
     static WaitFragment verificationFragment = null;
     static WaitFragment signInFragment = null;
+    private boolean isOTPComplete = false;
+    private String enteredOTP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +78,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     signInFragment.dismiss();
                     signInFragment = null;
                 }
+                movePhoneInputOut();
+                moveOTPInputIn();
+                otpInput.setText(phoneAuthCredential.getSmsCode());
                 verificationFragment = showWaitFragment("Conducting Automatic Verification . . .", "automatic_verification");
                 SignInManager.signInWithOldCredentials(phoneAuthCredential, SignInActivity.this);
             }
@@ -98,14 +112,18 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     otpFragment = null;
                 }
                 mVerificationId = verificationId;
-                getOTPButton.setVisibility(View.GONE);
-                logInButton.setVisibility(View.VISIBLE);
-                logInButton.setOnClickListener(SignInActivity.this);
+                movePhoneInputOut();
+                moveOTPInputIn();
+                phoneSelected.setImageDrawable(getDrawable(R.drawable.phone_otp_unselected));
+                otpSelected.setImageDrawable(getDrawable(R.drawable.phone_otp_selected));
             }
         };
 
         getOTPButton.setOnClickListener(this);
         signUpButton.setOnClickListener(this);
+        logInButton.setOnClickListener(SignInActivity.this);
+        cancelSingIn.setOnClickListener(this);
+        otpInput.setOnTextCompleteListener(this);
     }
 
 
@@ -124,9 +142,13 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.sign_in_activity_log_in_button:
                 if (!TextUtils.isEmpty(otpInput.getText().toString())) {
-                    signInFragment = showWaitFragment("Signing In . . .", "sign_in_fragment");
-                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(mVerificationId, otpInput.getText().toString());
-                    SignInManager.signInWithOldCredentials(phoneAuthCredential, SignInActivity.this);
+                    if (isOTPComplete) {
+                        signInFragment = showWaitFragment("Signing In . . .", "sign_in_fragment");
+                        PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(mVerificationId, enteredOTP);
+                        SignInManager.signInWithOldCredentials(phoneAuthCredential, SignInActivity.this);
+                    } else {
+                        otpInput.setError("Please Enter a valid OTP!");
+                    }
                 } else
                     otpInput.setError("Please Input the sent OTP");
                 break;
@@ -141,11 +163,40 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 Intent intent = new Intent(this, SignUpActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.sign_in_activity_cancel_password:
+                movePhoneInputIn();
+                moveOTPInputOut();
+                phoneSelected.setImageDrawable(getDrawable(R.drawable.phone_otp_selected));
+                otpSelected.setImageDrawable(getDrawable(R.drawable.phone_otp_unselected));
+                break;
         }
+    }
+
+    private void movePhoneInputIn() {
+        phoneInputLayout.setVisibility(View.VISIBLE);
+    }
+
+    private void moveOTPInputOut() {
+        otpInputLayout.setVisibility(View.GONE);
+    }
+
+    private void movePhoneInputOut() {
+        phoneInputLayout.setVisibility(View.GONE);
+    }
+
+    private void moveOTPInputIn() {
+        otpInputLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void fireIntentActivity(Intent intent) {
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onTextComplete(String enteredText) {
+        enteredOTP = enteredText;
+        isOTPComplete = true;
+        return false;
     }
 }

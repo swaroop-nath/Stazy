@@ -42,12 +42,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.stazy.stazy.R;
 import in.stazy.stazy.authflow.MessageService;
+import in.stazy.stazy.authflow.SignInActivity;
 import in.stazy.stazy.datamanagercrossend.HotelData;
 import in.stazy.stazy.datamanagercrossend.Manager;
 import in.stazy.stazy.datamanagerhotel.Shortlists;
 import in.stazy.stazy.datamanagerperformer.HotelDataPerformerSide;
 import in.stazy.stazy.datamanagerperformer.PerformerData;
 import in.stazy.stazy.datamanagerperformer.PerformerManager;
+import in.stazy.stazy.hotelend.MainActivityHotel;
 import in.stazy.stazy.hotelend.Performer;
 
 public class MainActivityPerformer extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, DialogMenu.PerformerDialogListener {
@@ -162,6 +164,18 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
         adapter = new PerformerAdapter(context, 0, PerformerManager.PREV_HOTELS);
         hiresList.setAdapter(adapter);
         hiresList.setOnItemClickListener(this);
+        if (PerformerManager.PERFORMER == null) {
+            DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Cities").document(Manager.CITY_VALUE)
+                    .collection("type").document(PerformerManager.TYPE_VALUE)
+                    .collection(PerformerManager.GENRE_VALUE).document(FirebaseAuth.getInstance().getUid());
+            documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful())
+                        PerformerManager.PERFORMER = PerformerData.setData(task.getResult());
+                }
+            });
+        }
     }
 
     private int getScreenHeight() {
@@ -233,5 +247,8 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
     @Override
     public void signOut() {
         FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(MainActivityPerformer.this, SignInActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

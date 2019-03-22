@@ -10,22 +10,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".hotelend.MainActivityHotel"
-            android:label="Organizer"/>
-        <activity android:name=".hotelend.HirePerformer" />
-        <activity android:name=".hotelend.Performer" />
-        <activity android:name=".hotelend.ViewAllPerformers" />
-        <activity android:name=".hotelend.HotelProfile" />
-        <activity android:name=".performerend.MainActivityPerformer" />
-        <activity android:name=".performerend.Hotel" />
-        <activity android:name=".performerend.PerformerProfile"/>
-        <activity android:name=".authflow.SignInActivity">
+            android:label="Organizer"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".hotelend.HirePerformer" android:screenOrientation="portrait" />
+        <activity android:name=".hotelend.Performer" android:screenOrientation="portrait"/>
+        <activity android:name=".hotelend.ViewAllPerformers"
+            android:label="Previous Performances"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".hotelend.HotelProfile"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".performerend.MainActivityPerformer" android:screenOrientation="portrait" />
+        <activity android:name=".performerend.Hotel" android:screenOrientation="portrait"/>
+        <activity android:name=".performerend.PerformerProfile" android:screenOrientation="portrait"/>
+        <activity android:name=".authflow.SignInActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".authflow.SignUpActivity" />
+        <activity android:name=".authflow.SignUpActivity" android:screenOrientation="portrait"/>
 
         <service
             android:name=".authflow.MessageService">

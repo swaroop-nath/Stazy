@@ -96,7 +96,7 @@
 
     <!--activity_performer_social_link_items border dimens-->
     <!--corner radius-->
-    <dimen name="social_links_border_corner_radius">4dp</dimen>
+    <dimen name="social_links_border_corner_radius">20dp</dimen>
     <!--outer rectangle dimens-->
     <dimen name="social_links_border_outer_width">100dp</dimen>
     <dimen name="social_links_border_outer_height">25dp</dimen>
@@ -205,7 +205,7 @@
     <dimen name="vap_rating_cardd_view_height">24dp</dimen>
     <dimen name="vap_rating_card_view_corner_radius">8dp</dimen>
     <dimen name="vap_rating_card_view_top_margin">18dp</dimen>
-    <dimen name="vap_rating_card_view_constraint_horizontal_bias">0.20</dimen>
+    <dimen name="vap_rating_card_view_constraint_horizontal_bias">0.10</dimen>
     <!--price_button dimens-->
     <dimen name="vap_price_button_height">20dp</dimen>
     <dimen name="vap_price_button_width">80dp</dimen>
@@ -334,7 +334,7 @@
     <!--fab dimens-->
     <dimen name="activity_main_performer_fab_elevation">8dp</dimen>
     <dimen name="activity_main_performer_hires_fab_end_margin">16dp</dimen>
-    <dimen name="activity_main_performer_hires_fab_bottom_margin">16dp</dimen>
+    <dimen name="activity_main_performer_hires_fab_bottom_margin">120dp</dimen>
 
     <!--menu_container dimens-->
     <dimen name="activity_main_performer_menu_container_top_padding">16dp</dimen>

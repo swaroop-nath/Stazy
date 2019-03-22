@@ -81,3 +81,34 @@ exports.respondNotification = functions.firestore.document("NotificationsHotel/{
         });
     });
 });
+
+exports.hireNotification = functions.firestore.document("Cities/{city}/PreviousHotels/{performerUserId}/List/{hotelUserId}").onWrite((change, context) => {
+    const performer_id = context.params.performerUserId;
+    const hotel_id = context.params.hotelUserId;
+    const city = context.params.city;
+
+    console.log(performer_id);
+    console.log(hotel_id);
+
+    return admin.firestore().collection("Cities").doc(city).collection("PreviousHotels").doc(performer_id).collection("List").doc(hotel_id).get().then(documentSnapshot => {
+        const token = documentSnapshot.get("token");
+        const notification_title = "Congratulations";
+        const notification_body = "You have been HIRED!!";
+
+        const payload = {
+            data : {
+                title: notification_title,
+                body: notification_body,
+                intent: "HIRE"
+            }
+        }
+
+        admin.messaging().sendToDevice(token, payload).then(result => {
+            console.log("Notifciation Sent hire");
+            return 0;
+        }).catch(error => {
+            console("Error sending hire notif:" + error);
+        });
+        return 0;
+    });
+});

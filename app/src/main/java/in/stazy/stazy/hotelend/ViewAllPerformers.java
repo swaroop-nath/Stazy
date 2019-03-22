@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
+import android.support.v7.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,6 +30,7 @@ import in.stazy.stazy.datamanagerhotel.PrevPerformers;
 public class ViewAllPerformers extends AppCompatActivity implements OnCompleteListener<QuerySnapshot> {
 
     @BindView(R.id.activity_view_all_performers_list_view) ListView prevPerformersList;
+    @BindView(R.id.activity_view_all_performers_toolbar) Toolbar toolbar;
 
     private ArrayList<PrevPerformers> prevPerformers = new ArrayList<>();
     private PrevPerformersAdapter adapter;
@@ -38,6 +40,7 @@ public class ViewAllPerformers extends AppCompatActivity implements OnCompleteLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_all_performers);
         ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
         String genre = intent.getStringExtra(MainActivityHotel.PREV_PERFORMERS_GENRE_KEY);

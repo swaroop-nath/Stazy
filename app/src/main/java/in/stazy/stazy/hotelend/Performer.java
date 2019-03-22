@@ -321,11 +321,11 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         final DocumentReference shortlistReference = FirebaseFirestore.getInstance().collection("Cities").document(Manager.CITY_VALUE).collection("Shortlists")
                 .document(FirebaseAuth.getInstance().getUid()).collection("List").document(shortlist.getUID());
 
-        //TODO: Define a field that stores the timestamp of the day of performance
         prevHotelsMap.put("hotel", hiringHotel);
         prevHotelsMap.put("rating_received", -1);
         prevHotelsMap.put("uid", shortlist.getUID());
         prevHotelsMap.put("date", shortlist.getTentativeDate());
+        prevHotelsMap.put("token", shortlist.getToken());
 
         DocumentReference notificationReference = FirebaseFirestore.getInstance().collection("NotificationsPerformer").document(FirebaseAuth.getInstance().getUid())
                 .collection("To").document(shortlist.getUID());

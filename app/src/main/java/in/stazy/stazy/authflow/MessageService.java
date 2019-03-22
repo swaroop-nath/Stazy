@@ -42,24 +42,6 @@ public class MessageService extends FirebaseMessagingService {
 //        Log.e("NOTIF", RECEIVED_UID);
         String dataIntent = remoteMessage.getData().get("intent");
 
-        PendingIntent pendingIntent = null;
-        if (dataIntent.equals("SHORTLIST")) {
-            //Notification is on the performer end
-            Intent intent = new Intent(this, Hotel.class);
-            intent.putExtra(SHOW_EXTRA_CONTENT_PERFORMER_END, true);
-            intent.putExtra(PERFORMANCE_DETAILS_PERFORMER_END, notificationBody);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-        } else if (dataIntent.equals("RESPONSE")) {
-            //Notification is on the hotel end
-            Intent intent = new Intent(this, Performer.class);
-            intent.putExtra(SHOW_EXTRA_CONTENT_HOTEL_END, true);
-            intent.putExtra(NOTIF_TYPE_RECEIVED, remoteMessage.getData().get("type"));
-            intent.putExtra(NOTIF_GENRE_RECEIVED, remoteMessage.getData().get("genre"));
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-        }
-
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher_foreground)
                 .setContentTitle(notificationTitle)
@@ -68,6 +50,27 @@ public class MessageService extends FirebaseMessagingService {
                         .bigText(notificationBody))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
+        PendingIntent pendingIntent = null;
+        if (dataIntent.equals("SHORTLIST")) {
+            //Notification is on the performer end
+            Intent intent = new Intent(this, Hotel.class);
+            intent.putExtra(SHOW_EXTRA_CONTENT_PERFORMER_END, true);
+            intent.putExtra(PERFORMANCE_DETAILS_PERFORMER_END, notificationBody);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+            builder.setOngoing(true);
+        } else if (dataIntent.equals("RESPONSE")) {
+            //Notification is on the hotel end
+//            Intent intent = new Intent(this, Performer.class);
+//            intent.putExtra(SHOW_EXTRA_CONTENT_HOTEL_END, true);
+//            intent.putExtra(NOTIF_TYPE_RECEIVED, remoteMessage.getData().get("type"));
+//            intent.putExtra(NOTIF_GENRE_RECEIVED, remoteMessage.getData().get("genre"));
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//            pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+//            builder.setOngoing(true);
+        }
+
+        builder.setAutoCancel(true);
         if (pendingIntent != null) {
             builder = builder.setContentIntent(pendingIntent);
         }

@@ -79,10 +79,6 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
     private static final String GENRE_VALUE_DJ_HP = "DJ";
     private static final String GENRE_VALUE_OTHERS_HP = "Others";
 
-    /*
-    TODO: Define the characteristic of sort spinner.
-     */
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -226,6 +222,7 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
             case TYPE_VALUE_OTHERS_HP:
                 restStart.offer(genreMucisians[0]);
                 restStart.offer(genreComedians[0]);
+                break;
         }
 
         while (!genreQueue.isEmpty()) {
@@ -240,8 +237,8 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
     private void downloadDataNow(String typeChosen, String genreChosen) {
         childReference = baseReference.document(typeChosen).collection(genreChosen);
         //TODO: Set one more clause: where credits > 1.1
-//        Query alphabeticalQuery = childReference.orderBy("priority", Query.Direction.DESCENDING);
-        Query alphabeticalQuery = childReference.orderBy("name");
+        Query alphabeticalQuery = childReference.whereGreaterThan("credits", 0.99);
+//        Query alphabeticalQuery = childReference.orderBy("name");
         alphabeticalQuery.get().addOnCompleteListener(new CustomTaskCompletioner(this, typeChosen, genreChosen));
     }
 
@@ -422,6 +419,7 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                             if (Manager.AVAILABLE_OTHERS_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_OTHERS_START_INDEX = Manager.AVAILABLE_OTHERS.size();
                             notifyChangesToAdapter(typeChosen, genreChosen);
+                            break;
                         case GENRE_VALUE_MOTIVATIONAL_SPEAKER_HP:
                             Manager.AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX_SET = FLAG_SET;
                             if (Manager.AVAILABLE_MAGICIAN_START_INDEX_SET == FLAG_UNSET)
@@ -429,6 +427,7 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
                             if (Manager.AVAILABLE_OTHERS_START_INDEX_SET == FLAG_UNSET)
                                 Manager.AVAILABLE_OTHERS_START_INDEX = Manager.AVAILABLE_OTHERS.size();
                             notifyChangesToAdapter(typeChosen, genreChosen);
+                            break;
                         case GENRE_VALUE_OTHERS_HP:
                             Manager.AVAILABLE_OTHERS_START_INDEX_SET = FLAG_SET;
                             if (Manager.AVAILABLE_MOTIVATIONAL_SPEAKER_START_INDEX_SET == FLAG_UNSET)
@@ -449,11 +448,11 @@ public class HirePerformer extends AppCompatActivity implements CustomOnComplete
         //Sort the dataset.
         switch (id) {
             case R.id.radio_button_alphabetical:
-                Collections.sort(dataset, (o1, o2) -> o1.getName().compareTo(o2.getName()));
+                Collections.sort(dataset, (o1, o2) -> o1.getName().toLowerCase().compareTo(o2.getName().toLowerCase()));
                 adapter.notifyDataSetChanged();
                 break;
             case R.id.radio_button_rating:
-                Collections.sort(dataset, (o1, o2) -> String.valueOf(o1.getDoubleRating()).compareTo(String.valueOf(o2.getDoubleRating())));
+                Collections.sort(dataset, Collections.reverseOrder( (o1, o2) -> String.valueOf(o1.getDoubleRating()).compareTo(String.valueOf(o2.getDoubleRating()))));
                 adapter.notifyDataSetChanged();
                 break;
             case R.id.radio_button_price:

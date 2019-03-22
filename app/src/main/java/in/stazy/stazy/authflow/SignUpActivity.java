@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -36,6 +37,7 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 import in.stazy.stazy.R;
 import in.stazy.stazy.datamanagerperformer.PerformerManager;
 
@@ -44,8 +46,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     //View References
     //Common
     @BindView(R.id.sign_up_activity_path_chooser_container) ConstraintLayout initialContainer;
-    @BindView(R.id.sign_up_activity_hotel_button) CardView hotelSelection;
-    @BindView(R.id.sign_up_activity_performer_button) CardView performerSelection;
+    @BindView(R.id.sign_up_activity_hotel_button) Button hotelSelection;
+    @BindView(R.id.sign_up_activity_performer_button) Button performerSelection;
     @BindView(R.id.sign_up_activity_inital_introduction_text_view) TextView introductionTextView; //TODO: Set typeface to some stylish one.
     @BindView(R.id.sign_up_activity_parent) FrameLayout parent;
 
@@ -56,8 +58,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     @BindView(R.id.sign_up_activity_hotel_phone_number_input) TextInputEditText hotelPhoneNumber;
     @BindView(R.id.activity_sign_up_hotel_description_input) TextInputEditText hotelDescription;
     @BindView(R.id.sign_up_activity_hotel_city_input) Spinner hotelCity;
-    @BindView(R.id.activity_sign_up_hotel_upload_image_input) TextInputEditText hotelImageName;
-    @BindView(R.id.activity_sign_up_hotel_button) CardView hotelSignUp;
+    @BindView(R.id.activity_sign_up_hotel_upload_image_input) CircleImageView hotelImageName;
+    @BindView(R.id.activity_sign_up_hotel_button) Button hotelSignUp;
 
     //Performer Side
     @BindView(R.id.sign_up_activity_performer_layout) ScrollView performerContainer;
@@ -66,13 +68,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     @BindView(R.id.sign_up_activity_performer_phone_number_input) TextInputEditText performerPhoneNumber;
     @BindView(R.id.activity_sign_up_performer_description_input) TextInputEditText performerDescription;
     @BindView(R.id.sign_up_activity_performer_city_input) Spinner performerCity;
-    @BindView(R.id.activity_sign_up_performer_upload_image_input) TextInputEditText performerImageName;
+    @BindView(R.id.activity_sign_up_performer_upload_image_input) CircleImageView performerImageName;
     @BindView(R.id.activity_sign_up_performer_facebook_link_input) TextInputEditText performerFacebook;
     @BindView(R.id.activity_sign_up_performer_instagram_link_input) TextInputEditText performerInstagram;
     @BindView(R.id.activity_sign_up_performer_type_input) Spinner performerType;
     @BindView(R.id.activity_sign_up_performer_genre_input) Spinner performerGenre;
     @BindView(R.id.activity_sign_up_performer_price_input) TextInputEditText performerPrice;
-    @BindView(R.id.activity_sign_up_performer_button) CardView performerSignUp;
+    @BindView(R.id.activity_sign_up_performer_button) Button performerSignUp;
+    @BindView(R.id.activity_sign_up_performer_facebook_uid_input) TextInputEditText performerFacebookUID;
+    @BindView(R.id.activity_sign_up_performer_youtube_input) TextInputEditText youtubeInputs;
 
     //Activity Specific References
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
@@ -91,6 +95,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     static WaitFragment otpWaitFragmentPerformer = null;
     private WaitFragment signUpWaitFragmentPerformer = null;
     static WaitFragment automaticVerification = null;
+    private String uploadedImageName = null;
 
     //Constant Fields
     private static final int GET_FROM_GALLERY = 1;
@@ -234,10 +239,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     try {
                         if (cursor != null && cursor.moveToFirst()) {
                             picName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                            uploadedImageName = picName;
                             if (INITIAL_SELECTION == HOTEL)
-                                hotelImageName.setText(picName);
+                                hotelImageName.setImageURI(selectedImage);
                             else if (INITIAL_SELECTION == PERFORMER);
-                                performerImageName.setText(picName);
+                                performerImageName.setImageURI(selectedImage);
                         }
                     } finally {
                         cursor.close();
@@ -261,12 +267,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.activity_sign_up_hotel_button:
                 //Hotel Sign Up clicked
-                signUpWaitFragmentHotel = showWaitFragment("Signing you up. . . .", "sign_up_wait_fragment_hotel");
                 signHotelUp();
                 break;
             case R.id.activity_sign_up_performer_button:
                 //Performer Sign Up clicked
-                signUpWaitFragmentPerformer = showWaitFragment("Signing you up. . . .", "sign_up_wait_fragment_hotel");
                 signPerformerUp();
                 break;
         }
@@ -281,6 +285,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private void signPerformerUp() {
         if (checkLegitimacyPerformer()) {
+            signUpWaitFragmentPerformer = showWaitFragment("Signing you up. . . .", "sign_up_wait_fragment_hotel");
             performerData.put("name", performerName.getText().toString());
             performerData.put("phone_number", performerPhonePrefix.getText().toString()+performerPhoneNumber.getText().toString());
             performerData.put("description", performerDescription.getText().toString());
@@ -293,7 +298,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             performerData.put("last_rating", 0);
             performerData.put("credits", DEFAULT_CREDITS);
             performerData.put("pic_name", picName);
-            performerData.put("priority", DEFAULT_PRIORITY); //TODO: See if this is automatically converted to int
+            performerData.put("priority", DEFAULT_PRIORITY);
+            performerData.put("facebook_uid", performerFacebookUID.getText().toString());
+
+            putYoutubeLinks();
 
             PerformerManager.TYPE_VALUE = performerType.getSelectedItem().toString();
             PerformerManager.GENRE_VALUE = performerGenre.getSelectedItem().toString();
@@ -304,6 +312,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                                                 this,
                                                                 mCallbacks);
         }
+    }
+
+    private void putYoutubeLinks() {
+        String[] links = youtubeInputs.getText().toString().split(",");
+        for (int i = 0; i < links.length; i++) {
+            links[i] = links[i].trim();
+        }
+        String allLinks = TextUtils.join(",", links);
+        performerData.put("youtube", allLinks);
     }
 
     private boolean checkLegitimacyPerformer() {
@@ -320,13 +337,19 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             performerDescription.setError("Describe Yourself First");
             return false;
         }
-        if (TextUtils.isEmpty(performerImageName.getText().toString())) {
-            performerImageName.setError("");
-            Snackbar.make(parent, "Please upload a Profile Picture", Snackbar.LENGTH_LONG).show();
+        if (uploadedImageName == null) {
+            Toast.makeText(context, "Please upload a Profile Picture", Toast.LENGTH_SHORT).show();
             return false;
         }
         if (TextUtils.isEmpty(performerPrice.getText().toString())) {
             performerPrice.setError("Please Input your hourly price");
+            return false;
+        }
+        if (TextUtils.isEmpty(performerFacebook.getText().toString()) != TextUtils.isEmpty(performerFacebookUID.getText().toString())) {
+            if (TextUtils.isEmpty(performerFacebook.getText().toString()))
+                performerFacebook.setError("Please enter a user name");
+            if (TextUtils.isEmpty(performerFacebookUID.getText().toString()))
+                performerFacebookUID.setError("Please enter a user id");
             return false;
         }
 
@@ -336,6 +359,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private void signHotelUp() {
         if (checkLegitimacyHotel()) {
             //Legitimate data has been entered, sign it up
+            signUpWaitFragmentHotel = showWaitFragment("Signing you up. . . .", "sign_up_wait_fragment_hotel");
             hotelData.put("name", hotelName.getText().toString());
             hotelData.put("phone_number", hotelPhonePrefix.getText().toString()+hotelPhoneNumber.getText().toString());
             hotelData.put("description", hotelDescription.getText().toString());
@@ -363,8 +387,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             hotelDescription.setError("Please Describe Yourself");
             return false;
         }
-        if (TextUtils.isEmpty(hotelImageName.getText().toString())) {
-            hotelImageName.setError("");
+        if (uploadedImageName == null) {
             Snackbar.make(parent, "Click on the icon upload A Profile Picture" ,Snackbar.LENGTH_LONG).show();
             return false;
         }
@@ -375,7 +398,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         initialContainer.setVisibility(View.GONE);
         if (INITIAL_SELECTION == HOTEL) {
             hotelContainer.setVisibility(View.VISIBLE);
-            Toast.makeText(this, hotelCity.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
         }
         else if (INITIAL_SELECTION == PERFORMER) {
             performerContainer.setVisibility(View.VISIBLE);

@@ -1,100 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:cardElevation="@dimen/vap_card_view_elevation"
-    android:layout_marginTop="8dp"
-    android:layout_marginBottom="8dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@id/vap_display_picture"
+        android:layout_width="@dimen/vap_display_picture_side_length"
+        android:layout_height="@dimen/vap_display_picture_side_length"
+        android:layout_marginStart="@dimen/vap_display_picture_start_margin"
+        android:layout_marginTop="@dimen/vap_display_picture_top_margin"
+        android:src="@drawable/ic_glide_placeholder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@id/vap_display_picture"
-            android:layout_width="@dimen/vap_display_picture_side_length"
-            android:layout_height="@dimen/vap_display_picture_side_length"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="@dimen/vap_display_picture_start_margin"
-            android:layout_marginTop="@dimen/vap_display_picture_top_margin"
-            android:src="@drawable/ic_glide_placeholder"/>
+    <TextView
+        android:id="@id/vap_performer_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/vap_performer_name_text_view_start_margin"
+        android:layout_marginTop="@dimen/vap_performer_name_text_view_top_margin"
+        android:textSize="@dimen/text_size_large"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/vap_display_picture"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Swaroop Nath" />
 
-        <TextView
-            android:id="@id/vap_performer_name_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/vap_display_picture"
-            android:layout_marginTop="@dimen/vap_performer_name_text_view_top_margin"
-            android:layout_marginStart="@dimen/vap_performer_name_text_view_start_margin"
-            tools:text="Swaroop Nath"
-            android:textSize="@dimen/text_size_large"
-            android:textStyle="bold"/>
+    <TextView
+        android:id="@id/vap_performer_extras_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/vap_performer_extras_text_view_start_margin"
+        android:layout_marginTop="@dimen/vap_performer_extras_text_view_top_margin"
+        android:textSize="@dimen/text_size_small"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@id/vap_display_picture"
+        app:layout_constraintTop_toBottomOf="@id/vap_performer_name_text_view"
+        tools:text="Last Rating: 4.5" />
 
-        <TextView
-            android:id="@id/vap_performer_extras_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/vap_performer_name_text_view"
-            app:layout_constraintStart_toEndOf="@id/vap_display_picture"
-            android:layout_marginTop="@dimen/vap_performer_extras_text_view_top_margin"
-            android:layout_marginStart="@dimen/vap_performer_extras_text_view_start_margin"
-            tools:text="Last Rating: 4.5"
-            android:textSize="@dimen/text_size_small"
-            android:textStyle="italic"/>
+    <android.support.v7.widget.CardView
+        android:id="@id/rating_card"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/vap_rating_cardd_view_height"
+        android:layout_marginTop="@dimen/vap_rating_card_view_top_margin"
+        app:cardCornerRadius="@dimen/vap_rating_card_view_corner_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="@dimen/vap_rating_card_view_constraint_horizontal_bias"
+        app:layout_constraintStart_toEndOf="@id/vap_performer_name_text_view"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <android.support.v7.widget.CardView
-            android:layout_width="@dimen/vap_rating_card_view_width"
-            android:layout_height="@dimen/vap_rating_cardd_view_height"
-            android:layout_marginTop="@dimen/vap_rating_card_view_top_margin"
-            app:cardCornerRadius="@dimen/vap_rating_card_view_corner_radius"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/vap_performer_name_text_view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="@dimen/vap_rating_card_view_constraint_horizontal_bias">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-            <LinearLayout
+            <TextView
+                android:id="@id/vap_rating_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/activity_performer_rating_text_view_start_padding"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                tools:text="3.5"
+                android:maxLines="1"/>
 
-                <TextView
-                    android:id="@id/vap_rating_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:paddingStart="@dimen/activity_performer_rating_text_view_start_padding"
-                    android:textAlignment="center"
-                    android:textStyle="bold"
-                    tools:text="3.5" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.2"
+                android:src="@drawable/ic_rating_star" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1.2"
-                    android:src="@drawable/ic_rating_star" />
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+    <Button
+        android:id="@id/vap_price_button"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/vap_price_button_height"
+        android:layout_marginBottom="@dimen/vap_price_button_bottom_margin"
+        android:background="@android:color/transparent"
+        android:clickable="false"
+        android:drawableStart="@drawable/ic_rupee_indian"
+        android:focusable="false"
+        android:textAllCaps="false"
+        android:textColor="@color/colorSecondaryText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rating_card"
+        tools:text="600/hr"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"/>
 
-        <Button
-            android:clickable="false"
-            android:focusable="false"
-            android:id="@id/vap_price_button"
-            android:layout_width="@dimen/vap_price_button_width"
-            android:layout_height="@dimen/vap_price_button_height"
-            android:drawableStart="@drawable/ic_rupee_indian"
-            android:background="@android:color/transparent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="600/hr"
-            android:textAllCaps="false"
-            android:textColor="@color/colorSecondaryText"
-            android:layout_marginBottom="@dimen/vap_price_button_bottom_margin"/>
-
-        <!--Add buttons to shortlist, and some other stuff-->
-    </android.support.constraint.ConstraintLayout>
-</android.support.v7.widget.CardView>
+    <!--Add buttons to shortlist, and some other stuff-->
+</android.support.constraint.ConstraintLayout>

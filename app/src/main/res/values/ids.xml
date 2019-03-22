@@ -560,4 +560,34 @@
     <item name="activity_main_hotel_toolbar" type="id">activity_main_hotel_toolbar</item>
     <item name="profile_button" type="id">profile_button</item>
     <item name="sign_out_button" type="id">sign_out_button</item>
+    <item name="activity_sign_in_top_shape" type="id">activity_sign_in_top_shape</item>
+    <item name="sign_in_stazy_logo" type="id">sign_in_stazy_logo</item>
+    <item name="activity_sign_in_phone_input_container" type="id">
+        activity_sign_in_phone_input_container
+    </item>
+    <item name="phone_input_linear_layout" type="id">phone_input_linear_layout</item>
+    <item name="otp_selected" type="id">otp_selected</item>
+    <item name="phone_selected" type="id">phone_selected</item>
+    <item name="activity_sign_in_otp_input_container" type="id">
+        activity_sign_in_otp_input_container
+    </item>
+    <item name="sign_in_activity_cancel_password" type="id">sign_in_activity_cancel_password</item>
+    <item name="activity_sign_up_logo" type="id">activity_sign_up_logo</item>
+    <item name="rating_card" type="id">rating_card</item>
+    <item name="activity_sign_up_performer_facebook_uid_layout" type="id">
+        activity_sign_up_performer_facebook_uid_link_layout
+    </item>
+    <item name="activity_sign_up_performer_facebook_uid_input" type="id">
+        activity_sign_up_performer_facebook_uid_input
+    </item>
+    <item name="activity_sign_up_performer_youtube_layout" type="id">
+        activity_sign_up_performer_youtube_layout
+    </item>
+    <item name="activity_sign_up_performer_youtube_input" type="id">
+        activity_sign_up_performer_youtube_input
+    </item>
+    <item name="activity_view_all_performers_toolbar" type="id">
+        activity_view_all_performers_toolbar
+    </item>
+    <item name="hotel_main_content_layout" type="id">hotel_main_content_layout</item>
 </resources>

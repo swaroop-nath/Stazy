@@ -38,6 +38,7 @@ public class WaitFragment extends DialogFragment {
         builder.setView(layout);
 
         AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
 
         return dialog;
     }

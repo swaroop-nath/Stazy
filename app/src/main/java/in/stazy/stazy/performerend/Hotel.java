@@ -63,7 +63,9 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
         Intent intent = getIntent();
         receivedPosition = intent.getIntExtra(MainActivityPerformer.INTENT_HOTEL_OBJECT_KEY, 0);
         if (intent.getBooleanExtra(MessageService.SHOW_EXTRA_CONTENT_PERFORMER_END, false)) {
-            hireDesc = "<i>" + intent.getStringExtra(MessageService.PERFORMANCE_DETAILS_PERFORMER_END) + " Are you available?</i>";
+            //TODO: Bug - Displays some bogus text.
+//            hireDesc = "<i>" + intent.getStringExtra(MessageService.PERFORMANCE_DETAILS_PERFORMER_END) + " Are you available?</i>";
+            hireDesc = "<i>Are you available for performance?</i>";
             hireUID = MessageService.RECEIVED_UID;
             dataDownloading = new WaitFragment();
             dataDownloading.setData("Loading . . .");

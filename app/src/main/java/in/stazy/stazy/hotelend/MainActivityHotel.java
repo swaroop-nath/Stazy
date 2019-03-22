@@ -51,6 +51,7 @@ import javax.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.stazy.stazy.R;
+import in.stazy.stazy.authflow.SignInActivity;
 import in.stazy.stazy.datamanagercrossend.HotelData;
 import in.stazy.stazy.datamanagerhotel.ComedianData;
 import in.stazy.stazy.datamanagercrossend.Manager;
@@ -99,6 +100,12 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
     protected void onStart() {
         super.onStart();
         Log.e("TAG", "Resume called");
+
+        shortlistAdapter = new ShortlistHiresAdapter(Manager.SHORTLISTED_CANDIDATES, MainActivityHotel.this, FLAG_SHORTLIST);
+        hiresAdapter = new ShortlistHiresAdapter(Manager.HIRED_CANDIDATES, MainActivityHotel.this, FLAG_HIRE);
+
+        shortlistsList.setAdapter(shortlistAdapter);
+        hiresList.setAdapter(hiresAdapter);
         shortlists = FirebaseFirestore.getInstance().collection("Cities").document(Manager.CITY_VALUE).collection("Shortlists")
                 .document(FirebaseAuth.getInstance().getUid()).collection("List");
         if (shortlists != null) {
@@ -222,8 +229,10 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
             shortlistListener.remove();
             Manager.SHORTLISTED_CANDIDATES.clear();
             Manager.HIRED_CANDIDATES.clear();
-            shortlistAdapter.notifyDataSetChanged();
-            hiresAdapter.notifyDataSetChanged();
+            if (shortlistAdapter != null)
+                shortlistAdapter.notifyDataSetChanged();
+            if (hiresAdapter != null)
+                hiresAdapter.notifyDataSetChanged();
             shortlistText.setVisibility(View.GONE);
             shortlistsList.setVisibility(View.GONE);
             hiresText.setVisibility(View.GONE);
@@ -246,6 +255,9 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
                 break;
             case R.id.sign_out_button:
                 FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(MainActivityHotel.this, SignInActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -306,11 +318,7 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
             LinearLayoutManager horizontalLayoutHire = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
             hiresList.setLayoutManager(horizontalLayoutHire);
 
-            shortlistAdapter = new ShortlistHiresAdapter(Manager.SHORTLISTED_CANDIDATES, MainActivityHotel.this, FLAG_SHORTLIST);
-            hiresAdapter = new ShortlistHiresAdapter(Manager.HIRED_CANDIDATES, MainActivityHotel.this, FLAG_HIRE);
 
-            shortlistsList.setAdapter(shortlistAdapter);
-            hiresList.setAdapter(hiresAdapter);
         }
 
 

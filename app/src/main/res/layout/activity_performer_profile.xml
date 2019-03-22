@@ -581,7 +581,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_marginBottom="@dimen/activity_main_performer_hires_fab_bottom_margin"
+            android:layout_marginBottom="16dp"
             android:layout_marginEnd="@dimen/activity_main_performer_hires_fab_end_margin"
             android:elevation="@dimen/activity_main_performer_fab_elevation"
             android:src="@drawable/ic_credits_icon_white"

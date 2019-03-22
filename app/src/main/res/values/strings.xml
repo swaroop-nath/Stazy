@@ -105,8 +105,8 @@
     <string name="activity_sign_up_description_input_hint">A Short Description . . .</string>
     <string name="sign_up_activity_hotel_city_input_text">Nearest City</string>
     <string name="activity_sign_up_hotel_button_text">Sign Me Up</string>
-    <string name="activity_sign_up_performer_facebook_link_input_hint">Facebook Profile Link</string>
-    <string name="activity_sign_up_performer_instagram_link_input_hint">Instagram Profile Link</string>
+    <string name="activity_sign_up_performer_facebook_link_input_hint">Facebook User Name</string>
+    <string name="activity_sign_up_performer_instagram_link_input_hint">Instagram User Name</string>
     <string name="activity_sign_up_performer_type_layout_prompt">Your Genre</string>
     <string name="activity_sign_up_performer_genre_layout_prompt">Category</string>
     <string name="activity_sign_up_performer_price_input_hint">Your Initial Price (Hourly) . . .</string>
@@ -130,6 +130,7 @@
     <string name="activity_hotel_main_hire_text_view_text">Hires</string>
     <string name="activity_performer_rate_and_pay_button_text">Rate and Pay</string>
     <string name="rate_and_pay_intro_text">Please fill out the rating form - Input 3 ratings for the customer (one from yourself and rest from customers).</string>
+    <string name="activity_sign_up_performer_facebook_uid_input_hint">Facebook User ID</string>
 
 
 </resources>

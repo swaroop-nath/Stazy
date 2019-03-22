@@ -59,7 +59,8 @@ public class RateAndPayDialog extends DialogFragment implements DialogInterface.
         customerTwo = layout.findViewById(R.id.customer_rating_email_input_two);
         paymentBody = layout.findViewById(R.id.payment_body_text);
 
-        paymentBody.setText("Please pay " + this.name + " an amount of: Rs." + this.price);
+//        paymentBody.setText("Please pay " + this.name + " an amount of: Rs." + this.price);
+        paymentBody.setText("Please pay " + this.name + " the stipulated amount.");
 
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override

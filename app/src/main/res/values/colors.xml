@@ -12,6 +12,7 @@
     <color name="colorSocialLinkItemBorder">#717171</color>
     <color name="cardViewDarkBackground">#bcbcbc</color>
     <color name="performer_profile_shape_end_color">#fff020</color>
+    <color name="colorButtonEnd">#0061cf</color>
 
     <!--TODO: Make a black theme-->
 </resources>

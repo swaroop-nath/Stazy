@@ -226,6 +226,7 @@ public class HotelProfile extends AppCompatActivity implements OnCompleteListene
             uploadButton.setVisibility(View.GONE);
             editButton.setVisibility(View.VISIBLE);
             profilePicture.setImageBitmap(Manager.HOTEL_DATA.getProfilePictureHigh());
+            FLAG_EDIT = 0;
         } else
             super.onBackPressed();
     }
