@@ -590,4 +590,7 @@
         activity_view_all_performers_toolbar
     </item>
     <item name="hotel_main_content_layout" type="id">hotel_main_content_layout</item>
+    <item name="activity_performer_profile_description_edit_text" type="id">
+        activity_performer_profile_description_edit_text
+    </item>
 </resources>

@@ -109,6 +109,9 @@ public class PerformerProfile extends AppCompatActivity implements View.OnClickL
     EditText facebookUIDText;
     @BindView(R.id.activity_performer_profile_upload_button)
     CircleImageView uploadButton;
+    @BindView(R.id.activity_performer_profile_description_edit_text)
+    EditText descriptionEditText;
+
     //Activity References
     private YoutubeAdapter adapter;
     private String picName = null, facebookUserNameString, instagramUserNameString, facebookUIDString;
@@ -207,6 +210,7 @@ public class PerformerProfile extends AppCompatActivity implements View.OnClickL
             case R.id.activity_main_performer_buy_priority_fab:
                 DialogEarnPriority priority = new DialogEarnPriority();
                 priority.show(getSupportFragmentManager(), "priority_dialog");
+                priority.attachCreditsListener(PerformerProfile.this);
                 break;
             case R.id.activity_performer_profile_back_button:
                 finish();
@@ -250,6 +254,8 @@ public class PerformerProfile extends AppCompatActivity implements View.OnClickL
         facebookUIDContainer.setVisibility(View.GONE);
         facebookUserName.setVisibility(View.GONE);
         instagramUserName.setVisibility(View.GONE);
+        descriptionEditText.setVisibility(View.GONE);
+        descriptionTextView.setVisibility(View.VISIBLE);
         facebookLink.setVisibility(View.VISIBLE);
         instagramLink.setVisibility(View.VISIBLE);
 
@@ -272,6 +278,7 @@ public class PerformerProfile extends AppCompatActivity implements View.OnClickL
                         performerMap.put("facebook", facebookUserNameString);
                         performerMap.put("instagram", instagramUserNameString);
                         performerMap.put("facebook_uid", facebookUIDString);
+                        performerMap.put("description", descriptionEditText.getText().toString());
 
                         performerReference.update(performerMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -381,6 +388,9 @@ public class PerformerProfile extends AppCompatActivity implements View.OnClickL
         ratingCard.setVisibility(View.GONE);
         photoSelect.setVisibility(View.VISIBLE);
         facebookUIDContainer.setVisibility(View.VISIBLE);
+        descriptionTextView.setVisibility(View.GONE);
+        descriptionEditText.setVisibility(View.VISIBLE);
+        descriptionEditText.setText(PerformerManager.PERFORMER.getDescription());
         if (facebookLinkContainer.getVisibility() == View.GONE) {
             facebookUIDText.setText(PerformerManager.PERFORMER.getFacebookUID());
         }
@@ -410,12 +420,14 @@ public class PerformerProfile extends AppCompatActivity implements View.OnClickL
             facebookUIDContainer.setVisibility(View.GONE);
             facebookUserName.setVisibility(View.GONE);
             instagramUserName.setVisibility(View.GONE);
+            descriptionEditText.setVisibility(View.GONE);
             facebookLink.setVisibility(View.VISIBLE);
             instagramLink.setVisibility(View.VISIBLE);
             photoSelect.setVisibility(View.GONE);
             ratingCard.setVisibility(View.VISIBLE);
             uploadButton.setVisibility(View.GONE);
             editButton.setVisibility(View.VISIBLE);
+            descriptionTextView.setVisibility(View.VISIBLE);
             profilePicture.setImageBitmap(PerformerManager.PERFORMER.getProfilePictureHigh());
             FLAG_EDIT = 0;
         } else {
@@ -425,6 +437,6 @@ public class PerformerProfile extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void updateCreditsView() {
-        creditsTextView.setText(PerformerManager.PERFORMER.getCredits());
+        creditsTextView.setText("Credits: " + PerformerManager.PERFORMER.getCredits());
     }
 }
