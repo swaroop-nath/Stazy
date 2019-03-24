@@ -29,6 +29,7 @@ import in.stazy.stazy.datamanagerperformer.PerformerManager;
 public class DialogEarnPriority extends DialogFragment implements DialogInterface.OnShowListener, View.OnClickListener {
     private Context context;
     private AlertDialog dialog;
+    private CreditsListener listener;
 
     @Override
     public void onAttach(Context context) {
@@ -87,6 +88,9 @@ public class DialogEarnPriority extends DialogFragment implements DialogInterfac
                 public void onComplete(@NonNull Task<Void> task) {
                     waitFragment.dismiss();
                     if (task.isSuccessful()) {
+                        PerformerManager.PERFORMER.setDoubleCredits(PerformerManager.PERFORMER.getDoubleCredits() - 0.5);
+                        PerformerManager.PERFORMER.setCredits(String.valueOf(PerformerManager.PERFORMER.getDoubleCredits()));
+                        listener.updateCreditsView();
                         Toast.makeText(context, "Priority Successfully Upgraded", Toast.LENGTH_SHORT).show();
                     } else
                         Toast.makeText(context, "Couldn't complete operation now.\nPlease Try Again later.", Toast.LENGTH_SHORT).show();
@@ -95,5 +99,12 @@ public class DialogEarnPriority extends DialogFragment implements DialogInterfac
         } else
             Toast.makeText(context, "You don't have enough credits, please buy some", Toast.LENGTH_SHORT).show();
         dialog.dismiss();
+    }
+
+    void attachCreditsListener(CreditsListener listener) {
+        this.listener = listener;
+    }
+    interface CreditsListener {
+        void updateCreditsView();
     }
 }

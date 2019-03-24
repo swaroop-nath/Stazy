@@ -271,7 +271,9 @@
                 app:layout_constraintBottom_toBottomOf="@id/activity_sign_up_performer_upload_image_input"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
-                android:onClick="uploadImage"/>
+                android:onClick="uploadImage"
+                app:civ_border_color="@android:color/white"
+                app:civ_border_width="2dp"/>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@id/sign_up_activity_performer_name_layout"

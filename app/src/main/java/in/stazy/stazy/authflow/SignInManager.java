@@ -53,18 +53,10 @@ public class SignInManager {
                         public void onComplete(@NonNull Task<InstanceIdResult> task) {
                             data.put("token", task.getResult().getToken());
                             Manager.FCM_TOKEN = task.getResult().getToken();
-                            if (SignUpActivity.automaticVerification != null) {
-                                SignUpActivity.automaticVerification.dismiss();
-                                SignUpActivity.automaticVerification = null;
-                            }
-                            if (SignUpActivity.otpWaitFragmentHotel != null) {
-                                SignUpActivity.otpWaitFragmentHotel.dismiss();
-                                SignUpActivity.otpWaitFragmentHotel = null;
-                            }
-                            if (SignUpActivity.otpWaitFragmentPerformer != null) {
-                                SignUpActivity.otpWaitFragmentPerformer.dismiss();
-                                SignUpActivity.otpWaitFragmentPerformer = null;
-                            }
+                            DocumentReference registeredUsers = FirebaseFirestore.getInstance().collection("Registered Users").document(data.get("phone_number").toString());
+                            Map<String, Object> userCreatedMap = new HashMap<>();
+                            userCreatedMap.put("created", 1);
+                            registeredUsers.set(userCreatedMap);
                             if (SignUpActivity.INITIAL_SELECTION == SignUpActivity.HOTEL)
                                 uploadDataAndStartUIHotel(data, profilePicture);
                             else
@@ -87,10 +79,22 @@ public class SignInManager {
 
     private static void uploadDataAndStartUIPerformer(Map data, Uri profilePicture) {
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-        StorageReference storageReference = firebaseStorage.getReference().child(FirebaseAuth.getInstance().getUid()+"/"+data.get("pic_name"));
+        StorageReference storageReference = firebaseStorage.getReference().child(FirebaseAuth.getInstance().getUid() + "/" + data.get("pic_name"));
         storageReference.putFile(profilePicture).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if (SignUpActivity.automaticVerification != null) {
+                    SignUpActivity.automaticVerification.dismiss();
+                    SignUpActivity.automaticVerification = null;
+                }
+                if (SignUpActivity.otpWaitFragmentHotel != null) {
+                    SignUpActivity.otpWaitFragmentHotel.dismiss();
+                    SignUpActivity.otpWaitFragmentHotel = null;
+                }
+                if (SignUpActivity.otpWaitFragmentPerformer != null) {
+                    SignUpActivity.otpWaitFragmentPerformer.dismiss();
+                    SignUpActivity.otpWaitFragmentPerformer = null;
+                }
                 if (task.isSuccessful())
                     Log.e("PIC UPLOAD HOTEL", "success");
                 else
@@ -101,8 +105,8 @@ public class SignInManager {
         data.put("uid", FirebaseAuth.getInstance().getUid());
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         DocumentReference documentReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE)
-                                .collection("type").document(PerformerManager.TYPE_VALUE)
-                                .collection(PerformerManager.GENRE_VALUE).document(FirebaseAuth.getInstance().getUid());
+                .collection("type").document(PerformerManager.TYPE_VALUE)
+                .collection(PerformerManager.GENRE_VALUE).document(FirebaseAuth.getInstance().getUid());
         documentReference.set(data).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -131,10 +135,22 @@ public class SignInManager {
 
     private static void uploadDataAndStartUIHotel(Map data, Uri profilePicture) {
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-        StorageReference storageReference = firebaseStorage.getReference().child(FirebaseAuth.getInstance().getUid()+"/"+data.get("pic_name"));
+        StorageReference storageReference = firebaseStorage.getReference().child(FirebaseAuth.getInstance().getUid() + "/" + data.get("pic_name"));
         storageReference.putFile(profilePicture).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if (SignUpActivity.automaticVerification != null) {
+                    SignUpActivity.automaticVerification.dismiss();
+                    SignUpActivity.automaticVerification = null;
+                }
+                if (SignUpActivity.otpWaitFragmentHotel != null) {
+                    SignUpActivity.otpWaitFragmentHotel.dismiss();
+                    SignUpActivity.otpWaitFragmentHotel = null;
+                }
+                if (SignUpActivity.otpWaitFragmentPerformer != null) {
+                    SignUpActivity.otpWaitFragmentPerformer.dismiss();
+                    SignUpActivity.otpWaitFragmentPerformer = null;
+                }
                 if (task.isSuccessful())
                     Log.e("PIC UPLOAD HOTEL", "success");
                 else
@@ -145,7 +161,7 @@ public class SignInManager {
         data.put("uid", FirebaseAuth.getInstance().getUid());
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         DocumentReference documentReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE)
-                        .collection("hotels").document(FirebaseAuth.getInstance().getUid());
+                .collection("hotels").document(FirebaseAuth.getInstance().getUid());
         documentReference.set(data).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

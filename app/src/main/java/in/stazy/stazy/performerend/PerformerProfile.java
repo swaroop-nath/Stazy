@@ -51,7 +51,7 @@ import in.stazy.stazy.datamanagerperformer.PerformerData;
 import in.stazy.stazy.datamanagerperformer.PerformerManager;
 import in.stazy.stazy.hotelend.Performer;
 
-public class PerformerProfile extends AppCompatActivity implements View.OnClickListener {
+public class PerformerProfile extends AppCompatActivity implements View.OnClickListener, DialogEarnPriority.CreditsListener {
 
     //View References
     @BindView(R.id.activity_performer_profile_display_picture)
@@ -421,5 +421,10 @@ public class PerformerProfile extends AppCompatActivity implements View.OnClickL
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void updateCreditsView() {
+        creditsTextView.setText(PerformerManager.PERFORMER.getCredits());
     }
 }
