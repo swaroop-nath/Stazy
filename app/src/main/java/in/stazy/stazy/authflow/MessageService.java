@@ -69,8 +69,6 @@ public class MessageService extends FirebaseMessagingService {
 //            pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 //            builder.setOngoing(true);
         }
-
-        builder.setAutoCancel(true);
         if (pendingIntent != null) {
             builder = builder.setContentIntent(pendingIntent);
         }

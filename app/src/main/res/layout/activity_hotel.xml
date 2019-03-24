@@ -129,7 +129,18 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/activity_hotel_hotel_phone_icon"
-                    tools:text="+919435541097" />
+                    android:text="+919616396528" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/activity_hotel_hotel_phone_text_view"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="6dp"
+                    android:text="(Stazy Helpline)"
+                    android:textColor="@color/colorSecondaryText"
+                    android:textStyle="italic"
+                    android:textSize="@dimen/text_size_small"/>
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>
 

@@ -88,7 +88,7 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
         hotelNameTextView.setText(PerformerManager.PREV_HOTELS.get(receivedPosition).getName());
         hotelCityTextView.setText(PerformerManager.PREV_HOTELS.get(receivedPosition).getCity());
         hotelDescriptionTextView.setText("        Description: "+PerformerManager.PREV_HOTELS.get(receivedPosition).getDescription());
-        hotelPhone.setText(PerformerManager.PREV_HOTELS.get(receivedPosition).getPhoneNumber());
+//        hotelPhone.setText(PerformerManager.PREV_HOTELS.get(receivedPosition).getPhoneNumber());
     }
 
     @Override
@@ -108,7 +108,7 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
         hotelNameTextView.setText(PerformerManager.SHORTLIST_HOTEL.getName());
         hotelCityTextView.setText(PerformerManager.SHORTLIST_HOTEL.getCity());
         hotelDescriptionTextView.setText("        Description: "+PerformerManager.SHORTLIST_HOTEL.getDescription());
-        hotelPhone.setText(PerformerManager.SHORTLIST_HOTEL.getPhoneNumber());
+//        hotelPhone.setText(PerformerManager.SHORTLIST_HOTEL.getPhoneNumber());
         hotelShortlistText.setText(Html.fromHtml(hireDesc));
 
         hotelShortlistText.setVisibility(View.VISIBLE);
