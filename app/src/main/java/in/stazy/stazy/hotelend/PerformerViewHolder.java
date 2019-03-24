@@ -26,7 +26,6 @@ class PerformerViewHolder {
     private ImageView profilePicture;
     private TextView nameTextView, extrasTextView, overallRatingTextView;
     private Button priceTag;
-    private ImageButton shortlistCandidate;
     private Context context;
 
     PerformerViewHolder(View view, Context context) {
@@ -41,14 +40,6 @@ class PerformerViewHolder {
     void setProfilePicture(DataManager performer) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference imageReference = storage.getReference().child(performer.getUID()+"/"+performer.getPicName());
-        RequestOptions requestOptions = new RequestOptions()
-                .centerCrop()
-                .placeholder(R.drawable.ic_glide_placeholder)
-                .error(R.drawable.ic_glide_error)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .priority(Priority.HIGH)
-                .dontAnimate()
-                .dontTransform();
         Glide.with(context).asBitmap().load(imageReference).into(profilePicture);
     }
 

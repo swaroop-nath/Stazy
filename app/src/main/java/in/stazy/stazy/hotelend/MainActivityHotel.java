@@ -305,7 +305,6 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
                     if (task.isSuccessful()) {
                         //Data Downloaded Successfully
                         Manager.HOTEL_DATA = HotelData.setData(task.getResult());
-                        //TODO: Write code here to download previous and shortlists and hires.
                     } else {
                         Log.e("HOTEL_DATA_DOWNLOAD", task.getException().getMessage());
                         Toast.makeText(context, "Can't Download Data Right Now, Try Again Later!!", Toast.LENGTH_SHORT).show();

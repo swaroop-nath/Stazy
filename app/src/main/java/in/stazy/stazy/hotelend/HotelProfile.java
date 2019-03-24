@@ -1,6 +1,7 @@
 package in.stazy.stazy.hotelend;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -18,6 +19,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -61,12 +65,15 @@ public class HotelProfile extends AppCompatActivity implements OnCompleteListene
     private Bitmap newProfilePicture;
     private String picName = null, descriptionNewText;
     private static int FLAG_EDIT = 0;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_profile);
         ButterKnife.bind(this);
+        context = getApplicationContext();
+
         if (Manager.HOTEL_DATA == null) {
             FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
             DocumentReference documentReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE)
@@ -91,11 +98,21 @@ public class HotelProfile extends AppCompatActivity implements OnCompleteListene
     }
 
     private void setContentsOfViews() {
-        profilePicture.setImageBitmap(Manager.HOTEL_DATA.getProfilePictureHigh());
         hotelName.setText(Manager.HOTEL_DATA.getName());
         hotelCity.setText(Manager.HOTEL_DATA.getCity());
         hotelDescription.setText("        Description: " + Manager.HOTEL_DATA.getDescription());
         hotelPhone.setText(Manager.HOTEL_DATA.getPhoneNumber());
+        if (Manager.HOTEL_DATA.getProfilePictureHigh() == null) {
+            StorageReference imageRef = FirebaseStorage.getInstance().getReference().child(Manager.HOTEL_DATA.getUID() + "/" + Manager.HOTEL_DATA.getPicName());
+            Glide.with(context).asBitmap().load(imageRef).into(new SimpleTarget<Bitmap>() {
+                @Override
+                public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                    Manager.HOTEL_DATA.setProfilePictureHigh(resource);
+                    profilePicture.setImageBitmap(resource);
+                }
+            });
+        } else
+            profilePicture.setImageBitmap(Manager.HOTEL_DATA.getProfilePictureHigh());
     }
 
     @Override
@@ -136,7 +153,7 @@ public class HotelProfile extends AppCompatActivity implements OnCompleteListene
         hotelMap.put("description", descriptionNewText);
 
         if (picName != null) {
-            StorageReference imageReference = FirebaseStorage.getInstance().getReference().child(FirebaseAuth.getInstance().getUid()+"/"+Manager.HOTEL_DATA.getPicName());
+            StorageReference imageReference = FirebaseStorage.getInstance().getReference().child(FirebaseAuth.getInstance().getUid()+"/"+picName);
             imageReference.putFile(selectedImage).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
@@ -144,6 +161,7 @@ public class HotelProfile extends AppCompatActivity implements OnCompleteListene
                         hotelMap.put("pic_name", picName);
                         StorageReference imageRefDel = FirebaseStorage.getInstance().getReference().child(FirebaseAuth.getInstance().getUid()+"/"+Manager.HOTEL_DATA.getPicName());
                         imageRefDel.delete();
+                        Toast.makeText(HotelProfile.this, "Profile Picture Updated Succesfully.", Toast.LENGTH_LONG).show();
                         Manager.HOTEL_DATA.setPicName(picName);
                         hotelReference.update(hotelMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
