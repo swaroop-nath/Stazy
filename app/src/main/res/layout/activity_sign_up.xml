@@ -593,7 +593,8 @@
                     android:id="@id/activity_sign_up_performer_youtube_input"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Video IDs on Youtube (comma separated for multiple)"/>
+                    android:minLines="2"
+                    android:inputType="textMultiLine"/>
             </android.support.design.widget.TextInputLayout>
 
             <Button

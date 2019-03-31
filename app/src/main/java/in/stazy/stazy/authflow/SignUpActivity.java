@@ -401,6 +401,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
         else if (INITIAL_SELECTION == PERFORMER) {
             performerContainer.setVisibility(View.VISIBLE);
+            youtubeInputs.setHint("Video IDs on Youtube\n(comma separated for multiple videos)");
         }
     }
 

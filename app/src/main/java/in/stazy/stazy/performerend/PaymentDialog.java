@@ -18,6 +18,8 @@ import android.widget.Button;
 import in.stazy.stazy.R;
 import in.stazy.stazy.datamanagercrossend.Manager;
 
+import static android.app.Activity.RESULT_OK;
+
 public class PaymentDialog extends DialogFragment implements DialogInterface.OnShowListener, View.OnClickListener {
     private Context context;
     private AlertDialog dialog;
@@ -27,6 +29,8 @@ public class PaymentDialog extends DialogFragment implements DialogInterface.OnS
     private TextInputEditText creditsReqText;
     private String payeeName = "UMANG GUPTA";
     private String messagePayment = "PAYMENT FOR CREDITS"; //TODO: Tell performer to write this as message in Payment Message.
+    private static final int PAYMENT_REQUEST_CODE = 01;
+    private PaymentCommunication communication;
 
     @Override
     public void onAttach(Context context) {
@@ -72,12 +76,35 @@ public class PaymentDialog extends DialogFragment implements DialogInterface.OnS
         if (TextUtils.isEmpty(creditsReq))
             creditsReqText.setError("Please input a valid value");
         else {
-            amount = String.valueOf(Integer.parseInt(creditsReq) * Manager.CREDIT_RATE);
+            amount = String.valueOf(Double.parseDouble(creditsReq) * Manager.CREDIT_RATE);
             Uri uri = Uri.parse("upi://pay?pa=" + payeeAddress+ "&pn="+ payeeName + "&am=" + amount + "&cu=" + currencyUnit);
             Log.e("DIALOG", "onClick: uri: " + uri);
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
+            startActivityForResult(intent, PAYMENT_REQUEST_CODE);
             PaymentDialog.this.getDialog().dismiss();
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PAYMENT_REQUEST_CODE && resultCode == RESULT_OK) {
+            if (data != null) {
+                String res = data.getStringExtra("response");
+                String search = "SUCCESS";
+                if (res.toLowerCase().contains(search.toLowerCase())) {
+                    communication.onSuccessfulPayment(Double.parseDouble(creditsReqText.getText().toString()));
+                } else {
+                    //Payment Unsuccessful
+                }
+            }
+        }
+    }
+
+    void attachPaymentListener(PaymentCommunication listener) {
+        this.communication = listener;
+    }
+
+    interface PaymentCommunication {
+        void onSuccessfulPayment(double boughtCredits);
     }
 }

@@ -51,7 +51,7 @@ import in.stazy.stazy.datamanagerperformer.PerformerData;
 import in.stazy.stazy.datamanagerperformer.PerformerManager;
 import in.stazy.stazy.hotelend.Performer;
 
-public class PerformerProfile extends AppCompatActivity implements View.OnClickListener, DialogEarnPriority.CreditsListener {
+public class PerformerProfile extends AppCompatActivity implements View.OnClickListener, DialogEarnPriority.CreditsListener, PaymentDialog.PaymentCommunication {
 
     //View References
     @BindView(R.id.activity_performer_profile_display_picture)
@@ -206,6 +206,7 @@ public class PerformerProfile extends AppCompatActivity implements View.OnClickL
             case R.id.activity_performer_profile_buy_credits_button:
                 PaymentDialog paymentDialog = new PaymentDialog();
                 paymentDialog.show(getSupportFragmentManager(), "payment_dialog");
+                paymentDialog.attachPaymentListener(PerformerProfile.this);
                 break;
             case R.id.activity_main_performer_buy_priority_fab:
                 DialogEarnPriority priority = new DialogEarnPriority();
@@ -438,5 +439,21 @@ public class PerformerProfile extends AppCompatActivity implements View.OnClickL
     @Override
     public void updateCreditsView() {
         creditsTextView.setText("Credits: " + PerformerManager.PERFORMER.getCredits());
+    }
+
+    @Override
+    public void onSuccessfulPayment(double boughtCredits) {
+        PerformerManager.PERFORMER.setCredits(String.valueOf(PerformerManager.PERFORMER.getDoubleCredits() + boughtCredits));
+        creditsTextView.setText(PerformerManager.PERFORMER.getCredits());
+        PerformerManager.PERFORMER.setDoubleCredits(PerformerManager.PERFORMER.getDoubleCredits() + boughtCredits);
+
+        DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Cities").document(Manager.CITY_VALUE)
+                .collection("type").document(PerformerManager.TYPE_VALUE)
+                .collection(PerformerManager.GENRE_VALUE).document(FirebaseAuth.getInstance().getUid());
+
+        Map<String, Object> creditsMap = new HashMap<>();
+        creditsMap.put("credits",PerformerManager.PERFORMER.getDoubleCredits());
+
+        documentReference.update(creditsMap);
     }
 }
