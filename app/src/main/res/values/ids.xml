@@ -593,4 +593,9 @@
     <item name="activity_performer_profile_description_edit_text" type="id">
         activity_performer_profile_description_edit_text
     </item>
+    <item name="activity_main_performer_approaches_list" type="id">
+        activity_main_performer_approaches_list
+    </item>
+    <item name="approaches_profile_picture" type="id">approaches_profile_picture</item>
+    <item name="approaches_name" type="id">approaches_name</item>
 </resources>

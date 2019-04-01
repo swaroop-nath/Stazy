@@ -21,4 +21,7 @@ public class PerformerManager {
 
 
     public static HotelData SHORTLIST_HOTEL = null;
+
+
+    public static ArrayList<HotelDataPerformerSide> APPROACHES = new ArrayList<>();
 }

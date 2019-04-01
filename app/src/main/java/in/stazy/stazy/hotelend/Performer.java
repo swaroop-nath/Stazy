@@ -392,6 +392,15 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
         final Map<String, Object> shortlistMap = new HashMap<>();
         DocumentReference performerReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE).collection("type")
                 .document(receivedType).collection(receivedPerformer.getGenre()).document(receivedPerformer.getUID());
+        DocumentReference approachReferences = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE).collection("Approaches")
+                                            .document(receivedPerformer.getUID()).collection("List").document(FirebaseAuth.getInstance().getUid());
+        DocumentReference hotelRef = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE).collection("hotels").document(FirebaseAuth.getInstance().getUid());
+        Map<String, Object> approachMap = new HashMap<>();
+        approachMap.put("approach_reference", hotelRef);
+        approachMap.put("uid", FirebaseAuth.getInstance().getUid());
+
+        approachReferences.set(approachMap);
+
         shortlistMap.put("performer", performerReference);
         shortlistMap.put("isHired", 0);
         shortlistMap.put("isAccepted", 0);

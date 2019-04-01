@@ -33,7 +33,9 @@ import in.stazy.stazy.authflow.MessageService;
 import in.stazy.stazy.authflow.WaitFragment;
 import in.stazy.stazy.datamanagercrossend.HotelData;
 import in.stazy.stazy.datamanagercrossend.Manager;
+import in.stazy.stazy.datamanagerperformer.HotelDataPerformerSide;
 import in.stazy.stazy.datamanagerperformer.PerformerManager;
+import in.stazy.stazy.hotelend.Performer;
 
 public class Hotel extends AppCompatActivity implements OnCompleteListener<DocumentSnapshot>, View.OnClickListener {
 
@@ -63,7 +65,6 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
         Intent intent = getIntent();
         receivedPosition = intent.getIntExtra(MainActivityPerformer.INTENT_HOTEL_OBJECT_KEY, 0);
         if (intent.getBooleanExtra(MessageService.SHOW_EXTRA_CONTENT_PERFORMER_END, false)) {
-            //TODO: Bug - Displays some bogus text.
 //            hireDesc = "<i>" + intent.getStringExtra(MessageService.PERFORMANCE_DETAILS_PERFORMER_END) + " Are you available?</i>";
             hireDesc = "<i>Are you available for performance?</i>";
             hireUID = MessageService.RECEIVED_UID;
@@ -71,8 +72,37 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
             dataDownloading.setData("Loading . . .");
             dataDownloading.show(getSupportFragmentManager(), "data_downloading");
             downloadData();
+        } else if (intent.getBooleanExtra(ApproachAdapter.SHOW_EXTRA_CONTENT_PERFORMER_END_TWO, false)) {
+            hireDesc = "<i>Are you available for performance?</i>";
+            int position = intent.getIntExtra(ApproachAdapter.POSITION, 0);
+            if (PerformerManager.APPROACHES.size() <= position) {
+                Toast.makeText(this, "Error\nPlease Try Again Later!", Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                hireUID = PerformerManager.APPROACHES.get(position).getUID();
+                setSpecialContentsVersionTwo(position);
+            }
         } else
             setContentsOfViews();
+
+    }
+
+    private void setSpecialContentsVersionTwo(int position) {
+        HotelDataPerformerSide hotel = PerformerManager.APPROACHES.get(position);
+        hotelNameTextView.setText(hotel.getName());
+        hotelCityTextView.setText(hotel.getCity());
+        hotelDescriptionTextView.setText("        Description: "+hotel.getDescription());
+        hotelShortlistText.setText(Html.fromHtml(hireDesc));
+
+        hotelShortlistText.setVisibility(View.VISIBLE);
+        acceptButton.setVisibility(View.VISIBLE);
+        rejectButton.setVisibility(View.VISIBLE);
+
+        acceptButton.setOnClickListener(this);
+        rejectButton.setOnClickListener(this);
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference imageReference = storage.getReference().child(PerformerManager.SHORTLIST_HOTEL.getUID()+"/"+PerformerManager.SHORTLIST_HOTEL.getPicName());
+        Glide.with(this).asBitmap().load(imageReference).into(profilePicture);
 
     }
 
@@ -127,6 +157,7 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
         switch (v.getId()) {
             case R.id.activity_hotel_reject_button:
                 deleteShortlistedCandidate();
+                removeFromApproaches();
                 break;
             case R.id.activity_hotel_accept_button:
                 intentShowing = new WaitFragment();
@@ -157,6 +188,7 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
                                     intentShowing = null;
                                     if (task.isSuccessful()) {
                                         Toast.makeText(Hotel.this, "Nice Choice, We might be contacting you shortly", Toast.LENGTH_SHORT).show();
+                                        removeFromApproaches();
                                         hotelShortlistText.setVisibility(View.GONE);
                                         acceptButton.setVisibility(View.GONE);
                                         rejectButton.setVisibility(View.GONE);
@@ -174,6 +206,12 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
                 });
                 break;
         }
+    }
+
+    private void removeFromApproaches() {
+        DocumentReference approachesReference = FirebaseFirestore.getInstance().collection("Cities").document(Manager.CITY_VALUE).collection("Approaches")
+                            .document(FirebaseAuth.getInstance().getUid()).collection("List").document(hireUID);
+        approachesReference.delete();
     }
 
     private void deleteShortlistedCandidate() {

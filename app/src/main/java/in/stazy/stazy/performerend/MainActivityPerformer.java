@@ -9,6 +9,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
@@ -57,14 +59,16 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
     //View References
     @BindView(R.id.activity_main_performer_list_view) ListView hiresList;
     @BindView(R.id.activity_main_performer_hires_fab) FloatingActionButton menuFab;
-    
+    @BindView(R.id.activity_main_performer_approaches_list) RecyclerView approachList;
+
     //Activity Specific References
     private int menuState = 0; //0 - not displayed, 1  - displayed
     private Context context;
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private PerformerAdapter adapter;
-    private ListenerRegistration listenerRegistration;
-    private CollectionReference hotelsReference;
+    private ListenerRegistration listenerRegistration, approachListener;
+//    private CollectionReference hotelsReference;
+    private ApproachAdapter approachAdapter;
     private DialogMenu dialogMenu;
 
     //Constant field declarations
@@ -76,7 +80,7 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
     @Override
     protected void onStart() {
         super.onStart();
-        hotelsReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE).collection("PreviousHotels")
+        CollectionReference hotelsReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE).collection("PreviousHotels")
                 .document(FirebaseAuth.getInstance().getUid()).collection("List");
         if (hotelsReference != null) {
             Query selectedUIDHotels = hotelsReference.orderBy("date");
@@ -126,6 +130,64 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
                 }
             });
         }
+
+        CollectionReference approachReference = firebaseFirestore.collection("Cities").document(Manager.CITY_VALUE).collection("Approaches")
+                                            .document(FirebaseAuth.getInstance().getUid()).collection("List");
+        if (approachReference != null) {
+            approachListener = approachReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
+                    if (e != null) {
+                        Log.e("APPROACH LISTENER", "listen:error", e);
+                        return;
+                    }
+
+                    for (DocumentChange dc : snapshots.getDocumentChanges()) {
+                        switch (dc.getType()) {
+                            case ADDED:
+                                QueryDocumentSnapshot documentSnapshotAdded = dc.getDocument();
+                                DocumentReference hotel = documentSnapshotAdded.getDocumentReference("approach_reference");
+                                hotel.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            PerformerManager.APPROACHES.add(HotelDataPerformerSide.setData(task.getResult(), null, null));
+                                            approachAdapter.notifyDataSetChanged();
+                                            if (approachList.getVisibility() == View.GONE)
+                                                approachList.setVisibility(View.VISIBLE);
+                                        }
+
+                                    }
+                                });
+                                break;
+                            case MODIFIED:
+                                break;
+                            case REMOVED:
+                                int index = findApproach(dc.getDocument().get("uid").toString());
+                                if (index != -1) {
+                                    PerformerManager.APPROACHES.remove(index);
+                                    approachAdapter.notifyDataSetChanged();
+                                    if (PerformerManager.APPROACHES.size() == 0) {
+                                        approachList.setVisibility(View.GONE);
+                                    }
+                                }
+                                break;
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    private int findApproach(String uid) {
+        int index = -1;
+        for (int i = 0; i < PerformerManager.APPROACHES.size(); i++) {
+            if (PerformerManager.APPROACHES.get(i).getUID().equals(uid)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 
     private int findHotel(String uid) {
@@ -176,6 +238,11 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
                 }
             });
         }
+
+        LinearLayoutManager horizontalLayout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        approachList.setLayoutManager(horizontalLayout);
+        approachAdapter = new ApproachAdapter(PerformerManager.APPROACHES, MainActivityPerformer.this);
+        approachList.setAdapter(approachAdapter);
     }
 
     private int getScreenHeight() {

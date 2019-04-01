@@ -20,8 +20,10 @@ public class HotelDataPerformerSide extends HotelData {
         data.setPicName(documentSnapshot.get("pic_name").toString());
         data.setToken(documentSnapshot.get("token").toString());  //Unnecessary for this version
         data.setUID(documentSnapshot.get("uid").toString());
-        data.setRating(rating);
-        data.setDate(date);
+        if (rating != null)
+            data.setRating(rating);
+        if (date != null)
+            data.setDate(date);
 
 
         return data;
