@@ -129,7 +129,7 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
             int position = receivedIntent.getIntExtra(ShortlistHiresAdapter.CLICKED_POSITION, -1);
             if (position != -1) {
                 shortlistButton.setVisibility(View.GONE);
-                if (receivedIntent.getIntExtra(ShortlistHiresAdapter.SELECTED_FLAG, 0) == 1) {
+                if (receivedIntent.getIntExtra(ShortlistHiresAdapter.SELECTED_FLAG, 0) == MainActivityHotel.FLAG_SHORTLIST) {
                     //Shortlist opened
                     shortlist = Manager.SHORTLISTED_CANDIDATES.get(position);
                     if (shortlist.getIsAccepted() == 1) {
@@ -137,7 +137,13 @@ public class Performer extends AppCompatActivity implements View.OnClickListener
                         phoneContainer.setVisibility(View.VISIBLE);
                         hireButton.setVisibility(View.VISIBLE);
                     }
-                } else {
+                } else if (receivedIntent.getIntExtra(ShortlistHiresAdapter.SELECTED_FLAG, 0) == MainActivityHotel.FLAG_ACCEPTED) {
+                    //Accepted Candidate opened
+                    shortlist = Manager.ACCEPTED_SHORTLISTS.get(position);
+                    phoneContainer.setVisibility(View.VISIBLE);
+                    hireButton.setVisibility(View.VISIBLE);
+                }else {
+                    //Hire Opened
                     shortlist = Manager.HIRED_CANDIDATES.get(position);
                     phoneContainer.setVisibility(View.VISIBLE);
                     hireButton.setVisibility(View.GONE);

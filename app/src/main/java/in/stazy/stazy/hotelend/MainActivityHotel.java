@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
@@ -65,16 +66,22 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
     @BindView(R.id.activity_hotel_main_explore_view_pager) ViewPager exploreViewPager;
     @BindView(R.id.activity_hotel_main_shortlist_recycler_view) RecyclerView shortlistsList;
     @BindView(R.id.activity_hotel_main_hire_recycler_view) RecyclerView hiresList;
+    @BindView(R.id.activity_hotel_main_accepted_recycler_view) RecyclerView acceptedList;
     @BindView(R.id.activity_hotel_main_shortlist_text_view) TextView shortlistText;
     @BindView(R.id.activity_hotel_main_hire_text_view) TextView hiresText;
+    @BindView(R.id.activity_hotel_main_accepted_text_view) TextView acceptedText;
     @BindView(R.id.activity_main_hotel_toolbar) Toolbar toolbar;
+    @BindView(R.id.view_pager_one_selected) ImageView indicatorOne;
+    @BindView(R.id.view_pager_two_selected) ImageView indicatorTwo;
+    @BindView(R.id.view_pager_three_selected) ImageView indicatorThree;
 
     //Activity specific declarations
     private Context context;
     private Intent exploreIntent, viewAllIntent;
     private CollectionReference shortlists;
     private ListenerRegistration shortlistListener;
-    private ShortlistHiresAdapter shortlistAdapter, hiresAdapter;
+    private ShortlistHiresAdapter shortlistAdapter, hiresAdapter, acceptedAdapter;
+    public ImageView[] indicators = new ImageView[3];
 
     //Constant Field declarations
     public static final String EXPLORE_INTENT_EXTRA_KEY = "type";
@@ -84,6 +91,7 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
     public static final String INDIVIDUAL_PERFORMER_OBJECT_KEY = "performer_object";
     public static final int FLAG_SHORTLIST = 1;
     public static final int FLAG_HIRE = 2;
+    public static final int FLAG_ACCEPTED = 2;
     public static final String SHORTLIST_HIRE_INTENT_KEY = "shortlist_hire";
 
     private static final String GENRE_VALUE_SINGER = "Singer";
@@ -103,9 +111,11 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
 
         shortlistAdapter = new ShortlistHiresAdapter(Manager.SHORTLISTED_CANDIDATES, MainActivityHotel.this, FLAG_SHORTLIST);
         hiresAdapter = new ShortlistHiresAdapter(Manager.HIRED_CANDIDATES, MainActivityHotel.this, FLAG_HIRE);
+        acceptedAdapter = new ShortlistHiresAdapter(Manager.ACCEPTED_SHORTLISTS, MainActivityHotel.this, FLAG_ACCEPTED);
 
         shortlistsList.setAdapter(shortlistAdapter);
         hiresList.setAdapter(hiresAdapter);
+        acceptedList.setAdapter(acceptedAdapter);
         shortlists = FirebaseFirestore.getInstance().collection("Cities").document(Manager.CITY_VALUE).collection("Shortlists")
                 .document(FirebaseAuth.getInstance().getUid()).collection("List");
         if (shortlists != null) {
@@ -139,6 +149,15 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
                                                     shortlistText.setVisibility(View.VISIBLE);
                                                     shortlistsList.setVisibility(View.VISIBLE);
                                                 }
+
+                                                if (isAccepted == 1) {
+                                                    Manager.ACCEPTED_SHORTLISTS.add(Shortlists.setData(task.getResult(), isHired, isAccepted, genre, type, tentativeDate));
+                                                    acceptedAdapter.notifyDataSetChanged();
+                                                    if (acceptedList.getVisibility() == View.GONE && acceptedText.getVisibility() == View.GONE) {
+                                                        acceptedText.setVisibility(View.VISIBLE);
+                                                        acceptedList.setVisibility(View.VISIBLE);
+                                                    }
+                                                }
                                             } else if (isHired == 1) {
                                                 Manager.HIRED_CANDIDATES.add(Shortlists.setData(task.getResult(), isHired, isAccepted, genre, type, tentativeDate));
                                                 hiresAdapter.notifyDataSetChanged();
@@ -153,14 +172,20 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
                                 break;
                             case MODIFIED:
                                 QueryDocumentSnapshot documentSnapshotModified = dc.getDocument();
-                                int index = findShortlist(documentSnapshotModified.get("uid").toString());
-                                if (index != -1) {
-                                    Manager.SHORTLISTED_CANDIDATES.get(index).setIsAccepted((long) documentSnapshotModified.get("isAccepted"));
-                                    Manager.SHORTLISTED_CANDIDATES.get(index).setIsHired((long) documentSnapshotModified.get("isHired"));
-                                    if (Manager.SHORTLISTED_CANDIDATES.get(index).getIsHired() == 1) {
-                                        Manager.HIRED_CANDIDATES.add(Manager.SHORTLISTED_CANDIDATES.remove(index));
+                                int indexShortlist = findShortlist(documentSnapshotModified.get("uid").toString());
+                                int indexAccepted = findAccepted(documentSnapshotModified.get("uid").toString());
+                                if (indexAccepted != -1) {
+                                    Manager.SHORTLISTED_CANDIDATES.get(indexShortlist).setIsAccepted((long) documentSnapshotModified.get("isAccepted"));
+                                    Manager.SHORTLISTED_CANDIDATES.get(indexShortlist).setIsHired((long) documentSnapshotModified.get("isHired"));
+                                    Manager.ACCEPTED_SHORTLISTS.get(indexAccepted).setIsHired((long) documentSnapshotModified.get("isHired"));
+                                    Manager.ACCEPTED_SHORTLISTS.get(indexAccepted).setIsAccepted((long) documentSnapshotModified.get("isAccepted"));
+
+                                    if (Manager.SHORTLISTED_CANDIDATES.get(indexShortlist).getIsHired() == 1) {
+                                        Manager.HIRED_CANDIDATES.add(Manager.SHORTLISTED_CANDIDATES.remove(indexShortlist));
+                                        Manager.ACCEPTED_SHORTLISTS.remove(indexAccepted);
                                         shortlistAdapter.notifyDataSetChanged();
                                         hiresAdapter.notifyDataSetChanged();
+                                        acceptedAdapter.notifyDataSetChanged();
                                         if (Manager.SHORTLISTED_CANDIDATES.size() == 0) {
                                             shortlistText.setVisibility(View.GONE);
                                             shortlistsList.setVisibility(View.GONE);
@@ -170,6 +195,14 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
                                             hiresList.setVisibility(View.VISIBLE);
                                         }
                                     }
+                                    if (Manager.SHORTLISTED_CANDIDATES.get(indexShortlist).getIsAccepted() == 1) {
+                                        Manager.ACCEPTED_SHORTLISTS.add(Manager.SHORTLISTED_CANDIDATES.get(indexShortlist));
+                                        acceptedAdapter.notifyDataSetChanged();
+                                        if (acceptedList.getVisibility() == View.GONE && acceptedText.getVisibility() == View.GONE) {
+                                            acceptedText.setVisibility(View.VISIBLE);
+                                            acceptedList.setVisibility(View.VISIBLE);
+                                        }
+                                    }
                                 }
 
                                 break;
@@ -177,6 +210,15 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
                                 QueryDocumentSnapshot documentSnapshotRemoved = dc.getDocument();
                                 int indexTwo = findShortlist(documentSnapshotRemoved.get("uid").toString());
                                 int indexThree = findHire(documentSnapshotRemoved.get("uid").toString());
+                                int indexFour = findAccepted(documentSnapshotRemoved.get("uid").toString());
+                                if (indexFour != -1) {
+                                    Manager.ACCEPTED_SHORTLISTS.remove(indexFour);
+                                    acceptedAdapter.notifyDataSetChanged();
+                                    if (Manager.ACCEPTED_SHORTLISTS.size() == 0) {
+                                        acceptedList.setVisibility(View.GONE);
+                                        acceptedText.setVisibility(View.GONE);
+                                    }
+                                }
                                 if (indexTwo != -1) {
                                     Manager.SHORTLISTED_CANDIDATES.remove(indexTwo);
                                     shortlistAdapter.notifyDataSetChanged();
@@ -197,6 +239,17 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
                 }
             });
         }
+    }
+
+    private int findAccepted(String uid) {
+        int index = -1;
+        for (int i = 0; i < Manager.ACCEPTED_SHORTLISTS.size(); i++) {
+            if (Manager.ACCEPTED_SHORTLISTS.get(i).getUID().equals(uid)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 
     private int findHire(String uid) {
@@ -229,14 +282,19 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
             shortlistListener.remove();
             Manager.SHORTLISTED_CANDIDATES.clear();
             Manager.HIRED_CANDIDATES.clear();
+            Manager.ACCEPTED_SHORTLISTS.clear();
             if (shortlistAdapter != null)
                 shortlistAdapter.notifyDataSetChanged();
             if (hiresAdapter != null)
                 hiresAdapter.notifyDataSetChanged();
+            if (acceptedAdapter != null)
+                acceptedAdapter.notifyDataSetChanged();
             shortlistText.setVisibility(View.GONE);
             shortlistsList.setVisibility(View.GONE);
             hiresText.setVisibility(View.GONE);
             hiresList.setVisibility(View.GONE);
+            acceptedText.setVisibility(View.GONE);
+            acceptedList.setVisibility(View.GONE);
         }
     }
 
@@ -270,6 +328,10 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_hotel);
         ButterKnife.bind(this);
+
+        indicators[0] = indicatorOne;
+        indicators[1] = indicatorTwo;
+        indicators[2] = indicatorThree;
 
         setSupportActionBar(toolbar);
 
@@ -316,9 +378,31 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
             shortlistsList.setLayoutManager(horizontalLayoutShortlist);
             LinearLayoutManager horizontalLayoutHire = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
             hiresList.setLayoutManager(horizontalLayoutHire);
+            LinearLayoutManager horizontalLayoutAccepted = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            acceptedList.setLayoutManager(horizontalLayoutAccepted);
 
 
         }
+
+        exploreViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                for (int i = 0; i < indicators.length; i++) {
+                    if (i == position)
+                        indicators[i].setImageResource(R.drawable.scroll_item_selected);
+                    else
+                        indicators[i].setImageResource(R.drawable.scroll_item_unselected);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
 
 
     }

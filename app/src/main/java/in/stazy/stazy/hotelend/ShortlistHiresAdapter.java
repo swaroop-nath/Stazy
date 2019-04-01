@@ -26,7 +26,7 @@ import in.stazy.stazy.datamanagerhotel.Shortlists;
 
 public class ShortlistHiresAdapter extends RecyclerView.Adapter<ShortlistHiresViewHolder> implements ShortlistHiresViewHolder.ShortlistsHireCommunication {
     public static final String SELECTED_FLAG = "selected_flag";
-    private ArrayList<Shortlists> shortlists = new ArrayList<>();
+    private ArrayList<Shortlists> shortlists;
     private Context context;
     private int flag;
 
@@ -64,10 +64,12 @@ public class ShortlistHiresAdapter extends RecyclerView.Adapter<ShortlistHiresVi
         Glide.with(context).asBitmap().apply(requestOptions).load(imageReference).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
-                if (flag == MainActivityHotel.FLAG_SHORTLIST)
+                if (flag == MainActivityHotel.FLAG_SHORTLIST && position < Manager.SHORTLISTED_CANDIDATES.size())
                     Manager.SHORTLISTED_CANDIDATES.get(position).setProfilePictureHigh(resource);
-                else if (flag == MainActivityHotel.FLAG_HIRE)
+                else if (flag == MainActivityHotel.FLAG_HIRE && position < Manager.HIRED_CANDIDATES.size())
                     Manager.HIRED_CANDIDATES.get(position).setProfilePictureHigh(resource);
+                else if (flag == MainActivityHotel.FLAG_ACCEPTED && position < Manager.ACCEPTED_SHORTLISTS.size())
+                    Manager.ACCEPTED_SHORTLISTS.get(position).setProfilePictureHigh(resource);
                 holder.getProfilePicture().setImageBitmap(resource);
             }
         });

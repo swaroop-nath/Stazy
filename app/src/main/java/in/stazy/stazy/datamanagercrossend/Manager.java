@@ -21,6 +21,7 @@ public class Manager {
 
     public static ArrayList<Shortlists> SHORTLISTED_CANDIDATES = new ArrayList<>();
 
+    public static ArrayList<Shortlists> ACCEPTED_SHORTLISTS = new ArrayList<>();
 
     public static ArrayList<Shortlists> HIRED_CANDIDATES = new ArrayList<>();
 

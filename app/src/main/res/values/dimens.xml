@@ -329,7 +329,7 @@
     <dimen name="activity_main_performer_hires_card_view_top_padding">12dp</dimen>
 
     <!--activity_main_performer_list_view dimens-->
-    <dimen name="activity_main_performer_list_view_top_margin">8dp</dimen>
+    <dimen name="activity_main_performer_list_view_top_margin">16dp</dimen>
 
     <!--fab dimens-->
     <dimen name="activity_main_performer_fab_elevation">8dp</dimen>

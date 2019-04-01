@@ -101,7 +101,7 @@ public class Hotel extends AppCompatActivity implements OnCompleteListener<Docum
         acceptButton.setOnClickListener(this);
         rejectButton.setOnClickListener(this);
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference imageReference = storage.getReference().child(PerformerManager.SHORTLIST_HOTEL.getUID()+"/"+PerformerManager.SHORTLIST_HOTEL.getPicName());
+        StorageReference imageReference = storage.getReference().child(PerformerManager.APPROACHES.get(position).getUID()+"/"+PerformerManager.APPROACHES.get(position).getPicName());
         Glide.with(this).asBitmap().load(imageReference).into(profilePicture);
 
     }

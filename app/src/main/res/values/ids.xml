@@ -598,4 +598,14 @@
     </item>
     <item name="approaches_profile_picture" type="id">approaches_profile_picture</item>
     <item name="approaches_name" type="id">approaches_name</item>
+    <item name="activity_main_hotel_parent" type="id">activity_main_hotel_parent</item>
+    <item name="activity_hotel_main_accepted_text_view" type="id">
+        activity_hotel_main_accepted_text_view
+    </item>
+    <item name="activity_hotel_main_accepted_recycler_view" type="id">
+        activity_hotel_main_accepted_recycler_view
+    </item>
+    <item name="view_pager_one_selected" type="id">view_pager_one_selected</item>
+    <item name="view_pager_two_selected" type="id">view_pager_two_selected</item>
+    <item name="view_pager_three_selected" type="id">view_pager_three_selected</item>
 </resources>

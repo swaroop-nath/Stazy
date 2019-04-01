@@ -204,8 +204,18 @@ public class MainActivityPerformer extends AppCompatActivity implements View.OnC
     @Override
     protected void onStop() {
         super.onStop();
-        listenerRegistration.remove();
-        PerformerManager.PREV_HOTELS.clear();
+        if (listenerRegistration != null) {
+            listenerRegistration.remove();
+            PerformerManager.PREV_HOTELS.clear();
+            if (adapter != null)
+                adapter.notifyDataSetChanged();
+        }
+        if (approachListener != null) {
+            approachListener.remove();
+            PerformerManager.APPROACHES.clear();
+            if (approachAdapter != null)
+                approachAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

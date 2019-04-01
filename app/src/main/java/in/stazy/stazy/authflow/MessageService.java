@@ -72,6 +72,7 @@ public class MessageService extends FirebaseMessagingService {
         if (pendingIntent != null) {
             builder = builder.setContentIntent(pendingIntent);
         }
+        builder.setAutoCancel(true);
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         int notificationID = 001;

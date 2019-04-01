@@ -131,6 +131,7 @@
     <string name="activity_performer_rate_and_pay_button_text">Rate and Pay</string>
     <string name="rate_and_pay_intro_text">Please fill out the rating form - Input 3 ratings for the customer (one from yourself and rest from customers).</string>
     <string name="activity_sign_up_performer_facebook_uid_input_hint">Facebook User ID</string>
+    <string name="activity_hotel_main_accepted_text_view_text">Accepted Performers</string>
 
 
 </resources>
