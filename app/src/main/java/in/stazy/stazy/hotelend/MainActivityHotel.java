@@ -90,7 +90,7 @@ public class MainActivityHotel extends AppCompatActivity implements Adapter.Acti
     public static final String TYPE_VALUE_OTHERS = "Others";
     public static final String INDIVIDUAL_PERFORMER_OBJECT_KEY = "performer_object";
     public static final int FLAG_SHORTLIST = 1;
-    public static final int FLAG_HIRE = 2;
+    public static final int FLAG_HIRE = 3;
     public static final int FLAG_ACCEPTED = 2;
     public static final String SHORTLIST_HIRE_INTENT_KEY = "shortlist_hire";
 
